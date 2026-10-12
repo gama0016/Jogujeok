@@ -62,10 +62,12 @@
       '<small>사진 준비중</small></div>';
   }
 
-  // 사진: photos 필드가 있으면 그것을, 없으면 images/{id}-N.jpg 를 자동 탐색
+  // 사진: 재료의 photos 필드 → data/photos.js(인터넷 수집 사진) → images/{id}-N.jpg 자동 탐색 순
+  var PHOTOS = window.LM_PHOTOS || {};
   function photoList(m, type) {
-    if (m.photos && m.photos.length) {
-      return m.photos.filter(function (p) { return (p.type || 'material') === type; });
+    var listed = (m.photos && m.photos.length) ? m.photos : PHOTOS[m.id];
+    if (listed && listed.length) {
+      return listed.filter(function (p) { return (p.type || 'material') === type; });
     }
     var out = [];
     for (var i = 1; i <= 3; i++) {
@@ -76,7 +78,7 @@
 
   function card(m) {
     var c = catById[m.cat] || {};
-    var first = photoList(m, 'material')[0];
+    var first = PHOTOS[m.id] || (m.photos && m.photos.length) ? (photoList(m, 'material')[0] || photoList(m, 'site')[0]) : photoList(m, 'material')[0];
     var slang = (m.slang || []).slice(0, 3).map(function (s) { return '<span class="chip slang">' + esc(s.t) + '</span>'; }).join('');
     return '<a class="card" href="#/m/' + esc(m.id) + '">' +
       '<div class="thumb">' + placeholder(m) +
@@ -119,10 +121,12 @@
     var html = '';
     if (!catId && !query) {
       html += '<section class="hero"><h1>조경재료 백과사전</h1>' +
-        '<p>실제 조경 현장에서 자주 쓰는 재료·자재의 특성, 규격, 시공 방법, 그리고 현장에서 부르는 은어까지 정리했습니다. 식재(수목·초화류)는 다루지 않습니다.</p></section>' +
+        '<p>실제 조경 현장에서 자주 쓰는 재료·자재의 특성, 규격, 시공 단면도, 시공 방법, 그리고 현장에서 부르는 은어까지 정리했습니다. 식재(수목·초화류)는 다루지 않습니다.</p></section>' +
         '<div class="stats"><span class="stat">재료 <b>' + MATS.length + '</b></span>' +
         '<span class="stat">분류 <b>' + CATS.length + '</b></span>' +
-        '<span class="stat">현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b></span></div>';
+        '<span class="stat">현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b></span>' +
+        '<span class="stat">시공 단면도 <b>' + Object.keys(window.LM_SECTIONS || {}).filter(function (k) { return matById[k]; }).length + '</b></span>' +
+        '<span class="stat">사진 <b>' + Object.keys(PHOTOS).reduce(function (n, k) { return n + PHOTOS[k].length; }, 0) + '</b></span></div>';
     }
     if (query) {
       html += '<div class="section-title"><h2>“' + esc(query) + '” 검색 결과</h2><span>' + items.length + '건</span></div>';
@@ -155,7 +159,8 @@
     var html = '<div class="crumbs"><a href="#/">전체</a> › <a href="#/cat/' + c.id + '">' + esc(c.name) + '</a>' +
       (m.sub ? ' › ' + esc(m.sub) : '') + '</div>';
     html += '<div class="detail-head"><h1>' + esc(m.name) + '</h1><span class="en">' + esc(m.en || '') + '</span>' +
-      '<div class="tools"><button class="btn" id="print-btn" type="button">인쇄·PDF</button></div></div>';
+      '<div class="tools"><button class="btn" id="cmp-btn" type="button">비교에 추가</button>' +
+      '<button class="btn" id="print-btn" type="button">인쇄·PDF</button></div></div>';
     if (m.aka && m.aka.length) html += '<div class="aka">다른 이름 · ' + m.aka.map(esc).join(', ') + '</div>';
     if (m.summary) html += '<p class="summary">' + esc(m.summary) + '</p>';
 
@@ -186,6 +191,14 @@
     if (m.care && m.care.length) html += '<div class="panel"><h3>유지관리</h3>' + list(m.care) + '</div>';
     html += '</div>';
 
+    var sec = (window.LM_SECTIONS || {})[m.id];
+    var svg = sec && window.LM_SECTION ? window.LM_SECTION.render(sec) : '';
+    if (svg) {
+      html += '<div class="section-wrap"><div class="section-title"><h2>시공 단면도</h2><span>' + esc(sec.title || '') + '</span></div>' +
+        '<div class="section-figure"><div class="section-scroll">' + svg + '</div>' +
+        '<p class="section-note">개념 단면도(축척 없음) · 두께 단위 mm · 수치는 대표 예시이며 실제 설계는 표준시방서·설계도를 따릅니다.</p></div></div>';
+    }
+
     html += '<div class="gallery-wrap" id="g-site" style="margin-top:28px"><div class="section-title"><h2>시공 사례</h2></div><div class="gallery"></div></div>';
 
     var rel = (m.related || []).map(function (r) { return matById[r]; }).filter(Boolean);
@@ -201,6 +214,11 @@
 
     app.innerHTML = html;
     document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+    document.getElementById('cmp-btn').addEventListener('click', function () {
+      var ids = loadCompare().filter(function (x) { return x !== m.id; });
+      ids.push(m.id);
+      location.hash = '#/compare/' + ids.slice(-4).join(',');
+    });
     fillGallery(document.querySelector('#g-material .gallery'), photoList(m, 'material'), m, 'material');
     fillGallery(document.querySelector('#g-site .gallery'), photoList(m, 'site'), m, 'site');
   }
@@ -221,18 +239,138 @@
         var fig = document.createElement('figure');
         fig.appendChild(img);
         img.alt = p.caption || m.name;
-        if (p.caption || p.credit) {
+        var credit = creditText(p);
+        if (p.caption || credit) {
           var cap = document.createElement('figcaption');
-          cap.textContent = (p.caption || '') + (p.credit ? ' · 출처: ' + p.credit : '');
+          cap.innerHTML = esc(p.caption || '') + (credit ? '<span class="credit">' + creditHtml(p) + '</span>' : '');
+          cap.addEventListener('click', function (e) { e.stopPropagation(); });
           fig.appendChild(cap);
         }
-        fig.addEventListener('click', function () { openLightbox(p.src, p.caption); });
+        img.addEventListener('click', function () { openLightbox(p.src, (p.caption || '') + (credit ? ' — ' + credit : '')); });
         el.appendChild(fig);
         done();
       };
       img.onerror = done;
       img.src = p.src;
     });
+  }
+
+  // ---------- 사진 출처 ----------
+  function creditText(p) {
+    if (p.credit) return p.credit;
+    if (!p.artist && !p.license) return '';
+    return (p.artist || '작자 미상') + (p.license ? ' / ' + p.license : '') + ' (Wikimedia Commons)';
+  }
+  function creditHtml(p) {
+    var t = esc(creditText(p));
+    return p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + t + '</a>' : t;
+  }
+
+  // ---------- 비교표 ----------
+  var CMP_KEY = 'lm-compare';
+  function loadCompare() {
+    try { return JSON.parse(localStorage.getItem(CMP_KEY) || '[]').filter(function (id) { return matById[id]; }); }
+    catch (e) { return []; }
+  }
+  function saveCompare(ids) {
+    try { localStorage.setItem(CMP_KEY, JSON.stringify(ids)); } catch (e) { /* 저장 불가 환경 */ }
+  }
+
+  function viewCompare(param) {
+    renderSidebar(null);
+    setNav('compare');
+    document.title = '재료 비교표 · 조경재료 백과사전';
+    var ids = param ? param.split(',').map(decodeURIComponent).filter(function (id) { return matById[id]; }) : loadCompare();
+    ids = ids.filter(function (id, i) { return ids.indexOf(id) === i; }).slice(0, 4);
+    saveCompare(ids);
+    var mats = ids.map(function (id) { return matById[id]; });
+    var presets = window.LM_COMPARE_PRESETS || [];
+
+    var html = '<section class="hero"><h1>재료 비교표</h1><p>재료를 최대 4개까지 골라 특성·규격·장단점·가격대를 나란히 비교합니다. 재료 페이지의 <b>비교에 추가</b> 버튼으로도 담을 수 있습니다.</p></section>';
+    html += '<div class="preset-row"><span class="preset-label">추천 비교</span>' + presets.map(function (p) {
+      return '<a class="chip preset" href="#/compare/' + p.ids.join(',') + '">' + esc(p.name) + '</a>';
+    }).join('') + '</div>';
+
+    var opts = '<option value="">+ 재료 추가</option>' + CATS.map(function (c) {
+      var g = MATS.filter(function (m) { return m.cat === c.id && ids.indexOf(m.id) === -1; });
+      return g.length ? '<optgroup label="' + esc(c.name) + '">' + g.map(function (m) {
+        return '<option value="' + m.id + '">' + esc(m.name) + '</option>';
+      }).join('') + '</optgroup>' : '';
+    }).join('');
+    html += '<div class="cmp-picker">' + mats.map(function (m) {
+      return '<span class="chip cmp-chip">' + esc(m.name) + ' <button type="button" data-rm="' + m.id + '" aria-label="' + esc(m.name) + ' 빼기">×</button></span>';
+    }).join('') + (ids.length < 4 ? '<select id="cmp-add" aria-label="비교할 재료 추가">' + opts + '</select>' : '') +
+      (ids.length ? '<button class="btn" type="button" id="cmp-clear">모두 지우기</button>' : '') + '</div>';
+
+    if (mats.length < 2) {
+      html += '<div class="empty">비교할 재료를 2개 이상 고르거나, 위의 추천 비교를 눌러 보세요.</div>';
+      app.innerHTML = html;
+      bindCompare(ids);
+      return;
+    }
+
+    function row(label, fn, cls) {
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + esc(label) + '</th>' +
+        mats.map(function (m) { return '<td>' + fn(m) + '</td>'; }).join('') + '</tr>';
+    }
+    function ul(a) { return a && a.length ? '<ul>' + a.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '<span class="dash">—</span>'; }
+    // 두 재료 이상이 같은 항목을 가지면 한 줄로 나란히, 나머지는 '기타 특성'으로 묶는다
+    var labelCount = {}, propLabels = [];
+    mats.forEach(function (m) { (m.props || []).forEach(function (p) {
+      if (!labelCount[p[0]]) { labelCount[p[0]] = 0; propLabels.push(p[0]); }
+      labelCount[p[0]]++;
+    }); });
+    var shared = propLabels.filter(function (l) { return labelCount[l] > 1; });
+
+    var t = '<div class="table-wrap cmp-wrap"><table class="gtable cmp-table"><thead><tr><th></th>' +
+      mats.map(function (m) {
+        var c = catById[m.cat] || {};
+        var ph = photoList(m, 'material')[0] || photoList(m, 'site')[0];
+        return '<th scope="col"><a class="cmp-head" href="#/m/' + m.id + '"><div class="cmp-thumb">' + placeholder(m) +
+          (ph ? '<img src="' + esc(ph.src) + '" alt="" onerror="this.remove()">' : '') + '</div>' +
+          '<b>' + esc(m.name) + '</b><span>' + esc(m.en || '') + '</span></a>' +
+          '<span class="chip cat" style="background:' + c.color + '">' + esc(c.name || '') + '</span></th>';
+      }).join('') + '</tr></thead><tbody>';
+    t += row('현장 은어', function (m) {
+      return (m.slang || []).length ? '<div class="chips">' + m.slang.map(function (s) { return '<span class="chip slang">' + esc(s.t) + '</span>'; }).join('') + '</div>' : '<span class="dash">—</span>';
+    });
+    t += row('요약', function (m) { return esc(m.summary || ''); });
+    t += row('상대 가격대', function (m) { return m.cost ? costHtml(m.cost) : '<span class="dash">—</span>'; }, 'hl');
+    shared.forEach(function (lbl) {
+      t += row(lbl, function (m) {
+        var p = (m.props || []).filter(function (x) { return x[0] === lbl; })[0];
+        return p ? esc(p[1]) : '<span class="dash">—</span>';
+      });
+    });
+    t += row(shared.length ? '기타 특성' : '재료 특성', function (m) {
+      var own = (m.props || []).filter(function (x) { return shared.indexOf(x[0]) === -1; });
+      return own.length ? '<ul>' + own.map(function (x) { return '<li><span class="dash">' + esc(x[0]) + '</span> ' + esc(x[1]) + '</li>'; }).join('') + '</ul>' : '<span class="dash">—</span>';
+    });
+    t += row('대표 규격', function (m) { return ul(m.specs); });
+    t += row('장점', function (m) { return ul(m.pros); }, 'pros-row');
+    t += row('단점', function (m) { return ul(m.cons); }, 'cons-row');
+    t += row('주요 용도', function (m) { return ul(m.uses); });
+    t += row('유지관리', function (m) { return ul(m.care); });
+    t += '</tbody></table></div>';
+    html += t + '<p class="note">※ 가격대는 같은 용도 재료 사이의 상대적인 수준입니다. 실제 단가는 물량·지역·시기에 따라 다릅니다.</p>';
+    app.innerHTML = html;
+    bindCompare(ids);
+  }
+
+  function bindCompare(ids) {
+    app.querySelectorAll('[data-rm]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var rest = ids.filter(function (x) { return x !== b.getAttribute('data-rm'); });
+        saveCompare(rest);
+        location.hash = '#/compare/' + rest.join(',');
+      });
+    });
+    var sel = document.getElementById('cmp-add');
+    if (sel) sel.addEventListener('change', function () {
+      if (sel.value) location.hash = '#/compare/' + ids.concat(sel.value).join(',');
+    });
+    var clr = document.getElementById('cmp-clear');
+    if (clr) clr.addEventListener('click', function () { saveCompare([]); location.hash = '#/compare/'; });
   }
 
   function viewSlang() {
@@ -283,7 +421,24 @@
       '<h2>사진 넣기</h2><p><code>images</code> 폴더에 아래 이름으로 넣으면 자동으로 표시됩니다.</p>' +
       '<pre>images/granite-1.jpg       ← 재료 사진 (최대 3장: -1, -2, -3)\nimages/granite-site-1.jpg  ← 시공 사례 사진 (최대 3장)</pre>' +
       '<p>재료의 영문 id는 주소창의 <code>#/m/</code> 뒤에 있는 이름입니다. 직접 찍은 사진이 아니면 출처를 꼭 남기세요(데이터 파일의 <code>photos</code> 항목에 <code>credit</code>).</p>' +
-      '<h2>수치에 대하여</h2><p>규격·강도 등은 대표적인 값입니다. 제조사, 산지, KS 개정, 현장 조건에 따라 달라지므로 실제 설계·발주에는 제품 자료와 표준시방서를 확인하세요.</p></div>';
+      '<h2>시공 단면도</h2><p>재료 페이지의 단면도는 재료가 실제로 어떤 층·부재와 함께 시공되는지 보여주는 <b>개념도</b>입니다. 축척이 없고 치수는 대표 예시입니다.</p>' +
+      '<h2>수치에 대하여</h2><p>규격·강도 등은 대표적인 값입니다. 제조사, 산지, KS 개정, 현장 조건에 따라 달라지므로 실제 설계·발주에는 제품 자료와 표준시방서를 확인하세요.</p>' +
+      creditsSection() + '</div>';
+  }
+
+  function creditsSection() {
+    var rows = [];
+    MATS.forEach(function (m) {
+      (PHOTOS[m.id] || []).forEach(function (p) { rows.push({ m: m, p: p }); });
+    });
+    if (!rows.length) return '';
+    return '<h2 id="credits">사진 출처 (' + rows.length + '장)</h2>' +
+      '<p>아래 사진은 위키미디어 공용(Wikimedia Commons)의 자유 이용 허락(CC·퍼블릭 도메인) 사진을 비상업적 교육 목적으로 사용했습니다. 원본은 각 링크에서 확인할 수 있습니다.</p>' +
+      '<div class="table-wrap"><table class="gtable"><thead><tr><th>재료</th><th>사진</th><th>저작자 / 라이선스</th></tr></thead><tbody>' +
+      rows.map(function (r) {
+        return '<tr><td><a href="#/m/' + r.m.id + '">' + esc(r.m.name) + '</a></td><td>' + esc(r.p.caption || '') +
+          (r.p.type === 'site' ? ' <span class="chip">시공 사례</span>' : '') + '</td><td>' + creditHtml(r.p) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
   }
 
   // ---------- lightbox ----------
@@ -306,6 +461,7 @@
     document.title = '조경재료 백과사전';
     if (parts[0] === 'm' && parts[1]) viewMaterial(decodeURIComponent(parts[1]));
     else if (parts[0] === 'cat' && parts[1]) viewHome(parts[1]);
+    else if (parts[0] === 'compare') viewCompare(parts.slice(1).join('/'));
     else if (parts[0] === 'slang') viewSlang();
     else if (parts[0] === 'about') viewAbout();
     else viewHome(null);
