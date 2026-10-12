@@ -1418,6 +1418,14 @@ window.LM_PHOTOS = {
  ],
  "uplight": [
   {
+   "src": "images/uplight-1.jpg",
+   "type": "material",
+   "caption": "유적 담장 위에 설치한 대형 투광등 기구",
+   "artist": "Jebulon",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Floodlights_Acropolis_Athens_Greece.jpg"
+  },
+  {
    "src": "images/uplight-site-1.jpg",
    "type": "site",
    "caption": "땅에 둔 투광등으로 나무를 아래에서 비춘 야간 수목 조명",
@@ -1446,12 +1454,86 @@ window.LM_PHOTOS = {
    "url": "https://commons.wikimedia.org/wiki/File:Drip_irrigation_(Armenia).jpg"
   },
   {
+   "src": "images/drip-line-2.jpg",
+   "type": "material",
+   "caption": "연결 피팅으로 이은 검은색 점적관수 호스",
+   "artist": "Shixart1985",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Drip_irrigation_system_installed_in_a_garden_for_efficient_water_management_during_summer.jpg"
+  },
+  {
    "src": "images/drip-line-site-1.jpg",
    "type": "site",
    "caption": "포도밭 지지선을 따라 설치한 점적관수 호스와 공급 밸브",
    "artist": "Agne27 at English Wikipedia",
    "license": "Public domain",
    "url": "https://commons.wikimedia.org/wiki/File:Drip_irrigation_system.JPG"
+  }
+ ],
+ "rain-tank": [
+  {
+   "src": "images/rain-tank-1.jpg",
+   "type": "material",
+   "caption": "지붕 홈통과 연결한 플라스틱 빗물저장 탱크",
+   "artist": "No machine-readable author provided. Pengo assumed (based on copyright claims).",
+   "license": "CC BY 2.5",
+   "url": "https://commons.wikimedia.org/wiki/File:Ceres_rainwater_tank_1_Pengo.jpg"
+  },
+  {
+   "src": "images/rain-tank-site-1.jpg",
+   "type": "site",
+   "caption": "주택 처마 밑에 놓아 정원용 빗물을 모으는 탱크와 드럼통",
+   "artist": "I would appreciate being notified if you use my work outside Wikimedia.\nDo not copy this image illegally by ignoring the",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Rainwater_tank,_Fry%C5%A1t%C3%A1k.jpg"
+  }
+ ],
+ "lawn-light": [
+  {
+   "src": "images/lawn-light-1.jpg",
+   "type": "material",
+   "caption": "태양광 충전식 정원등의 등갓과 투명 확산 커버",
+   "artist": "PereslavlFoto",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Fonarik_4168.jpg"
+  },
+  {
+   "src": "images/lawn-light-site-1.jpg",
+   "type": "site",
+   "caption": "자갈 화단에 꽂아 세운 소형 정원등",
+   "artist": "FASTILY",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Ground_lights_1_2014-03-28.jpg"
+  }
+ ],
+ "sand-filter": [
+  {
+   "src": "images/sand-filter-1.jpg",
+   "type": "material",
+   "caption": "배관으로 나란히 연결한 대형 모래여과기 탱크",
+   "artist": "Lance Cheung/U.S. Department of Agriculture",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:20111209-NRCS-LSC-0158_-_Flickr_-_USDAgov.jpg"
+  }
+ ],
+ "cable-conduit": [
+  {
+   "src": "images/cable-conduit-site-1.jpg",
+   "type": "site",
+   "caption": "포장 바닥에서 올라온 지중 매설용 주름 전선관(CD관)",
+   "artist": "Lagoset",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Tubocorrugado.jpg"
+  }
+ ],
+ "anticorrosion-paint": [
+  {
+   "src": "images/anticorrosion-paint-1.jpg",
+   "type": "material",
+   "caption": "광명단(연단) 안료 분말 — 방청도료의 원료",
+   "artist": "BXXXD at German Wikipedia\n\n(Original text: BXXXD)",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Red_lead.jpg"
   }
  ]
 };
