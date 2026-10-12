@@ -520,6 +520,14 @@ window.LM_PHOTOS = {
    "url": "https://commons.wikimedia.org/wiki/File:Gabion1.jpg"
   },
   {
+   "src": "images/gabion-2.jpg",
+   "type": "material",
+   "caption": "용접 철망 개비온 안에 채운 깬돌 근접 사진",
+   "artist": "BogTar201213",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Stone_crushed_into_building_material.jpg"
+  },
+  {
    "src": "images/gabion-site-1.jpg",
    "type": "site",
    "caption": "경사지에 계단식으로 쌓은 개비온 옹벽",
@@ -591,6 +599,14 @@ window.LM_PHOTOS = {
   }
  ],
  "formwork": [
+  {
+   "src": "images/formwork-1.jpg",
+   "type": "material",
+   "caption": "출입구 계단 콘크리트 타설용 목재 거푸집",
+   "artist": "User:Mattes",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Formwork_for_concrete_stair.JPG"
+  },
   {
    "src": "images/formwork-site-1.jpg",
    "type": "site",
@@ -690,6 +706,108 @@ window.LM_PHOTOS = {
    "artist": "Ebyabe",
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:St._Pete_Domestic_Sci_Bldg_bricks01.jpg"
+  }
+ ],
+ "block-cement": [
+  {
+   "src": "images/block-cement-1.jpg",
+   "type": "material",
+   "caption": "속이 빈 시멘트 콘크리트 블록 1개",
+   "artist": "katorisi",
+   "license": "CC BY 2.5",
+   "url": "https://commons.wikimedia.org/wiki/File:Concrete-block,japan.JPG"
+  },
+  {
+   "src": "images/block-cement-site-1.jpg",
+   "type": "site",
+   "caption": "콘크리트 블록으로 쌓은 주택 기초 벽체",
+   "artist": "Skepticsteve",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:CMUs.jpg"
+  },
+  {
+   "src": "images/block-cement-site-2.jpg",
+   "type": "site",
+   "caption": "모르타르로 콘크리트 블록 벽 쌓기 시공 중",
+   "artist": "MTA Capital Construction Mega Projects",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Construction_of_a_CMU_wall_along_the_47th_Street_exit_stairs_in_the_future_LIRR_Concourse._09-25-2019_(48805242742).jpg"
+  }
+ ],
+ "sand": [
+  {
+   "src": "images/sand-1.jpg",
+   "type": "material",
+   "caption": "건축용으로 쌓아 둔 모래 더미",
+   "artist": "Johnnybam",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Pile_of_Sand_for_Building_in_Anambra_State.jpg"
+  }
+ ],
+ "masato": [
+  {
+   "src": "images/masato-site-1.jpg",
+   "type": "site",
+   "caption": "마사토(풍화 화강토)로 포장한 산책·자전거 길",
+   "artist": "Downtowngal",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Decomposed_granite_path.jpg"
+  }
+ ],
+ "gravel": [
+  {
+   "src": "images/gravel-site-1.jpg",
+   "type": "site",
+   "caption": "정원 잔디 사이로 낸 자갈 포장 길",
+   "artist": "Acabashi",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Feeringbury_Manor_garden_gravel_path,_Feering_Essex_England.jpg"
+  }
+ ],
+ "artificial-soil": [
+  {
+   "src": "images/artificial-soil-1.jpg",
+   "type": "material",
+   "caption": "인공토양의 주원료인 펄라이트 입자",
+   "artist": "KENPEI",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Perlite1.jpg"
+  },
+  {
+   "src": "images/artificial-soil-2.jpg",
+   "type": "material",
+   "caption": "경량 인공토양·배수층에 쓰이는 팽창점토(하이드로볼)",
+   "artist": "Lucis",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Hydroton.jpg"
+  }
+ ],
+ "bark": [
+  {
+   "src": "images/bark-1.jpg",
+   "type": "material",
+   "caption": "적갈색 나무껍질·우드칩 멀칭재",
+   "artist": "Shadowmeld Photography",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wood_Chip_Mulch_Texture_DTXR-WD-CP-1.jpg"
+  },
+  {
+   "src": "images/bark-2.jpg",
+   "type": "material",
+   "caption": "화단 위에 깔린 우드칩 멀칭",
+   "artist": "Wilfredor",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wood_chip_mulch,_Quebec_City.jpg"
+  }
+ ],
+ "scoria": [
+  {
+   "src": "images/scoria-1.jpg",
+   "type": "material",
+   "caption": "기공이 많은 화산송이(스코리아) 덩어리",
+   "artist": "“Jonathan Zander (Digon3)\"",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Scoria_Macro_Digon3.jpg"
   }
  ]
 };
