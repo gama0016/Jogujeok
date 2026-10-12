@@ -366,7 +366,7 @@ window.LM_PHOTOS = {
   {
    "src": "images/car-bollard-site-1.jpg",
    "type": "site",
-   "caption": "횡단보도 모서리의 구형 석재 볼라드",
+   "caption": "횡단보도 모서리의 구형 석재 볼라드 (해외 사례 — 국내 기준상 석재 볼라드는 부적합)",
    "artist": "Design for Health",
    "license": "CC BY 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Washington_D.C._Decorative_Bollards_Design_for_Health.jpg"
@@ -1534,6 +1534,44 @@ window.LM_PHOTOS = {
    "artist": "BXXXD at German Wikipedia\n\n(Original text: BXXXD)",
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:Red_lead.jpg"
+  }
+ ],
+ "irrigation-pipe": [
+  {
+   "src": "images/irrigation-pipe-1.jpg",
+   "type": "material",
+   "caption": "현장에 쌓아 둔 대구경 HDPE(고밀도 폴리에틸렌) 관",
+   "artist": "GordonJ86",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Acu-Therm_Coex_white_skinned_HDPE_Pipe_lengths..jpg"
+  }
+ ],
+ "irrigation-controller": [
+  {
+   "src": "images/irrigation-controller-1.jpg",
+   "type": "material",
+   "caption": "수도꼭지에 달아 요일·시간별로 물을 주는 전자식 관수 타이머",
+   "artist": "User:Jarlhelm",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Gardena_irrigation_computer.jpg"
+  },
+  {
+   "src": "images/irrigation-controller-2.jpg",
+   "type": "material",
+   "caption": "세 갈래 호스에 시간을 정해 물을 보내는 다이얼식 관수 타이머",
+   "artist": "Оленавино",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:%D0%A2%D0%B0%D0%B9%D0%BC%D0%B5%D1%80_%D0%B4%D0%BB%D1%8F_%D0%BF%D0%BE%D0%BB%D0%B8%D0%B2%D1%83_%D1%83_%D1%82%D0%B5%D0%BF%D0%BB%D0%B8%D1%86%D1%8F%D1%85..jpg"
+  }
+ ],
+ "hydrant": [
+  {
+   "src": "images/hydrant-site-1.jpg",
+   "type": "site",
+   "caption": "눈 덮인 마당에 세운 동파 방지형 옥외 급수전",
+   "artist": "voyager.annelid",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Kupferle_Foundry_%22Eclipse_No._2%22_Yard_Hydrant,_Jaffrey,_NH.jpg"
   }
  ]
 };
