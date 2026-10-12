@@ -1069,5 +1069,93 @@ window.LM_PHOTOS = {
    "license": "Public domain",
    "url": "https://commons.wikimedia.org/wiki/File:USMC-120323-M-UP355-001.jpg"
   }
+ ],
+ "pond-liner": [
+  {
+   "src": "images/pond-liner-1.jpg",
+   "type": "material",
+   "caption": "저수조 사면에 깐 HDPE 지오멤브레인 방수시트",
+   "artist": "Anthon Fimbres",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Geomembrane-for-pond-liner.jpg"
+  },
+  {
+   "src": "images/pond-liner-site-1.jpg",
+   "type": "site",
+   "caption": "정원 연못 터파기 위에 방수시트를 펼쳐 깐 시공 장면",
+   "artist": "A.Fiebig",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Teichbau2-Teichfolie.JPG"
+  }
+ ],
+ "waterproof-coating": [
+  {
+   "src": "images/waterproof-coating-site-1.jpg",
+   "type": "site",
+   "caption": "우레탄 도막방수재를 칠해 마감한 옥상 바닥",
+   "artist": "Μάριος-Μητσόγλου",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Roof_waterproofing_with_polyurethane_liquid_membrane_in_Egaleo_Athens.webp"
+  }
+ ],
+ "fountain-nozzle": [
+  {
+   "src": "images/fountain-nozzle-1.jpg",
+   "type": "material",
+   "caption": "물을 뺀 분수대 바닥의 분수 노즐과 수중 조명",
+   "artist": "Andrey Butko",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Fountain_nozzle_with_lighting.jpg"
+  }
+ ],
+ "submersible-pump": [
+  {
+   "src": "images/submersible-pump-1.jpg",
+   "type": "material",
+   "caption": "원통형 수중펌프(0.75마력)와 전원 케이블",
+   "artist": "Mar11",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Submersible_pump_0.75HP.jpg"
+  }
+ ],
+ "bakseok": [
+  {
+   "src": "images/bakseok-site-1.jpg",
+   "type": "site",
+   "caption": "경복궁 근정전 앞 조정의 박석 포장과 월대",
+   "artist": "Basile Morin",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Front_view_of_the_Eastern_side_of_the_Imperial_Throne_Hall_Geunjeongjeon_at_Gyeongbokgung_Palace_in_Seoul.jpg"
+  }
+ ],
+ "giwa": [
+  {
+   "src": "images/giwa-1.jpg",
+   "type": "material",
+   "caption": "수막새와 암막새가 놓인 처마 끝 기와",
+   "artist": "김정엽",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Giwa.jpg"
+  }
+ ],
+ "sagoseok-wall": [
+  {
+   "src": "images/sagoseok-wall-1.jpg",
+   "type": "material",
+   "caption": "사괴석 바른층쌓기 위 전벽돌 띠와 막새 — 창덕궁 담장",
+   "artist": "momo",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Korea-Seoul-Changdeokgung-Wall_in_detail-01.jpg"
+  }
+ ],
+ "jangdaeseok": [
+  {
+   "src": "images/jangdaeseok-site-1.jpg",
+   "type": "site",
+   "caption": "장대석 계단과 석축 — 창덕궁 동인문",
+   "artist": "Alain Seguin at Flickr, from Ottawa, Canada",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Korea-Seoul-Changdeokgung-Donginmun-01.jpg"
+  }
  ]
 };
