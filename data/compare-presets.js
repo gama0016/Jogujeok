@@ -10,5 +10,7 @@ window.LM_COMPARE_PRESETS = [
   { name: '금속 시설재 비교', ids: ['stainless', 'steel-pipe', 'corten', 'aluminum'] },
   { name: '보행 조명 비교', ids: ['bollard-light', 'lawn-light', 'pole-light', 'inground-light'] },
   { name: '관수 방식 비교', ids: ['sprinkler', 'drip-line', 'hydrant'] },
-  { name: '연못 방수 비교', ids: ['pond-liner', 'waterproof-coating'] }
+  { name: '연못 방수 비교', ids: ['pond-liner', 'waterproof-coating'] },
+  { name: '전통 담장 비교', ids: ['sagoseok-wall', 'wapyeon-wall', 'todam', 'bajaul'] },
+  { name: '전통 바닥 비교', ids: ['bakseok', 'jeondol', 'samhwato', 'masato-paving'] }
 ];

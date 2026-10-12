@@ -38,7 +38,8 @@ window.LM_CATEGORIES = [
   { id: 'irrigation',name: '관수',              en: 'Irrigation',         color: '#3c8f5a', desc: '스프링클러·점적호스·관수관·컨트롤러·급수전' },
   { id: 'facility',  name: '시설물',            en: 'Site Furniture',     color: '#7a5c3e', desc: '벤치·퍼걸러·정자·놀이대·볼라드·플랜터 완제품' },
   { id: 'greening',  name: '녹화자재',          en: 'Greening Systems',   color: '#58873a', desc: '옥상녹화 모듈·식생매트·녹생토 취부' },
-  { id: 'finish',    name: '도료·마감재',        en: 'Coatings & Finishes', color: '#a14d6b', desc: '오일스테인·방청도료·분체도장·발수제' }
+  { id: 'finish',    name: '도료·마감재',        en: 'Coatings & Finishes', color: '#a14d6b', desc: '오일스테인·방청도료·분체도장·발수제' },
+  { id: 'traditional', name: '전통 조경재료',     en: 'Traditional Korean', color: '#5b4a3f', desc: '장대석·박석·전돌·기와·꽃담·주춧돌·강회다짐·토담·바자울' }
 ];
 
 window.LM_MATERIALS = [];

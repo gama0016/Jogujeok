@@ -681,6 +681,307 @@ window.LM_REFS = {
    "type": "기타",
    "url": "https://www.sateconomy.co.kr/news/view/179589947446074",
    "note": "LH·국립국어원 협약, 건설현장 일본어 투 용어 20개 다듬기(함바→현장 식당, 나라시→고르기)"
+  },
+  "khs-spec-0300": {
+   "title": "국가유산수리 표준시방서 0300 기초공사 (지정·초석공사)",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 2.3 모래지정, 2.4 잡석(적심석)지정, 2.5 판축지정, 2.6 장대석지정, 2.7 생석회잡석다짐지정, 3. 초석공사 (pp.80~82)"
+  },
+  "khs-spec-0400": {
+   "title": "국가유산수리 표준시방서 0400 기단공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 1.3~1.5 기단면·기단바닥(물매 1/50)·생석회다짐, 2.2 전축기단, 2.4 장대석기단(그림), 3.3 마름돌계단 (pp.87~91)"
+  },
+  "khs-spec-0600": {
+   "title": "국가유산수리 표준시방서 0600 지붕공사 (기와지붕)",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 쓰임말(알매흙·홍두깨흙·와구토), 3.1 기와 종류·규격표 0600.1~2·품질(휨파괴하중·흡수율·소성온도)·검사, 3.4 보토·3.5 생석회다짐 배합표 (pp.142~151)"
+  },
+  "khs-spec-0700": {
+   "title": "국가유산수리 표준시방서 0700 전돌공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 쓰임말(전·방전·전벽돌·모전석·흙벽돌), 전돌 종류·제작(소성 1,080~1,100℃·훈화), 규격표 0700.1~2, 품질표 0700.3~4, 전벽돌쌓기·방전깔기 (pp.177~186)"
+  },
+  "khs-spec-0800": {
+   "title": "국가유산수리 표준시방서 0800 미장공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 0820 재료: 생석회(강회, CaO) 입도 3~5mm·900℃ 이상 소성, 소석회, 짚여물, 진흙 / 8. 화방벽(토석·사괴석·전돌·와편화방벽) (pp.191~203)"
+  },
+  "khs-spec-1300": {
+   "title": "국가유산수리 표준시방서 1300 석공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 1320 재료: 구조재 화강암 압축강도 49.04MPa 이상·흡수율 3% 미만, 석재 분류표(장대석·사괴석·박석 등), 3.2 쌓기법, 4. 박석깔기 (pp.282~291)"
+  },
+  "khs-spec-1800": {
+   "title": "국가유산수리 표준시방서 1800 조경공사 (포장)",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 7. 포장: 광장·주통로는 황토·마사토다짐 등 전통재료 (p.354)"
+  },
+  "khs-spec-2010": {
+   "title": "국가유산수리 표준시방서 2010 담장공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 담장 분류·쌓기재료, 5.1 돌담(거친돌담·사괴석담·돌각담), 5.2 토담, 5.3 토석담, 5.4 와편담, 5.5 전돌담·영롱담, 5.6 판축담, 5.7 꽃담, 5.9 담장기와이기 (pp.375~382)"
+  },
+  "khs-spec-2030": {
+   "title": "국가유산수리 표준시방서 2030 포장공사",
+   "org": "국가유산청",
+   "type": "문화재수리",
+   "url": "https://www.khs.go.kr",
+   "note": "국가유산청 「2024 국가유산수리 표준시방서」(557쪽 PDF, 작성자 국가유산청, 2024.12 수정본)에서 해당 절을 직접 확인. 국가유산청 누리집 수리 법령·기준·지침 게시판에서 제공. 흙다짐(마사토+모래)·잡석기층 배수, 박석 두께 120mm 내외(모암에서 깬 그대로), 강회다짐 질감 (pp.383~384)"
+  },
+  "ency-dam": {
+   "title": "담 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0013772",
+   "note": "주남철 집필. 생울·울(바자울: 나뭇가지·풀대·싸리·수수깡)·판장·돌담(사고석담 바른층쌓기)·토담(판담)·벽돌담·영롱담·화초담 분류, 자경전 꽃담, 고려사 화초담 기록"
+  },
+  "ency-giwa": {
+   "title": "기와 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0008356",
+   "note": "김성구 집필. 정의(점토를 틀에 넣어 가마에서 구운 지붕재), 수키와·암키와·막새·장식기와(치미·귀면·적새·착고 등)"
+  },
+  "ency-amkiwa": {
+   "title": "암키와 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0035162",
+   "note": "평기와·바닥기와·여와 이칭, 모골·날기와 제작, 약 1,000℃ 소성"
+  },
+  "ency-sumaksae": {
+   "title": "수막새 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0031358",
+   "note": "기왓골 끝에 쓰는 기와, 시대별 무늬 변화, 조선 수막새 접합각 둔각"
+  },
+  "ency-juchu": {
+   "title": "주추 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0053449",
+   "note": "황의수 집필. 주추=주초·돌주추·초석·주춧돌, 하중 전달·습기 보호 기능, 덤벙주추와 그레질, 방형·원형·다각형·장초석·고복형(항아리주추)"
+  },
+  "ency-jijeong": {
+   "title": "지정 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0071905",
+   "note": "토축(판축)지정, 입사지정(사수저축법), 적심석지정, 장대석지정(井자형, 경회루·남대문·동대문), 달고"
+  },
+  "ency-gagusik-gidan": {
+   "title": "가구식 기단 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0071906",
+   "note": "기단 종류(토축·자연석·장대석·가구식·전축·와적), 장대석기단은 가구식기단과 함께 가장 널리 쓰인 기단, 지대석·갑석·면석"
+  },
+  "ency-byeok": {
+   "title": "벽 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0022813",
+   "note": "흙벽 정벌 마감에 회반죽·진흙·삼화토(三和土), 흙벽돌 크기, 전벽돌벽은 비용 때문에 민가에서 드물고 화재 예방용 행랑 외벽에 사용"
+  },
+  "ency-bakseokgogae": {
+   "title": "박석고개 — 한국민족문화대백과사전",
+   "org": "한국학중앙연구원",
+   "type": "백과사전",
+   "url": "https://encykorea.aks.ac.kr/Article/E0020768",
+   "note": "서울 은평구 갈현동·불광동·구파발 사이의 고개 (검색 결과 요약문으로 확인)"
+  },
+  "stdict-장대석": {
+   "title": "「장대석」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%9E%A5%EB%8C%80%EC%84%9D",
+   "note": "섬돌 층계나 축대를 쌓는 데 쓰는, 길게 다듬어 만든 돌 ≒장대, 장댓돌"
+  },
+  "stdict-박석": {
+   "title": "「박석」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%B0%95%EC%84%9D",
+   "note": "얇고 넓적한 돌"
+  },
+  "stdict-박석고개": {
+   "title": "「박석고개」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%B0%95%EC%84%9D%EA%B3%A0%EA%B0%9C",
+   "note": "땅이 질거나 풍수지리상 지맥을 보호하기 위하여 얇은 돌을 깔아 놓은 고개"
+  },
+  "stdict-전벽돌": {
+   "title": "「전벽돌」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%A0%84%EB%B2%BD%EB%8F%8C",
+   "note": "흙을 구워 만든 동양의 전통적 건축 재료, 주로 바닥과 벽의 재료 = 전"
+  },
+  "stdict-방전": {
+   "title": "「방전」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%B0%A9%EC%A0%84",
+   "note": "네모반듯한 벽돌"
+  },
+  "stdict-기와": {
+   "title": "「기와」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EA%B8%B0%EC%99%80",
+   "note": "지붕을 이는 데 쓰는 건축 자재, 수키와와 암키와 구별 ≒와전"
+  },
+  "stdict-암키와": {
+   "title": "「암키와」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%95%94%ED%82%A4%EC%99%80",
+   "note": "지붕의 고랑이 되도록 젖혀 놓는 기와"
+  },
+  "stdict-수키와": {
+   "title": "「수키와」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%88%98%ED%82%A4%EC%99%80",
+   "note": "두 암키와 사이를 엎어 잇는 기와"
+  },
+  "stdict-막새": {
+   "title": "「막새」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%A7%89%EC%83%88",
+   "note": "처마 끝에 놓는 수막새와 암막새"
+  },
+  "stdict-와편": {
+   "title": "「와편」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%99%80%ED%8E%B8",
+   "note": "깨어진 기와 조각"
+  },
+  "stdict-꽃담": {
+   "title": "「꽃담」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EA%BD%83%EB%8B%B4",
+   "note": "여러 가지 색채로 글자나 무늬를 넣고 쌓는 담 = 화초담"
+  },
+  "stdict-주춧돌": {
+   "title": "「주춧돌」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%A3%BC%EC%B6%A7%EB%8F%8C",
+   "note": "기둥 밑에 기초로 받쳐 놓은 돌 ≒초반, 초석"
+  },
+  "stdict-회삼물": {
+   "title": "「회삼물」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%ED%9A%8C%EC%82%BC%EB%AC%BC",
+   "note": "석회, 황토, 가는 모래의 세 가지를 한데 섞어 반죽한 물질 ≒삼물"
+  },
+  "stdict-강회": {
+   "title": "「강회」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EA%B0%95%ED%9A%8C",
+   "note": "칼슘의 산화물(CaO), 물과 급격히 반응하여 높은 열을 내며 수산화 칼슘이 됨"
+  },
+  "stdict-토담": {
+   "title": "「토담」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%ED%86%A0%EB%8B%B4",
+   "note": "흙으로 쌓아 만든 담 ≒토원, 토장, 흙담"
+  },
+  "stdict-판축": {
+   "title": "「판축」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%ED%8C%90%EC%B6%95",
+   "note": "판자와 판자 사이에 흙을 넣고 공이로 다지는 일"
+  },
+  "stdict-바자": {
+   "title": "「바자」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%B0%94%EC%9E%90",
+   "note": "대, 갈대, 수수깡, 싸리 따위로 발처럼 엮거나 결어서 만든 물건, 울타리를 만드는 데 쓰임"
+  },
+  "stdict-바자울": {
+   "title": "「바자울」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EB%B0%94%EC%9E%90%EC%9A%B8",
+   "note": "바자로 만든 울타리 ≒울바자"
+  },
+  "stdict-싸리울": {
+   "title": "「싸리울」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%8B%B8%EB%A6%AC%EC%9A%B8",
+   "note": "싸리의 가지로 엮어 만든 울타리"
+  },
+  "stdict-사괴석": {
+   "title": "「사괴석」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%EC%82%AC%EA%B4%B4%EC%84%9D",
+   "note": "벽이나 돌담 또는 화방을 쌓는 데 쓰는 육면체의 돌, 한 변 200~250mm (사고석 → 사괴석)"
+  },
+  "stdict-화방벽": {
+   "title": "「화방벽」 표준국어대사전",
+   "org": "국립국어원",
+   "type": "국어원",
+   "url": "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword=%ED%99%94%EB%B0%A9%EB%B2%BD",
+   "note": "화재 따위의 재해를 막기 위해 불에 타지 않는 재료로 만들어 세운 벽 ≒화방장"
+  },
+  "choi2015-bakseok": {
+   "title": "경복궁 근정전 박석의 산지와 운송과정 해석",
+   "org": "최명주·이찬희·조영훈, 암석학회지 24(3):181-191 (2015)",
+   "type": "논문",
+   "url": "https://doi.org/10.7854/JPSK.2015.24.3.181",
+   "note": "근정전 박석은 중립질 흑운모화강암, 강화 석모도 낙가산 화강암과 동질, 박리돔 판상 석재 조달·한강 조운로 운송 해석. 박석은 눈부심·미끄럼 방지와 배수 기능 (ScienceON 초록·본문 요약으로 확인)"
+  },
+  "yonhap-2025-bakseok": {
+   "title": "'부실 관리' 지적받은 경복궁 박석, 근정전 마당 보수에 쓴다",
+   "org": "연합뉴스 (2025.7.28)",
+   "type": "기타",
+   "url": "https://v.daum.net/v/20250728091244639",
+   "note": "박석은 얇고 넓적한 돌로 주로 궁궐 건축이나 종묘, 왕릉 진입로 등에 쓰였다"
+  },
+  "newsis-2025-bakseok": {
+   "title": "경복궁 협생터 박석, 근정전 마당 보수에 활용",
+   "org": "뉴시스 (2025.7.28)",
+   "type": "기타",
+   "url": "https://www.newsis.com/view/NISX20250728_0003268470",
+   "note": "국가유산청 발표: 협생문지 발굴 박석 257매 중 약 30개를 근정전 박석 보충에 활용, 흑운모화강암, 석모도 채석 중단으로 보수용 석재 보급 어려움"
+  },
+  "cpn-2010-floor": {
+   "title": "전통 건축의 바닥은 어떻게 만들어질까?",
+   "org": "cpn문화유산 문화재TV (2010.2.17)",
+   "type": "기타",
+   "url": "https://www.icpn.co.kr/news/articleView.html?idxno=1376",
+   "note": "김진욱 미장 장인 인터뷰: 강회다짐(강회:흙 1:3, 물을 조금만 섞어 부슬부슬), 강회는 갈수록 굳고 독성 없음, 마사가 섞인 흙이 좋고 고운 황토는 균열 많음"
   }
  },
  "materials": {
@@ -1088,6 +1389,96 @@ window.LM_REFS = {
   "water-repellent": [
    "ks-f-4930",
    "kcs-34-99-15"
+  ],
+  "jangdaeseok": [
+   "stdict-장대석",
+   "khs-spec-1300",
+   "khs-spec-0400",
+   "khs-spec-0300",
+   "ency-gagusik-gidan",
+   "ency-jijeong",
+   "khs-spec-2010"
+  ],
+  "bakseok": [
+   "stdict-박석",
+   "stdict-박석고개",
+   "khs-spec-1300",
+   "khs-spec-2030",
+   "choi2015-bakseok",
+   "yonhap-2025-bakseok",
+   "newsis-2025-bakseok",
+   "ency-bakseokgogae",
+   "khs-spec-0400"
+  ],
+  "jeondol": [
+   "khs-spec-0700",
+   "stdict-전벽돌",
+   "stdict-방전",
+   "ency-dam",
+   "ency-byeok",
+   "khs-spec-0400",
+   "khs-spec-2010"
+  ],
+  "giwa": [
+   "ency-giwa",
+   "ency-amkiwa",
+   "ency-sumaksae",
+   "khs-spec-0600",
+   "khs-spec-2010",
+   "stdict-기와",
+   "stdict-암키와",
+   "stdict-수키와",
+   "stdict-막새"
+  ],
+  "wapyeon-wall": [
+   "khs-spec-2010",
+   "ency-dam",
+   "stdict-와편",
+   "stdict-꽃담",
+   "khs-spec-0800"
+  ],
+  "choseok": [
+   "ency-juchu",
+   "khs-spec-0300",
+   "khs-spec-1300",
+   "stdict-주춧돌",
+   "khs-spec-0400"
+  ],
+  "samhwato": [
+   "khs-spec-0800",
+   "khs-spec-0600",
+   "khs-spec-0300",
+   "khs-spec-0400",
+   "khs-spec-2030",
+   "khs-spec-1800",
+   "stdict-회삼물",
+   "stdict-강회",
+   "ency-byeok",
+   "ency-jijeong",
+   "cpn-2010-floor"
+  ],
+  "todam": [
+   "ency-dam",
+   "khs-spec-2010",
+   "khs-spec-0300",
+   "stdict-토담",
+   "stdict-판축",
+   "ency-jijeong"
+  ],
+  "bajaul": [
+   "ency-dam",
+   "stdict-바자",
+   "stdict-바자울",
+   "stdict-싸리울",
+   "khs-spec-2010"
+  ],
+  "sagoseok-wall": [
+   "khs-spec-2010",
+   "khs-spec-1300",
+   "ency-dam",
+   "stdict-사괴석",
+   "stdict-화방벽",
+   "khs-spec-0800"
   ]
  },
  "slangRefs": [
