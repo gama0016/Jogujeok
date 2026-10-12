@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>조경재료 백과사전</title>
+  <meta name="description" content="실제 조경 현장에서 자주 쓰이는 재료·자재의 특성, 규격, 시공 방법, 현장 은어를 정리한 백과사전">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">조</span>
+      <span class="brand-text">조경재료 백과사전</span>
+    </a>
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="재료명·은어로 검색 (예: 공구리, 투바이, 화강석)" autocomplete="off" aria-label="재료 검색">
+    </div>
+    <nav class="topnav">
+      <a href="#/" data-nav="home">재료</a>
+      <a href="#/slang" data-nav="slang">현장 은어</a>
+      <a href="#/about" data-nav="about">안내</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="분류"></aside>
+    <main id="app" class="content" tabindex="-1"></main>
+  </div>
+
+  <footer class="footer">
+    조경재료 백과사전 · 수업 과제용 자료 · 규격·수치는 대표값이며 제조사·현장 조건에 따라 다를 수 있습니다.
+  </footer>
+
+  <!-- 데이터: 분류별 파일. 재료를 추가할 때는 해당 분류 파일에 항목만 추가하면 됩니다. -->
+  <script src="data/categories.js"></script>
+  <script src="data/stone.js"></script>
+  <script src="data/wood.js"></script>
+  <script src="data/concrete.js"></script>
+  <script src="data/paving.js"></script>
+  <script src="data/metal.js"></script>
+  <script src="data/aggregate.js"></script>
+  <script src="data/drainage.js"></script>
+  <script src="data/synthetic.js"></script>
+  <script src="data/glossary.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
