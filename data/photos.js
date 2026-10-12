@@ -423,5 +423,143 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Granite_setts_-_geograph.org.uk_-_4997354.jpg"
   }
+ ],
+ "green-roof-module": [
+  {
+   "src": "images/green-roof-module-1.jpg",
+   "type": "material",
+   "caption": "세덤을 식재한 옥상녹화 트레이 모듈",
+   "artist": "Skasnl - groendakmaterialen.nl",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Green_roof_tray.jpg"
+  },
+  {
+   "src": "images/green-roof-module-site-1.jpg",
+   "type": "site",
+   "caption": "옥상에 모듈형으로 조성된 세덤 녹화",
+   "artist": "Architectsea",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:St._Thomas_School_green_roof_01.jpg"
+  }
+ ],
+ "rebar": [
+  {
+   "src": "images/rebar-site-1.jpg",
+   "type": "site",
+   "caption": "교량 상판 철근 배근 후 타설 전",
+   "artist": "Federal Highway Administration",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Deck_Reinforcement_VT_(8495188335).jpg"
+  }
+ ],
+ "wire-mesh": [
+  {
+   "src": "images/wire-mesh-site-1.jpg",
+   "type": "site",
+   "caption": "콘크리트 슬래브 타설 전 와이어메시 깔기",
+   "artist": "ENERGY.GOV",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:FEMP_04_053_(27367283983).jpg"
+  }
+ ],
+ "aluminum": [
+  {
+   "src": "images/aluminum-1.jpg",
+   "type": "material",
+   "caption": "온실 골조에 쓰인 알루미늄 압출 프레임 단면",
+   "artist": "Leo Miregalitheo",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Aluprofil_und_Dichtlippe_Gew%C3%A4chshaus_Eck.jpg"
+  },
+  {
+   "src": "images/aluminum-2.jpg",
+   "type": "material",
+   "caption": "도장된 알루미늄 압출 형재의 단면과 고무 가스켓",
+   "artist": "HTL-Mödchen23",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Glasscheibenmontageprofil_Alu.jpg"
+  }
+ ],
+ "anchor-screw": [
+  {
+   "src": "images/anchor-screw-1.jpg",
+   "type": "material",
+   "caption": "콘크리트용 웨지 앵커 볼트와 와셔·너트",
+   "artist": "Dmitry G",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Ancor_bolt_for_concrete.JPG"
+  }
+ ],
+ "binding-wire": [
+  {
+   "src": "images/binding-wire-1.jpg",
+   "type": "material",
+   "caption": "다발로 감긴 철근 결속선(크기 비교용 자)",
+   "artist": "sarang",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Tie_wire.jpg"
+  },
+  {
+   "src": "images/binding-wire-2.jpg",
+   "type": "material",
+   "caption": "고리형으로 가공된 철근 결속선 묶음",
+   "artist": "sarang",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Bindedrahtschlaufen.jpg"
+  }
+ ],
+ "mesh-fence": [
+  {
+   "src": "images/mesh-fence-1.jpg",
+   "type": "material",
+   "caption": "마름모 눈금의 능형망(체인링크) 철망 근접 사진",
+   "artist": "Unknown authorUnknown author",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Chainlink_fence_Fence_Barrier.jpg"
+  }
+ ],
+ "gabion": [
+  {
+   "src": "images/gabion-1.jpg",
+   "type": "material",
+   "caption": "육각 철망 안에 깬돌을 채운 개비온 옹벽",
+   "artist": "No machine-readable author provided. Zimbres assumed (based on copyright claims).",
+   "license": "CC BY-SA 2.5",
+   "url": "https://commons.wikimedia.org/wiki/File:Gabion1.jpg"
+  },
+  {
+   "src": "images/gabion-site-1.jpg",
+   "type": "site",
+   "caption": "경사지에 계단식으로 쌓은 개비온 옹벽",
+   "artist": "Encik Tekateki",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Gabion_Wall.jpg"
+  },
+  {
+   "src": "images/gabion-site-2.jpg",
+   "type": "site",
+   "caption": "도로변 녹지에 조경 요소로 놓인 개비온",
+   "artist": "Velvet",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Marcq_gabions_voie_parc_europe.jpg"
+  }
+ ],
+ "cast-iron": [
+  {
+   "src": "images/cast-iron-1.jpg",
+   "type": "material",
+   "caption": "보도에 설치된 주철 수목 보호 덮개(트리 그레이트)",
+   "artist": "Xnatedawgx",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Belmar_sidewalk_tree_grate,_Lakewood,_CO_2023-06-25.jpg"
+  },
+  {
+   "src": "images/cast-iron-2.jpg",
+   "type": "material",
+   "caption": "덕타일 주철 맨홀 뚜껑",
+   "artist": "Anthony O'Neil",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Cast_iron_manhole_cover_-_geograph.org.uk_-_8375793.jpg"
+  }
  ]
 };
