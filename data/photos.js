@@ -1229,5 +1229,51 @@ window.LM_PHOTOS = {
    "license": "Public domain",
    "url": "https://commons.wikimedia.org/wiki/File:Seobuk_Gongsimdon_-_2008-11-23.JPG"
   }
+ ],
+ "powder-coating": [
+  {
+   "src": "images/powder-coating-site-1.jpg",
+   "type": "site",
+   "caption": "도장 부스에서 정전 분체도료를 분사하는 모습",
+   "artist": "Hardcoreraveman",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Powder_Coating_Spraying.JPG"
+  },
+  {
+   "src": "images/powder-coating-site-2.jpg",
+   "type": "site",
+   "caption": "알루미늄 압출재의 자동 분체도장 라인",
+   "artist": "Euro Quality Coatings",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Powder_Coating_Aluminium_Extrusions.jpg"
+  }
+ ],
+ "perforated-pipe": [
+  {
+   "src": "images/perforated-pipe-1.jpg",
+   "type": "material",
+   "caption": "코일 형태로 감긴 PE 주름 배수관",
+   "artist": "Dwight Burdette",
+   "license": "CC BY 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Polyethelene_corrugated_drainage_pipe.JPG"
+  },
+  {
+   "src": "images/perforated-pipe-site-1.jpg",
+   "type": "site",
+   "caption": "부직포와 함께 배수 트렌치에 묻히는 주름 유공관",
+   "artist": "Scooter133 at English Wikipedia",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:FrenchDrain-03.jpg"
+  }
+ ],
+ "pvc-pipe": [
+  {
+   "src": "images/pvc-pipe-1.jpg",
+   "type": "material",
+   "caption": "다발로 묶어 판매 중인 회색 PVC 배수관",
+   "artist": "Johnnybam",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Bundled_PVC_pipes_for_drainage_in_Awka.jpg"
+  }
  ]
 };
