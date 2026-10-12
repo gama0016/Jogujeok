@@ -1397,5 +1397,61 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Sohlschale_aus_Betonelementen_als_Entw%C3%A4sserungkaskade,_Hangentw%C3%A4sserung.jpg"
   }
+ ],
+ "pole-light": [
+  {
+   "src": "images/pole-light-1.jpg",
+   "type": "material",
+   "caption": "석재 기둥에 단 장식형 공원등 등기구(쌍등)",
+   "artist": "Paul R. Burley",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Street_Lamp_Grant_Park_Chicago_2020-0493.jpg"
+  },
+  {
+   "src": "images/pole-light-site-1.jpg",
+   "type": "site",
+   "caption": "공원 입구 보행로에 세운 클래식 공원등",
+   "artist": "Frombowen",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Street_Lamp_Near_The_Lodge,_Inside_Cressington_Park.jpg"
+  }
+ ],
+ "uplight": [
+  {
+   "src": "images/uplight-site-1.jpg",
+   "type": "site",
+   "caption": "땅에 둔 투광등으로 나무를 아래에서 비춘 야간 수목 조명",
+   "artist": "Albert Bridge",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Illuminated_Botanic_Gardens,_Belfast_(2)_-_geograph.org.uk_-_992801.jpg"
+  }
+ ],
+ "sprinkler": [
+  {
+   "src": "images/sprinkler-site-1.jpg",
+   "type": "site",
+   "caption": "운동장 잔디에 물을 뿌리는 팝업 스프링클러",
+   "artist": "USDAgov",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:RD_Under_Secretary_Xochitl_Torres_Small_tours_Coachella_Valley,_CA_(20220629-RD-LSC-0462).jpg"
+  }
+ ],
+ "drip-line": [
+  {
+   "src": "images/drip-line-1.jpg",
+   "type": "material",
+   "caption": "점적관수 호스 끝에 꽂아 쓰는 드리퍼(점적 노즐)와 점적 스틱",
+   "artist": "Վոլոդյա Ստեփանյան",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Drip_irrigation_(Armenia).jpg"
+  },
+  {
+   "src": "images/drip-line-site-1.jpg",
+   "type": "site",
+   "caption": "포도밭 지지선을 따라 설치한 점적관수 호스와 공급 밸브",
+   "artist": "Agne27 at English Wikipedia",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Drip_irrigation_system.JPG"
+  }
  ]
 };
