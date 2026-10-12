@@ -1116,9 +1116,25 @@ window.LM_PHOTOS = {
    "artist": "Mar11",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Submersible_pump_0.75HP.jpg"
+  },
+  {
+   "src": "images/submersible-pump-site-1.jpg",
+   "type": "site",
+   "caption": "도랑에 넣어 고인 물을 퍼내는 배수용 수중펌프",
+   "artist": "Kemikungen",
+   "license": "CC BY 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Submersible_pump_in_action.jpg"
   }
  ],
  "bakseok": [
+  {
+   "src": "images/bakseok-1.jpg",
+   "type": "material",
+   "caption": "경복궁 근정전 조정의 부정형 박석과 품계석",
+   "artist": "Josh Hallett",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Geunjeongjeon-02.jpg"
+  },
   {
    "src": "images/bakseok-site-1.jpg",
    "type": "site",
@@ -1166,6 +1182,34 @@ window.LM_PHOTOS = {
    "artist": "by abex",
    "license": "CC BY-SA 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Korea-Gyeongbokgung-Jagyeongjeon-01.jpg"
+  }
+ ],
+ "todam": [
+  {
+   "src": "images/todam-site-1.jpg",
+   "type": "site",
+   "caption": "안동 하회마을 골목 — 기와를 얹은 토석담(왼쪽)과 흙담(오른쪽)",
+   "artist": "Julie",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Korea-Andong-Hahoe_Folk_Village-07.jpg"
+  }
+ ],
+ "bollard-light": [
+  {
+   "src": "images/bollard-light-1.jpg",
+   "type": "material",
+   "caption": "비에 젖은 볼라드등 상부 갓과 발광부",
+   "artist": "Derek Harper",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Bollard_light,_The_Willows_-_geograph.org.uk_-_5273561.jpg"
+  },
+  {
+   "src": "images/bollard-light-site-1.jpg",
+   "type": "site",
+   "caption": "밤에 산책로 난간 옆을 밝히는 볼라드등",
+   "artist": "Sandhiya Rangasami",
+   "license": "CC BY 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Modern_outdoor_bollard_light.jpg"
   }
  ]
 };
