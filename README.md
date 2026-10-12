@@ -5,7 +5,7 @@
 
 ## 보는 방법
 - `index.html`을 브라우저로 열면 서버 없이 바로 볼 수 있습니다.
-- GitHub Pages: 저장소 Settings → Pages → Branch를 선택하면 `https://<아이디>.github.io/Jogujeok/` 주소로 공개됩니다.
+- 공개 주소(GitHub Pages): https://gama0016.github.io/Jogujeok/ — `main` 브랜치 루트에서 배포됩니다.
 
 ## 구성
 | 분류 | 파일 |
