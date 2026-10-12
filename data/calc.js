@@ -18,7 +18,7 @@
       desc: '블록 60T + 모래 안정층 + 보조기층 (보행용)',
       params: [
         { key: 'tSand', label: '모래 안정층', unit: 'mm', value: 35 },
-        { key: 'tSub', label: '보조기층', unit: 'mm', value: 150 }
+        { key: 'tSub', label: '보조기층 (보도 100·차도 150)', unit: 'mm', value: 100 }
       ],
       items: [
         { name: '콘크리트 보도블록 60T', mat: 'concrete-block-paver', unit: '㎡', loss: 0.03, price: 9700,

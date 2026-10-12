@@ -233,7 +233,7 @@
     if (st >= 3 && !s.noHaunch) c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
     if (st >= 4) c.label(X + W - 40, soilTop + 20, s.rightLabel || '식재지 토양');
     c.label(X + W - 30, G + 18, '원지반 다짐');
-    if (st >= 4) c.text(cx - 4, 18, '줄눈 10mm · 1,000mm마다');
+    if (st >= 4) c.text(cx - 4, 18, '줄눈 5~10mm · 1,000mm마다');
     return c.svg();
   }
 

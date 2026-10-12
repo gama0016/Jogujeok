@@ -20,7 +20,7 @@
     // ----- 석재 -----
     'granite': L('화강석 판석 포장 (습식, 보행용)', [
       { n: '화강석 판석 (버너)', t: '30~40', h: 40, p: 'stone', joints: 70, jp: 'mortar' },
-      { n: '붙임 모르타르 1:3', t: '30', h: 30, p: 'mortar' },
+      { n: '바탕 모르타르 1:3', t: '30', h: 30, p: 'mortar' },
       CONC_BASE, MESH, SUB]),
     'basalt': L('현무암 판석 포장 (습식)', [
       { n: '현무암 판석', t: '30', h: 30, p: 'stone', joints: 60, jp: 'mortar' },
@@ -37,7 +37,7 @@
       { n: '쇄석 기층', t: '100', h: 100, p: 'crushed' }], { slope: '줄눈: 마사토·잔디·모르타르 중 선택' }),
     'curbstone': { kind: 'curb', title: '화강석 경계석 (보도-식재지)', curbLabel: '화강석 경계석 150×300', reveal: 120, turf: true },
     'stepping-stone': L('디딤돌 놓기', [
-      { n: '디딤돌 (지면보다 30~50 높게)', t: '60~150', h: 90, p: 'stone' },
+      { n: '디딤돌 (지면보다 50 내외 높게)', t: '60~150', h: 90, p: 'stone' },
       { n: '모래·마사토', t: '50', h: 50, p: 'sand' },
       { n: '표토', h: 80, p: 'soil' }], { groundLabel: '원지반' }),
     'saguseok': L('사고석 포장 (차량 진입부)', [
@@ -72,7 +72,7 @@
     'rebar': { kind: 'footing', title: '철근 배근 (기초 단면)' },
     'wire-mesh': L('콘크리트 포장의 와이어메시 위치', [
       { n: '콘크리트 포장', t: '150', h: 150, p: 'conc' },
-      { n: '와이어메시 (두께 중앙~상부 1/3)', line: 'mesh' },
+      { n: '와이어메시 (상면에서 두께 1/3)', line: 'mesh' },
       { n: 'PE 필름 (분리막)', line: 'membrane' }, SUB]),
     'formwork': { kind: 'formwork', title: '벽체 거푸집 구성' },
     'brick-clay': { kind: 'wall', face: 'masonry', brick: true, title: '점토벽돌 화단 벽', faceLabel: '점토벽돌 쌓기 (줄눈 10)' },
@@ -82,7 +82,8 @@
     // ----- 포장재 -----
     'concrete-block-paver': L('보도블록 포장 (보행용)', [
       { n: '콘크리트 블록', t: '60', h: 60, p: 'block', joints: 44 },
-      { n: '모래 안정층', t: '30~40', h: 35, p: 'sand' }, SUB], { slope: '가장자리는 경계석으로 구속 · 줄눈 모래 채움' }),
+      { n: '모래 안정층', t: '30~40', h: 35, p: 'sand' },
+      { n: '보조기층 (쇄석, 보도 100 / 차도·주차장 150)', t: '', h: 120, p: 'crushed' }], { slope: '가장자리는 경계석으로 구속 · 줄눈 모래 채움' }),
     'permeable-block': L('투수블록 포장', [
       { n: '투수블록', t: '60~80', h: 70, p: 'block', joints: 44, jp: 'crushed' },
       { n: '투수성 안정층 (쇄석 5~13)', t: '40', h: 40, p: 'gravel' },
@@ -150,7 +151,7 @@
     'subbase': L('보조기층의 위치 (블록 포장)', [
       { n: '포장재', t: '60', h: 60, p: 'block', joints: 44 },
       { n: '모래', t: '30', h: 30, p: 'sand' },
-      { n: '보조기층 (층당 200 이하 다짐)', t: '150~200', h: 200, p: 'crushed' }], { groundLabel: '노상 (원지반 다짐)' }),
+      { n: '보조기층 (다짐 후 층당 150 이하)', t: '100 (보도)~150 (차도)', h: 150, p: 'crushed' }], { groundLabel: '노상 (원지반 다짐)' }),
     'artificial-soil': L('옥상조경 표준 단면', [
       { n: '멀칭 (바크)', t: '50', h: 40, p: 'mulch' },
       { n: '인공토양 (경량토)', t: '300~600', h: 300, p: 'artsoil' },
