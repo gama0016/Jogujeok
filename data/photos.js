@@ -1211,5 +1211,23 @@ window.LM_PHOTOS = {
    "license": "CC BY 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Modern_outdoor_bollard_light.jpg"
   }
+ ],
+ "jeondol": [
+  {
+   "src": "images/jeondol-1.jpg",
+   "type": "material",
+   "caption": "검은 회색 전벽돌 쌓기와 도드라진 줄눈 — 창덕궁",
+   "artist": "Insightwm",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Passageway_at_Changdeokgung_palace.jpg"
+  },
+  {
+   "src": "images/jeondol-site-1.jpg",
+   "type": "site",
+   "caption": "수원 화성 서북공심돈 — 전돌로 쌓은 성곽 시설과 여장",
+   "artist": "Jpbarrass",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Seobuk_Gongsimdon_-_2008-11-23.JPG"
+  }
  ]
 };
