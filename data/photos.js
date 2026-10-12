@@ -561,5 +561,51 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Cast_iron_manhole_cover_-_geograph.org.uk_-_8375793.jpg"
   }
+ ],
+ "soil-spray": [
+  {
+   "src": "images/soil-spray-site-1.jpg",
+   "type": "site",
+   "caption": "절토 비탈면에 녹생토·종자를 뿜어붙이는 모습",
+   "artist": "Agusana",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Hydrosiew_skarpy.jpg"
+  },
+  {
+   "src": "images/soil-spray-site-2.jpg",
+   "type": "site",
+   "caption": "도로 성토 비탈면 살포 시공(종자 뿜어붙이기)",
+   "artist": "Kulja~rowiki",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:A3_Maroskece_Hydroseeding.jpg"
+  }
+ ],
+ "vegetation-mat": [
+  {
+   "src": "images/vegetation-mat-1.jpg",
+   "type": "material",
+   "caption": "볏짚 섬유로 짠 롤 형태 식생(침식방지) 매트",
+   "artist": "USFWS Mountain Prairie",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Erosion_Control_(49702558242).jpg"
+  },
+  {
+   "src": "images/vegetation-mat-site-1.jpg",
+   "type": "site",
+   "caption": "포설한 식생매트를 고정핀으로 고정하는 모습",
+   "artist": "USFWS Mountain Prairie",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Habitat_Restoration_(49701710793).jpg"
+  }
+ ],
+ "formwork": [
+  {
+   "src": "images/formwork-site-1.jpg",
+   "type": "site",
+   "caption": "기초 벽체 거푸집 설치 현장 (항공 촬영)",
+   "artist": "Wikideas1",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Foundation_formwork.webp"
+  }
  ]
 };

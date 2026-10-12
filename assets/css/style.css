@@ -392,3 +392,5 @@ img { max-width: 100%; display: block; }
   body.is-book .be-sec, body.is-book .be-top { break-inside: avoid; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+.chip.conf-high { background: var(--accent-soft); color: var(--accent); }
+.chip.conf-low { background: var(--slang-soft); color: var(--slang); }

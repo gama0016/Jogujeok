@@ -84,7 +84,8 @@
   var PRICES = window.LM_PRICES || {};
   function priceHtml(p) {
     var meta = [p.spec, p.basis, p.year ? p.year + '년' : ''].filter(Boolean).join(' · ');
-    return '<b>' + esc(p.price) + '</b> / ' + esc(p.unit) +
+    var conf = { high: '신뢰 높음', medium: '신뢰 보통', low: '신뢰 낮음' }[p.confidence];
+    return '<b>' + esc(p.price) + '</b> / ' + esc(p.unit) + (conf ? ' <span class="chip conf-' + esc(p.confidence) + '">' + conf + '</span>' : '') +
       (meta ? '<div class="price-meta">' + esc(meta) + (p.source ? ' · <a href="' + esc(p.source) + '" target="_blank" rel="noopener">출처</a>' : '') + '</div>' : '');
   }
   function refItem(k, tag) {
@@ -250,7 +251,7 @@
     var refKeys = (REFS.materials || {})[m.id] || [];
     if (refKeys.length || (m.slang && m.slang.length && (REFS.slangRefs || []).length)) {
       html += '<div class="panel refs-panel"><h3>근거 자료</h3><ul class="refs">' +
-        refKeys.map(refItem).join('') +
+        refKeys.map(function (k) { return refItem(k); }).join('') +
         (m.slang && m.slang.length ? (REFS.slangRefs || []).map(function (k) { return refItem(k, '은어·순화어'); }).join('') : '') +
         '</ul><p class="note"><a href="#/refs">전체 참고문헌 보기</a></p></div>';
     }
@@ -439,7 +440,7 @@
     t += row('주요 용도', function (m) { return ul(m.uses); });
     t += row('유지관리', function (m) { return ul(m.care); });
     t += '</tbody></table></div>';
-    html += t + '<p class="note">※ 가격대는 같은 용도 재료 사이의 상대적인 수준입니다. 실제 단가는 물량·지역·시기에 따라 다릅니다.</p>';
+    html += t + '<p class="note">※ 가격대는 같은 용도 재료 사이의 상대적인 수준입니다. 참고 단가는 공개된 쇼핑몰·조달·기사 자료(대부분 부가세 별도, 자재비 기준)를 모은 참고값이며, 실제 단가는 물량·지역·시기·규격에 따라 크게 다릅니다.</p>';
     app.innerHTML = html;
     bindCompare(ids);
   }
