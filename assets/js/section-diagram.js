@@ -90,6 +90,7 @@
           '<polyline points="' + l.x + ',' + l.y + ' ' + (LX - 14) + ',' + l.ly + ' ' + (LX - 4) + ',' + l.ly + '" fill="none" stroke="#c0392b" stroke-width=".9"/>' +
           '<text x="' + LX + '" y="' + (l.ly + 4) + '" font-size="12.5" fill="#1d1d1d">' + esc(l.t) + '</text>';
       }).join('');
+      if (CUR && CUR.marks) drawMarks(this, CUR.marks);
       var body = this.parts.join('');
       if (this.clipY != null && this.clipY > 0) {
         // 시공 단계: 아직 시공하지 않은 부분은 흐리게, 시공된 부분(clipY 아래)만 진하게
@@ -112,6 +113,36 @@
     var out = '';
     for (k in o) out += ' ' + k + '="' + o[k] + '"';
     return out;
+  }
+  var CUR = null;
+  // 하자 표시: 빨간 균열·처짐·화살표·물방울·X·메모
+  function drawMarks(c, marks) {
+    var R = 'stroke="#d0021b" fill="none" stroke-width="2.2"';
+    marks.forEach(function (m) {
+      if (m.type === 'crack') {
+        var d = 'M' + m.x + ' ' + m.y, len = m.len || 40;
+        for (var i = 1; i <= 4; i++) d += ' L' + (m.x + (i % 2 ? 6 : -4)) + ' ' + (m.y + len * i / 4);
+        c.path(d, R);
+      } else if (m.type === 'sag') {
+        c.path('M' + m.x1 + ' ' + m.y + ' Q' + ((m.x1 + m.x2) / 2) + ' ' + (m.y + (m.depth || 18) * 2) + ' ' + m.x2 + ' ' + m.y, R + ' stroke-dasharray="6 3"');
+      } else if (m.type === 'arrow') {
+        var ang = Math.atan2(m.y2 - m.y1, m.x2 - m.x1), a1 = ang + 2.6, a2 = ang - 2.6;
+        c.path('M' + m.x1 + ' ' + m.y1 + ' L' + m.x2 + ' ' + m.y2 + ' M' + m.x2 + ' ' + m.y2 + ' l' + (Math.cos(a1) * 10) + ' ' + (Math.sin(a1) * 10) +
+          ' M' + m.x2 + ' ' + m.y2 + ' l' + (Math.cos(a2) * 10) + ' ' + (Math.sin(a2) * 10), R.replace('#d0021b', m.color || '#d0021b'));
+      } else if (m.type === 'drops') {
+        for (var k = 0; k < (m.n || 3); k++) {
+          var dx = m.x + k * 12, dy = m.y + (k % 2) * 8;
+          c.path('M' + dx + ' ' + dy + ' q4 7 0 9 q-4 -2 0 -9z', 'fill="' + (m.color || '#2b7bd0') + '" stroke="none"');
+        }
+      } else if (m.type === 'x') {
+        c.path('M' + (m.x - 9) + ' ' + (m.y - 9) + ' l18 18 M' + (m.x + 9) + ' ' + (m.y - 9) + ' l-18 18', R + ' stroke-width="3"');
+      } else if (m.type === 'path') {
+        c.path(m.d, R + (m.dash ? ' stroke-dasharray="6 3"' : ''));
+      } else if (m.type === 'tilt') {
+        c.path('M' + m.x + ' ' + m.y + ' a' + (m.r || 30) + ' ' + (m.r || 30) + ' 0 0 1 ' + (m.r || 30) + ' ' + (m.r || 30) * 0.4, R);
+      }
+      if (m.t) c.label(m.lx != null ? m.lx : (m.x != null ? m.x : m.x1), m.ly != null ? m.ly : (m.y != null ? m.y : m.y1), '⚠ ' + m.t);
+    });
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function lt(l) { return l.n + (l.t ? ' ' + l.t : ''); }
@@ -185,7 +216,7 @@
     // 기초 콘크리트
     if (st >= 1) c.rect(cx - 30, baseY, cw + 60, baseH, 'conc');
     // 뒷채움(뒷굽) 콘크리트
-    if (st >= 3) c.poly([[cx + cw, baseY], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], 'conc');
+    if (st >= 3 && !s.noHaunch) c.poly([[cx + cw, baseY], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], 'conc');
     // 오른쪽 흙
     var soilTop = curbTop + (s.soilDrop || 50) * k;
     if (st >= 4) c.poly([[cx + cw, soilTop], [X + W, soilTop], [X + W, G], [cx + cw + 30, G], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], s.rightP || 'soil');
@@ -199,7 +230,7 @@
     if (st === 2) c.line(X, curbTop, X + W, curbTop, 'stroke="#c0392b" stroke-dasharray="6 4"');
     if (st === 2) c.text(X + 4, curbTop - 6, '실띄우기 (선형·높이 기준)', 'fill="#c0392b"');
     if (st >= 1) c.label(cx + cw / 2, baseY + baseH / 2, '기초 콘크리트 t100');
-    if (st >= 3) c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
+    if (st >= 3 && !s.noHaunch) c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
     if (st >= 4) c.label(X + W - 40, soilTop + 20, s.rightLabel || '식재지 토양');
     c.label(X + W - 30, G + 18, '원지반 다짐');
     if (st >= 4) c.text(cx - 4, 18, '줄눈 10mm · 1,000mm마다');
@@ -245,8 +276,10 @@
     }
     // 뒤채움 배수층 / 흙
     c.poly([[backX1, top], [X + W, top], [X + W, base + 10], [240, base + 10], [240, base - 20], [backX0, base - 20]], 'soil');
-    c.poly([[backX1, top + 10], [backX1 + drainW, top + 10], [backX0 + drainW, base - 20], [backX0, base - 20]], 'crushed');
-    c.geotex('M' + (backX1 + drainW) + ' ' + (top + 10) + ' L' + (backX0 + drainW) + ' ' + (base - 20));
+    if (!s.noDrain) {
+      c.poly([[backX1, top + 10], [backX1 + drainW, top + 10], [backX0 + drainW, base - 20], [backX0, base - 20]], 'crushed');
+      c.geotex('M' + (backX1 + drainW) + ' ' + (top + 10) + ' L' + (backX0 + drainW) + ' ' + (base - 20));
+    }
     // 벽체
     var body = face === 'kenchi' ? 'stone' : face === 'block' ? 'block' : face === 'masonry' ? (s.brick ? 'brick' : 'block') : face === 'boulder' ? 'cobble' : 'stone';
     c.poly([[fx0, base - 20], [backX0, base - 20], [backX1, top], [fx1, top]], body);
@@ -264,25 +297,27 @@
       for (var b = 1; b < 7; b++) {
         var by = base - 20 - (H / 7) * b, bx = fx0 + (H / 7) * b * batter;
         c.line(bx, by, bx + thick, by);
-        if (b % 2 === 0) c.path('M' + (bx + thick) + ' ' + by + ' H' + (X + W - 20), 'stroke="#1f6f99" stroke-width="2" stroke-dasharray="10 3" fill="none"');
+        if (b % 2 === 0 && !s.noGrid) c.path('M' + (bx + thick) + ' ' + by + ' H' + (X + W - 20), 'stroke="#1f6f99" stroke-width="2" stroke-dasharray="10 3" fill="none"');
       }
       c.label(fx0 + (H - 60) * batter + 20, top + 60, s.faceLabel || '보강토 블록');
-      c.label(X + W - 70, base - 20 - (H / 7) * 2, '지오그리드 (보강재)');
+      if (!s.noGrid) c.label(X + W - 70, base - 20 - (H / 7) * 2, '지오그리드 (보강재)');
     } else if (face === 'masonry') {
       for (var m = 1; m < 12; m++) c.line(fx0 + m * H / 12 * batter, base - 20 - m * H / 12, backX0 + m * H / 12 * batter, base - 20 - m * H / 12, 'stroke="#777"');
       c.label(fx0 + 25, top + 60, s.faceLabel || '조적 벽체');
     } else {
       c.label(fx0 + 25, top + 60, s.faceLabel || '쌓기 돌');
     }
-    // 물빼기 구멍
-    var wy = base - 20 - H * 0.3;
-    c.line(fx0 - 14, wy + 6, backX0 + 30, wy - 4, 'stroke="#1f4e8c" stroke-width="4"');
-    c.label(fx0 - 6, wy + 4, '물빼기 구멍 (PVC Φ50)');
-    // 유공관
-    c.circle(backX0 + 18, base - 32, 9, '#f5f5f5', 'stroke-dasharray="2 2"');
-    c.label(backX0 + 18, base - 32, '유공관 Φ100');
-    c.label(backX1 + 20, top + 50, '배수층 (쇄석)');
-    c.label(backX1 + drainW, top + 20, '부직포');
+    if (!s.noDrain) {
+      // 물빼기 구멍
+      var wy = base - 20 - H * 0.3;
+      c.line(fx0 - 14, wy + 6, backX0 + 30, wy - 4, 'stroke="#1f4e8c" stroke-width="4"');
+      c.label(fx0 - 6, wy + 4, '물빼기 구멍 (PVC Φ50)');
+      // 유공관
+      c.circle(backX0 + 18, base - 32, 9, '#f5f5f5', 'stroke-dasharray="2 2"');
+      c.label(backX0 + 18, base - 32, '유공관 Φ100');
+      c.label(backX1 + 20, top + 50, '배수층 (쇄석)');
+      c.label(backX1 + drainW, top + 20, '부직포');
+    }
     c.label(X + W - 30, top + 80, '뒤채움 흙 다짐');
     c.turfTop(backX1 + 2, top, X + W - backX1 - 4);
     return c.svg();
@@ -297,16 +332,16 @@
     c.label(X + 30, G - 7, s.under || '쇄석 + 잡초방지 시트');
     var posts = [90, 350];
     posts.forEach(function (px) {
-      c.rect(px - 35, G - 14, 70, 50, 'conc');
-      c.rect(px - 18, 120, 36, G - 14 - 120, 'wood');
+      if (s.buried) { c.rect(px - 18, 120, 36, G + 30 - 120, 'wood'); }
+      else { c.rect(px - 35, G - 14, 70, 50, 'conc'); c.rect(px - 18, 120, 36, G - 14 - 120, 'wood'); }
       c.rect(px - 22, 98, 44, 22, 'wood');
     });
-    c.label(90, G + 15, '독립기초 (콘크리트)');
+    c.label(90, G + 15, s.buried ? '기둥을 흙에 바로 묻음' : '독립기초 (콘크리트)');
     c.label(350, 170, s.post || '기둥 89×89');
     c.label(350, 109, s.beam || '멍에 89×89');
     c.rect(X + 20, 76, W - 40, 22, 'wood');
     c.label(250, 87, s.joist || '장선 38×140 @400~600');
-    var bw = 26, gap = 5;
+    var bw = 26, gap = s.noGap ? 0 : 5;
     for (var bx = X + 22; bx + bw <= X + W - 20; bx += bw + gap) c.rect(bx, 60, bw, 16, s.board || 'wood');
     c.label(X + 70, 68, s.boardLabel || '데크재 (판 간격 3~5mm)');
     c.path('M' + (X + 90) + ' 56 v22 M' + (X + 300) + ' 56 v22', 'stroke="#555" stroke-width="2"');
@@ -324,7 +359,7 @@
     if (st >= 4 && s.turf !== false) c.turfTop(X, G, W);
     if (st < 4) c.rect(tx, G, tw, ty - G, null, 'fill="#fdfcf8" stroke="#888" stroke-dasharray="3 3"');
     c.rect(tx, ty, tw, th - 10, st >= 3 ? 'crushed' : null, st >= 3 ? '' : 'fill="#fdfcf8"');
-    if (st >= 1) c.geotex(st >= 4 ? 'M' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' Z' : 'M' + (tx - 20) + ' ' + (ty - 10) + ' L' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' L' + (tx + tw + 20) + ' ' + (ty - 10));
+    if (st >= 1 && !s.noGeo) c.geotex(st >= 4 ? 'M' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' Z' : 'M' + (tx - 20) + ' ' + (ty - 10) + ' L' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' L' + (tx + tw + 20) + ' ' + (ty - 10));
     if (st >= 1) c.rect(tx, ty + th - 22, tw, 12, 'sand');
     if (st >= 2) {
       c.circle(tx + tw / 2, ty + th - 50, 26, '#fafafa');
@@ -332,7 +367,7 @@
       c.label(tx + tw / 2, ty + th - 50, s.pipe || '유공관 Φ100~150');
     }
     if (st >= 3) c.label(tx + 20, ty + 40, s.fill || '배수 쇄석 13~25mm');
-    if (st >= 1) c.label(tx + tw, ty + 80, st >= 4 ? '부직포로 감싸기' : '부직포 깔기 (양옆 여유 남김)');
+    if (st >= 1 && !s.noGeo) c.label(tx + tw, ty + 80, st >= 4 ? '부직포로 감싸기' : '부직포 깔기 (양옆 여유 남김)');
     if (st >= 1) c.label(tx + 30, ty + th - 16, '모래 기초');
     if (st >= 4) c.label(X + 30, G + 25, s.top || '표토·잔디');
     if (st === 0) c.label(tx + tw / 2, ty + 60, '터파기 (바닥 기울기 1% 이상)');
@@ -456,8 +491,8 @@
     c.rect(X, G, W, 220, 'soil');
     var P = function (d) { return [[80 + d * 1.3, G], [150 + d * 0.6, 250 - d], [310 - d * 0.6, 250 - d], [380 - d * 1.3, G]]; };
     var dPath = function (d) { return 'M' + P(d).map(function (q) { return q.join(' '); }).join(' L'); };
-    c.poly(P(-14), st >= 1 ? 'sand' : null, st >= 1 ? '' : 'fill="#fdfcf8"');
-    if (st >= 2) { c.membrane(dPath(-6)); c.geotex(dPath(-10)); }
+    c.poly(P(-14), st >= 1 && !s.noProtect ? 'sand' : null, st >= 1 && !s.noProtect ? '' : 'fill="#fdfcf8"');
+    if (st >= 2) { c.membrane(dPath(-6)); if (!s.noProtect) c.geotex(dPath(-10)); }
     if (st >= 3) c.poly(P(0), 'gravel'); else if (st >= 1) c.poly(P(-6), null, 'fill="#fdfcf8" stroke="none"');
     if (st >= 4) { c.poly(P(14), 'water', 'stroke="none"'); c.line(70, G + 14, 390, G + 14, 'stroke="#2b6ca3" stroke-width="1.4"'); }
     // 가장자리 고정 트렌치
@@ -467,8 +502,8 @@
       c.poly([[372, G - 2], [392, G - 24], [430, G - 12], [430, G + 6]], 'stone');
     }
     if (st === 0) c.label(230, 200, '터파기 (돌·뿌리 제거)');
-    if (st >= 1) c.label(230, 255, '모래 50mm (바닥 고르기)');
-    if (st >= 2) { c.label(330, 220, s.liner || '방수시트 (EPDM 1.0~1.2mm)'); c.label(300, 235, '보호 부직포 (상·하부)'); c.label(396, G + 18, '시트 끝 트렌치 고정'); }
+    if (st >= 1 && !s.noProtect) c.label(230, 255, '모래 50mm (바닥 고르기)');
+    if (st >= 2) { c.label(330, 220, s.liner || '방수시트 (EPDM 1.0~1.2mm)'); if (!s.noProtect) c.label(300, 235, '보호 부직포 (상·하부)'); c.label(396, G + 18, '시트 끝 트렌치 고정'); }
     if (st >= 3) { c.label(260, 200, '자갈·흙 덮기'); c.label(60, G - 6, '가장자리 자연석 (시트 끝 덮기)'); }
     if (st >= 4) c.label(200, G + 50, '물');
     return c.svg();
@@ -705,7 +740,8 @@
     render: function (spec) {
       var b = builders[spec.kind];
       if (!b) return '';
-      try { return b(spec); } catch (e) { console.error(e); return ''; }
+      CUR = spec;
+      try { return b(spec); } catch (e) { console.error(e); return ''; } finally { CUR = null; }
     }
   };
 })();

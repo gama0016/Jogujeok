@@ -809,5 +809,185 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:Scoria_Macro_Digon3.jpg"
   }
+ ],
+ "thermo-wood": [
+  {
+   "src": "images/thermo-wood-1.jpg",
+   "type": "material",
+   "caption": "처리 온도(190~230℃)에 따라 색이 짙어지는 탄화목",
+   "artist": "Miladin at Slovenian Wikipedia",
+   "license": "CC BY-SA 2.5 si",
+   "url": "https://commons.wikimedia.org/wiki/File:Modifikacija.JPG"
+  },
+  {
+   "src": "images/thermo-wood-2.jpg",
+   "type": "material",
+   "caption": "열처리 전(왼쪽)과 후(오른쪽)의 물푸레나무 목재 비교",
+   "artist": "Anubis100",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Thermoholz_vergleich.JPG"
+  }
+ ],
+ "hardwood-deck": [
+  {
+   "src": "images/hardwood-deck-site-1.jpg",
+   "type": "site",
+   "caption": "하드우드(이페) 데크재로 시공한 주택 테라스",
+   "artist": "Opwdecks",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Ipe_deck_stain.jpg"
+  }
+ ],
+ "concrete-block-paver": [
+  {
+   "src": "images/concrete-block-paver-1.jpg",
+   "type": "material",
+   "caption": "I형 인터로킹 콘크리트 보도블록 포장면",
+   "artist": "Anasskoko",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Interlocking_floor.jpg"
+  }
+ ],
+ "permeable-block": [
+  {
+   "src": "images/permeable-block-site-1.jpg",
+   "type": "site",
+   "caption": "동물원 보행로에 시공된 투수블록 포장 (빗물 침투용)",
+   "artist": "Aaron Volkening",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Permeable_pavers,_Milwaukee_County_Zoo.jpg"
+  }
+ ],
+ "ascon": [
+  {
+   "src": "images/ascon-1.jpg",
+   "type": "material",
+   "caption": "아스팔트 콘크리트(아스콘) 포장 표면 근접 사진",
+   "artist": "kallerna",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Asphalt_concrete.JPG"
+  }
+ ],
+ "rubber-surface": [
+  {
+   "src": "images/rubber-surface-site-1.jpg",
+   "type": "site",
+   "caption": "놀이터 바닥에 깔린 고무 탄성포장 매트",
+   "artist": "Tdorante10",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Loreto_Playground_td_(2019-05-28)_020.jpg"
+  }
+ ],
+ "washout-concrete": [
+  {
+   "src": "images/washout-concrete-1.jpg",
+   "type": "material",
+   "caption": "자갈이 드러난 노출골재(워시아웃) 콘크리트 판",
+   "artist": "Elke Wetzig (Elya)",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Waschbetonplatte.jpg"
+  },
+  {
+   "src": "images/washout-concrete-site-1.jpg",
+   "type": "site",
+   "caption": "새로 시공한 노출골재 콘크리트 포장과 테두리",
+   "artist": "Chris Gentrup",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Exposed_Aggregate_-_Gentrup_Concrete.jpg"
+  }
+ ],
+ "terrazzo": [
+  {
+   "src": "images/terrazzo-1.jpg",
+   "type": "material",
+   "caption": "대리석 쇄석이 박힌 테라조(인조석 갈기) 표면과 줄자",
+   "artist": "Roll-Stone",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Terrazzo-normal.jpg"
+  }
+ ],
+ "grass-block": [
+  {
+   "src": "images/grass-block-1.jpg",
+   "type": "material",
+   "caption": "구멍마다 잔디가 자란 콘크리트 잔디블록",
+   "artist": "Ingolfson",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Grass_Pavers_In_The_Auckland_Domain_II.jpg"
+  },
+  {
+   "src": "images/grass-block-site-1.jpg",
+   "type": "site",
+   "caption": "공원 산책로에 깔린 잔디블록 포장",
+   "artist": "Michalgwo",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Grass_paver_in_Nowy_S%C4%85cz.jpg"
+  }
+ ],
+ "masato-paving": [
+  {
+   "src": "images/masato-paving-1.jpg",
+   "type": "material",
+   "caption": "마사토(풍화 화강토)를 깐 보행·자전거길 표면",
+   "artist": "Downtowngal",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Decomposed_granite_path.jpg"
+  }
+ ],
+ "tree-stake": [
+  {
+   "src": "images/tree-stake-site-1.jpg",
+   "type": "site",
+   "caption": "원주목 2각 지주와 가로대로 고정한 가로수",
+   "artist": "Fructibus",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Barcelona_tree_staking_2017_A.jpg"
+  },
+  {
+   "src": "images/tree-stake-site-2.jpg",
+   "type": "site",
+   "caption": "보도 수목보호대 안 가로수를 원주목 지주로 결속한 모습",
+   "artist": "Fructibus",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Barcelona_tree_staking_2017_E.jpg"
+  }
+ ],
+ "board-lumber": [
+  {
+   "src": "images/board-lumber-1.jpg",
+   "type": "material",
+   "caption": "건조를 위해 켜켜이 쌓은 판재",
+   "artist": "Tartakizbica",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Tarcica_brzozowa_suszona.JPG"
+  },
+  {
+   "src": "images/board-lumber-2.jpg",
+   "type": "material",
+   "caption": "판재를 나란히 이어 붙인 목재 표면",
+   "artist": "Bart Lumber",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wood_planks_1111.jpg"
+  }
+ ],
+ "structural-lumber": [
+  {
+   "src": "images/structural-lumber-site-1.jpg",
+   "type": "site",
+   "caption": "구조목(규격재)으로 세운 경골 목조주택 골조",
+   "artist": "Jaksmata",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wood-framed_house.jpg"
+  }
+ ],
+ "sleeper": [
+  {
+   "src": "images/sleeper-1.jpg",
+   "type": "material",
+   "caption": "철도 선로 자갈 위에 놓인 목재 침목",
+   "artist": "Wilfredor",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Railroad_ties_in_Germany.jpg"
+  }
  ]
 };

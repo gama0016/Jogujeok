@@ -394,3 +394,74 @@ img { max-width: 100%; display: block; }
 }
 .chip.conf-high { background: var(--accent-soft); color: var(--accent); }
 .chip.conf-low { background: var(--slang-soft); color: var(--slang); }
+
+/* ---------- sidebar tools ---------- */
+.sidebar h2.side-tools { margin-top: 20px; }
+.tool-link { font-size: 13.5px; color: var(--muted); }
+
+/* ---------- calculator ---------- */
+.calc-pick { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+.chip.preset.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.calc-box { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+.calc-inputs { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.calc-inputs h2 { margin: 0 0 4px; font-size: 18px; }
+.calc-inputs p { margin: 0 0 12px; font-size: 13px; }
+.calc-field { display: grid; grid-template-columns: 1fr 96px auto; gap: 8px; align-items: center; margin-top: 8px; font-size: 14px; }
+.calc-field input, .calc-field select { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); width: 100%; }
+.calc-field b { font-weight: 500; color: var(--muted); font-size: 13px; }
+.calc-table .num { text-align: right; white-space: nowrap; }
+.calc-table tfoot th { background: var(--surface-2); color: var(--text); font-weight: 700; }
+.calc-how { font-size: 12px; color: var(--muted); }
+
+/* ---------- defects ---------- */
+.defect-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin: 20px 0; }
+.defect-pair figure { margin: 0; }
+.defect-pair figcaption { font-size: 14px; color: #333; margin-bottom: 6px; }
+.defect-pair .section-svg { min-width: 520px; }
+.tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; margin-right: 4px; }
+.tag.ok { background: #e2efe7; color: #1f5a3f; }
+.tag.ng { background: #fde3e1; color: #a1170f; }
+.section-figure.bad { border-color: #f1b7b1; }
+
+/* ---------- decide ---------- */
+:root { --c1: #2a78d6; --c2: #eb6834; --c3: #1baf7a; --c4: #eda100; --c5: #e87ba4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; } }
+:root[data-theme="dark"] { --c1: #3987e5; --c2: #d95926; --c3: #199e70; --c4: #c98500; --c5: #d55181; }
+.c1 { background: var(--c1); } .c2 { background: var(--c2); } .c3 { background: var(--c3); } .c4 { background: var(--c4); } .c5 { background: var(--c5); }
+.decide-top { margin: 16px 0; max-width: 560px; }
+.decide-top .calc-field { grid-template-columns: 90px 1fr; }
+.decide-box { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+.weights { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.weight { display: grid; grid-template-columns: 1fr 100px 18px; gap: 8px; align-items: center; padding: 6px 0; }
+.wname { display: flex; flex-direction: column; font-size: 14px; font-weight: 500; }
+.wname small { font-weight: 400; color: var(--muted); font-size: 11.5px; }
+.wname .sw { display: inline-block; }
+.weight input { accent-color: var(--accent); width: 100%; }
+.weight b { text-align: right; }
+.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+.weight-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.weight-presets .btn { font-size: 12px; padding: 4px 8px; }
+.decide-chart { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+.bar-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 44px; gap: 10px; align-items: center; padding: 5px 0; }
+.bar-name { font-size: 13.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { display: flex; gap: 2px; height: 18px; background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), var(--line) calc(20% - 1px) 20%); }
+.bar-track .seg { height: 100%; min-width: 2px; }
+.bar-track .seg:last-child { border-radius: 0 4px 4px 0; }
+.bar-val { font-size: 13px; text-align: right; color: var(--text); }
+.bar-axis { display: flex; justify-content: space-between; margin-left: 160px; margin-right: 54px; font-size: 11px; color: var(--muted); }
+.decide-table { margin-top: 14px; }
+.decide-table summary { cursor: pointer; color: var(--accent); font-size: 14px; margin-bottom: 8px; }
+.viz-tip { position: fixed; z-index: 30; background: var(--text); color: var(--surface); font-size: 12px; padding: 6px 9px; border-radius: 6px; pointer-events: none; max-width: 280px; }
+
+
+@media (max-width: 900px) {
+  .calc-box, .decide-box, .defect-pair { grid-template-columns: minmax(0, 1fr); }
+  .bar-row { grid-template-columns: 110px minmax(0, 1fr) 38px; }
+  .bar-axis { margin-left: 120px; margin-right: 48px; }
+}
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin: 4px 0 8px; }
+.tool-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--text); display: flex; flex-direction: column; gap: 2px; }
+.tool-card:hover { border-color: var(--accent); text-decoration: none; }
+.tool-card b { font-size: 14px; }
+.tool-card span { font-size: 12px; color: var(--muted); }
