@@ -936,6 +936,14 @@ window.LM_PHOTOS = {
    "artist": "Roll-Stone",
    "license": "Public domain",
    "url": "https://commons.wikimedia.org/wiki/File:Terrazzo-normal.jpg"
+  },
+  {
+   "src": "images/terrazzo-site-1.jpg",
+   "type": "site",
+   "caption": "건물 출입구 계단 바닥의 테라조(인조석 갈기) 마감",
+   "artist": "P. Hughes",
+   "license": "CC BY 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Miami_Beach_-_Terrazzo,_Hotel_Pierre.jpg"
   }
  ],
  "grass-block": [
@@ -1334,6 +1342,16 @@ window.LM_PHOTOS = {
    "artist": "Infrogmation",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Construction_around_sidewalk_manhole_cover,_O_C_Haley_Blvd_New_Orleans,_2_June_2026_-_1.jpg"
+  }
+ ],
+ "segmental-block": [
+  {
+   "src": "images/segmental-block-1.jpg",
+   "type": "material",
+   "caption": "어긋나게 쌓은 할석면 보강토 옹벽 블록",
+   "artist": "U3211603",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Retaining_Wall_Blocks.jpg"
   }
  ]
 };
