@@ -128,6 +128,14 @@ window.LM_PHOTOS = {
  ],
  "remicon": [
   {
+   "src": "images/remicon-1.jpg",
+   "type": "material",
+   "caption": "갓 타설하고 빗자루로 표면을 마감한 콘크리트 슬래브 가장자리 근접",
+   "artist": "Utah DOT (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/50341269@N05/15747015860"
+  },
+  {
    "src": "images/remicon-site-1.jpg",
    "type": "site",
    "caption": "레미콘 트럭과 펌프카로 기초 콘크리트 타설",
@@ -156,6 +164,14 @@ window.LM_PHOTOS = {
  ],
  "stone-landscape": [
   {
+   "src": "images/stone-landscape-1.jpg",
+   "type": "material",
+   "caption": "풍화된 표면이 살아 있는 자연 화강암 바위 — 조경석으로 쓰이는 자연석 (미국 타호 호수)",
+   "artist": "Len Gilbert (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/17833923@N00/1322729182"
+  },
+  {
    "src": "images/stone-landscape-site-1.jpg",
    "type": "site",
    "caption": "정원에 세워 놓은 경관석(조경석) 무리",
@@ -173,6 +189,14 @@ window.LM_PHOTOS = {
   }
  ],
  "boulder": [
+  {
+   "src": "images/boulder-1.jpg",
+   "type": "material",
+   "caption": "물살에 모서리가 닳아 둥글어진 강돌 근접 — 호박돌 특유의 둥근 형태와 다양한 암색",
+   "artist": "rkramer62 (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/26503922@N08/6233679473"
+  },
   {
    "src": "images/boulder-site-1.jpg",
    "type": "site",
@@ -201,6 +225,14 @@ window.LM_PHOTOS = {
   }
  ],
  "rubble": [
+  {
+   "src": "images/rubble-1.jpg",
+   "type": "material",
+   "caption": "쐐기로 쪼개 놓은 깬돌 — 날카로운 쪼갠 면 근접 (독일)",
+   "artist": "wwwuppertal (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/54788366@N00/12393845164"
+  },
   {
    "src": "images/rubble-site-1.jpg",
    "type": "site",
@@ -292,6 +324,14 @@ window.LM_PHOTOS = {
  ],
  "tarp": [
   {
+   "src": "images/tarp-1.jpg",
+   "type": "material",
+   "caption": "파란 PE 천막지(타포린) 근접 — 폴리에틸렌 띠를 격자로 짠 원단",
+   "artist": "wayupnorth2010 (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/54331051@N05/5932735498"
+  },
+  {
    "src": "images/tarp-site-1.jpg",
    "type": "site",
    "caption": "공사 중인 도로를 덮어 보호한 대형 천막지",
@@ -309,6 +349,14 @@ window.LM_PHOTOS = {
   }
  ],
  "flagstone": [
+  {
+   "src": "images/flagstone-1.jpg",
+   "type": "material",
+   "caption": "석재 야적장에 세워 쌓아 둔 사암 판석 — 얇게 쪼개진 판 모양 돌",
+   "artist": "W Lauzon (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/78314425@N07/27676770848"
+  },
   {
    "src": "images/flagstone-site-1.jpg",
    "type": "site",
@@ -469,6 +517,14 @@ window.LM_PHOTOS = {
   }
  ],
  "wire-mesh": [
+  {
+   "src": "images/wire-mesh-1.jpg",
+   "type": "material",
+   "caption": "겹쳐 쌓아 둔 와이어메시 근접 — 철선을 격자로 용접한 보강재",
+   "artist": "narin-flickr (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/72738738@N00/4762074825"
+  },
   {
    "src": "images/wire-mesh-site-1.jpg",
    "type": "site",
@@ -770,6 +826,14 @@ window.LM_PHOTOS = {
  ],
  "masato": [
   {
+   "src": "images/masato-1.jpg",
+   "type": "material",
+   "caption": "마사토(풍화 화강토) 근접 — 굵은 모래 크기의 각진 입자 (해외 decomposed granite)",
+   "artist": "dustysnowcrash (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/43182259@N06/6809513309"
+  },
+  {
    "src": "images/masato-site-1.jpg",
    "type": "site",
    "caption": "마사토(풍화 화강토)로 포장한 산책·자전거 길",
@@ -890,6 +954,14 @@ window.LM_PHOTOS = {
  ],
  "permeable-block": [
   {
+   "src": "images/permeable-block-1.jpg",
+   "type": "material",
+   "caption": "넓은 줄눈에 쇄석을 채워 빗물이 스며들게 한 투수블록 포장 근접",
+   "artist": "Center for Neighborhood Technology (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/29965049@N00/4669300221"
+  },
+  {
    "src": "images/permeable-block-site-1.jpg",
    "type": "site",
    "caption": "동물원 보행로에 시공된 투수블록 포장 (빗물 침투용)",
@@ -984,6 +1056,14 @@ window.LM_PHOTOS = {
  ],
  "tree-stake": [
   {
+   "src": "images/tree-stake-1.jpg",
+   "type": "material",
+   "caption": "끝을 뾰족하게 깎아 다듬은 원주목(지주목) 더미",
+   "artist": "#ODF (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/97482765@N07/17073366339"
+  },
+  {
    "src": "images/tree-stake-site-1.jpg",
    "type": "site",
    "caption": "원주목 2각 지주와 가로대로 고정한 가로수",
@@ -1020,6 +1100,14 @@ window.LM_PHOTOS = {
  ],
  "structural-lumber": [
   {
+   "src": "images/structural-lumber-1.jpg",
+   "type": "material",
+   "caption": "목재 야적장에 규격별로 결속해 쌓아 둔 구조용 제재목",
+   "artist": "Alabama Extension (flickr)",
+   "license": "CC0",
+   "url": "https://www.flickr.com/photos/184594136@N08/52719905768"
+  },
+  {
    "src": "images/structural-lumber-site-1.jpg",
    "type": "site",
    "caption": "구조목(규격재)으로 세운 경골 목조주택 골조",
@@ -1039,6 +1127,14 @@ window.LM_PHOTOS = {
   }
  ],
  "artificial-turf": [
+  {
+   "src": "images/artificial-turf-1.jpg",
+   "type": "material",
+   "caption": "인조잔디 근접 — 잔디 잎 모양으로 뽑은 합성수지 파일(원사)",
+   "artist": "Jonathan Desrosiers (wordpress)",
+   "license": "CC0",
+   "url": "https://wordpress.org/photos/photo/56765a6a2a/"
+  },
   {
    "src": "images/artificial-turf-site-1.jpg",
    "type": "site",
@@ -1085,6 +1181,14 @@ window.LM_PHOTOS = {
   }
  ],
  "subbase": [
+  {
+   "src": "images/subbase-1.jpg",
+   "type": "material",
+   "caption": "모난 쇄석 골재 근접 — 보조기층재의 주재료인 부순 돌 (입도 조정 전 단일 크기)",
+   "artist": "wwarby (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/26782864@N00/5107348452"
+  },
   {
    "src": "images/subbase-site-1.jpg",
    "type": "site",
@@ -1196,9 +1300,25 @@ window.LM_PHOTOS = {
    "artist": "Alain Seguin at Flickr, from Ottawa, Canada",
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:Korea-Seoul-Changdeokgung-Donginmun-01.jpg"
+  },
+  {
+   "src": "images/jangdaeseok-site-2.jpg",
+   "type": "site",
+   "caption": "경복궁 전각 계단 — 길게 다듬은 장대석을 층층이 쌓고 가운데 답도를 둔 모습",
+   "artist": "yewenyi (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/30265340@N00/338783451"
   }
  ],
  "wapyeon-wall": [
+  {
+   "src": "images/wapyeon-wall-1.jpg",
+   "type": "material",
+   "caption": "경복궁 자경전 십장생 굴뚝 벽면 — 전돌과 문양판을 짜 맞춘 꽃담 기법 근접",
+   "artist": "Amaury Laporte (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/8283439@N04/31034120830"
+  },
   {
    "src": "images/wapyeon-wall-site-1.jpg",
    "type": "site",
@@ -1209,6 +1329,14 @@ window.LM_PHOTOS = {
   }
  ],
  "todam": [
+  {
+   "src": "images/todam-1.jpg",
+   "type": "material",
+   "caption": "짚을 섞어 반죽한 흙벽 재료 근접 — 흙과 짚 여물이 보인다 (해외 어도비 사례)",
+   "artist": "puroticorico (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/10058483@N00/2378424377"
+  },
   {
    "src": "images/todam-site-1.jpg",
    "type": "site",
@@ -1255,6 +1383,14 @@ window.LM_PHOTOS = {
   }
  ],
  "powder-coating": [
+  {
+   "src": "images/powder-coating-1.jpg",
+   "type": "material",
+   "caption": "빨간색 분체도장을 마친 강관 프레임 — 두껍고 균일한 광택 도막",
+   "artist": "REDMAXSPEEDSHOP.COM (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/36766110@N08/53970697069"
+  },
   {
    "src": "images/powder-coating-site-1.jpg",
    "type": "site",
@@ -1444,6 +1580,14 @@ window.LM_PHOTOS = {
  ],
  "sprinkler": [
   {
+   "src": "images/sprinkler-1.jpg",
+   "type": "material",
+   "caption": "공원 식재지에 세운 회전식(임팩트형) 스프링클러 헤드 근접",
+   "artist": "Ivan Radic (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/26344495@N05/51356458546"
+  },
+  {
    "src": "images/sprinkler-site-1.jpg",
    "type": "site",
    "caption": "운동장 잔디에 물을 뿌리는 팝업 스프링클러",
@@ -1526,6 +1670,14 @@ window.LM_PHOTOS = {
  ],
  "cable-conduit": [
   {
+   "src": "images/cable-conduit-1.jpg",
+   "type": "material",
+   "caption": "간격재로 묶은 PVC 전선관 다발 — 지중 관로에 넣기 직전 (해외 사례)",
+   "artist": "MTA C&D - EAST SIDE ACCESS (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/59595815@N03/10981412616"
+  },
+  {
    "src": "images/cable-conduit-site-1.jpg",
    "type": "site",
    "caption": "포장 바닥에서 올라온 지중 매설용 주름 전선관(CD관)",
@@ -1580,6 +1732,14 @@ window.LM_PHOTOS = {
    "artist": "voyager.annelid",
    "license": "CC BY 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Kupferle_Foundry_%22Eclipse_No._2%22_Yard_Hydrant,_Jaffrey,_NH.jpg"
+  },
+  {
+   "src": "images/hydrant-site-2.jpg",
+   "type": "site",
+   "caption": "건물 외벽의 옥외 급수전과 호스 릴 (해외 사례)",
+   "artist": "bwaters23 (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/27987390@N00/8635341758"
   }
  ],
  "linear-led": [
@@ -1608,6 +1768,238 @@ window.LM_PHOTOS = {
    "artist": "johny",
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Pervious_concrete.JPG"
+  },
+  {
+   "src": "images/permeable-concrete-site-1.jpg",
+   "type": "site",
+   "caption": "정원 산책로에 포설한 투수콘크리트 포장 — 굵은 골재 사이 공극이 보인다 (해외 사례)",
+   "artist": "Alabama Extension (flickr)",
+   "license": "CC0",
+   "url": "https://www.flickr.com/photos/184594136@N08/52312958516"
+  },
+  {
+   "src": "images/permeable-concrete-site-2.jpg",
+   "type": "site",
+   "caption": "주차장에 시공한 투수콘크리트 포장 (해외 사례)",
+   "artist": "NYS Stormwater Green Infrastructure (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/131402048@N04/16731882877"
+  }
+ ],
+ "treated-lumber": [
+  {
+   "src": "images/treated-lumber-1.jpg",
+   "type": "material",
+   "caption": "가압 방부처리로 녹색빛이 도는 방부목 더미",
+   "artist": "SuButcher (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/76803091@N00/6688996993"
+  },
+  {
+   "src": "images/treated-lumber-site-1.jpg",
+   "type": "site",
+   "caption": "보도와 화단 사이 경계재로 쓴 방부 처리 조경용 각목 — 오래되어 회색으로 풍화됨 (해외 사례)",
+   "artist": "HomeAid National Capital Region (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/50748874@N02/53043779210"
+  }
+ ],
+ "kenchi": [
+  {
+   "src": "images/kenchi-site-1.jpg",
+   "type": "site",
+   "caption": "일본 요코하마 오오카강 호안의 間知石(견치석) 쌓기 — 사각뿔 모양 돌을 맞춰 쌓은 1862년 석축 (재현 전시)",
+   "artist": "小田嶋鉄朗 (wikimedia)",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/w/index.php?curid=98311528"
+  }
+ ],
+ "coir-mat": [
+  {
+   "src": "images/coir-mat-site-1.jpg",
+   "type": "site",
+   "caption": "옥상녹화 면에 깐 천연섬유(야자·황마류) 그물 매트 사이로 식물이 자라는 모습 (해외 사례)",
+   "artist": "dawneday (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/7998285@N08/483912610"
+  }
+ ],
+ "overflow-drain": [
+  {
+   "src": "images/overflow-drain-site-1.jpg",
+   "type": "site",
+   "caption": "빗물정원 식재지에 설치한 돔형 오버플로 배수구 — 고인 물이 일정 높이를 넘으면 배수관으로 빠진다 (해외 사례)",
+   "artist": "gregraisman (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/84977575@N00/5497789963"
+  },
+  {
+   "src": "images/overflow-drain-site-2.jpg",
+   "type": "site",
+   "caption": "저수지의 나팔형 월류 배수구(벨마우스 여수로) — 수위가 넘치면 물이 빠지는 대형 오버플로 (북아일랜드 사일런트밸리)",
+   "artist": "Daniel Morrison (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/36561624@N00/4106825817"
+  }
+ ],
+ "inground-light": [
+  {
+   "src": "images/inground-light-site-1.jpg",
+   "type": "site",
+   "caption": "콘크리트 보행로 바닥에 일렬로 매입한 원형 바닥등 (야간)",
+   "artist": "Lisa Padilla (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/43885961@N00/267584035"
+  },
+  {
+   "src": "images/inground-light-site-2.jpg",
+   "type": "site",
+   "caption": "광장 바닥에 매입해 가로수를 아래에서 비추는 업라이트 (야간, 해외 사례)",
+   "artist": "josbert.lonnee (flickr)",
+   "license": "Public domain",
+   "url": "https://www.flickr.com/photos/98552965@N05/32059102491"
+  }
+ ],
+ "oil-stain": [
+  {
+   "src": "images/oil-stain-1.jpg",
+   "type": "material",
+   "caption": "적갈색 오일스테인을 칠한 데크 판재 — 반투명 착색이라 나뭇결이 비친다",
+   "artist": "OlgerFallasPainting (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/49364825@N02/6843090767"
+  },
+  {
+   "src": "images/oil-stain-site-1.jpg",
+   "type": "site",
+   "caption": "오일스테인을 새로 칠한 목재 데크와 난간·벤치 (해외 사례)",
+   "artist": "b0jangles (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/81474147@N00/4666657798"
+  },
+  {
+   "src": "images/oil-stain-site-2.jpg",
+   "type": "site",
+   "caption": "현관 포치 목재 바닥에 스테인을 칠한 모습 (해외 사례)",
+   "artist": "Johnny Frenette (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/162821063@N04/46983790315"
+  }
+ ],
+ "water-repellent": [
+  {
+   "src": "images/water-repellent-1.jpg",
+   "type": "material",
+   "caption": "발수 처리된 매끈한 표면 위에서 물이 스며들지 않고 방울로 맺히는 '비딩' 현상 (예시)",
+   "artist": "PunkToad (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/83699771@N00/6240391911"
+  },
+  {
+   "src": "images/water-repellent-site-1.jpg",
+   "type": "site",
+   "caption": "블록 포장에 보호용 실러(발수·방오 코팅)를 바른 뒤의 모습 — 색이 짙고 선명해진다 (해외 사례)",
+   "artist": "LISgirl (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/62357671@N00/42795116910"
+  },
+  {
+   "src": "images/water-repellent-site-2.jpg",
+   "type": "site",
+   "caption": "베를린 홀로코스트 추모비의 콘크리트 기둥 — 발수·낙서방지 코팅 표면에 빗방울이 맺혀 있다",
+   "artist": "WordRidden (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/97844767@N00/1901769512"
+  }
+ ],
+ "choseok": [
+  {
+   "src": "images/choseok-1.jpg",
+   "type": "material",
+   "caption": "울진 망양정을 1860년 옮겨 지을 때 쓰인 자연석 주춧돌(덤벙주초) — 현재 전시 중",
+   "artist": "엔디미온 (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/27853000@N02/4916301697"
+  },
+  {
+   "src": "images/choseok-site-1.jpg",
+   "type": "site",
+   "caption": "부산 범어사 일주문 — 높은 돌기둥 초석 위에 짧은 나무기둥을 얹은 구조 (원본 하단 촬영자 서명 부분을 잘라 냄)",
+   "artist": "Ted's photos - Returns in December (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/90955804@N04/48431190342"
+  }
+ ],
+ "bajaul": [
+  {
+   "src": "images/bajaul-1.jpg",
+   "type": "material",
+   "caption": "가는 잔가지를 촘촘히 세워 가로로 엮은 바자 울타리 면 (질감 근접)",
+   "artist": "Andrew Beeston (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/94018078@N00/6955511585"
+  },
+  {
+   "src": "images/bajaul-site-1.jpg",
+   "type": "site",
+   "caption": "나뭇가지를 말뚝 사이에 엮어 만든 울타리(워틀 펜스) — 바자울과 같은 엮음 방식 (해외 사례)",
+   "artist": "vitamindave (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/26344918@N04/6062596442"
+  },
+  {
+   "src": "images/bajaul-site-2.jpg",
+   "type": "site",
+   "caption": "서울 북촌 한옥 담장 옆에 세운 잔가지 바자울 — 가로 띠장으로 고정",
+   "artist": "Passion84Photos (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/29874058@N00/485749656"
+  }
+ ],
+ "samhwato": [
+  {
+   "src": "images/samhwato-site-1.jpg",
+   "type": "site",
+   "caption": "중국 상나라 궁전터의 다짐흙 바닥(유리창 아래 보존 전시) — 흙을 단단히 다져 만든 옛 바닥의 참고 사례",
+   "artist": "Gary Lee Todd, Ph.D. (flickr)",
+   "license": "CC0",
+   "url": "https://www.flickr.com/photos/101561334@N08/10197372283"
+  }
+ ],
+ "square-timber": [
+  {
+   "src": "images/square-timber-1.jpg",
+   "type": "material",
+   "caption": "각재 마구리(단면) 근접 — 사각 단면으로 켠 각재 묶음",
+   "artist": "haru__q (flickr)",
+   "license": "CC BY-SA 2.0",
+   "url": "https://www.flickr.com/photos/61338164@N02/14813048493"
+  },
+  {
+   "src": "images/square-timber-2.jpg",
+   "type": "material",
+   "caption": "목재 야적장에 철끈으로 결속해 쌓아 둔 각재·판재 더미",
+   "artist": "Public Domain Photos (flickr)",
+   "license": "CC BY 2.0",
+   "url": "https://www.flickr.com/photos/28958738@N06/8417959451"
+  }
+ ],
+ "root-barrier": [
+  {
+   "src": "images/root-barrier-site-1.jpg",
+   "type": "site",
+   "caption": "옥상녹화 시공 중 — 슬래브 위에 흰색 방수·방근 시트를 먼저 깔아 마감한 모습 (해외 사례)",
+   "artist": "Mississippi WMO (flickr)",
+   "license": "CC BY-NC 2.0",
+   "url": "https://www.flickr.com/photos/134605195@N07/48014811446"
+  },
+  {
+   "src": "images/root-barrier-site-2.jpg",
+   "type": "site",
+   "caption": "방수·방근층 위에 세덤 식생매트를 펼쳐 까는 옥상녹화 시공 (해외 사례)",
+   "artist": "cseeman (flickr)",
+   "license": "CC BY-NC-SA 2.0",
+   "url": "https://www.flickr.com/photos/7702423@N04/2679699389"
   }
  ]
 };
