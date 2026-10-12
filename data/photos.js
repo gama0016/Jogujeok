@@ -209,5 +209,219 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Gabion_basket_stone_walls_at_Corinda,_Queensland.jpg"
   }
+ ],
+ "bench": [
+  {
+   "src": "images/bench-1.jpg",
+   "type": "material",
+   "caption": "목재 좌판 벤치 근접",
+   "artist": "David Ratledge",
+   "license": "CC BY 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wooden_Bench_-_Fountain_City_Lake_Public_Park_%26_Duck_Pond_-_Knoxville,_Tennessee_-_October_25,_2014.jpg"
+  },
+  {
+   "src": "images/bench-site-1.jpg",
+   "type": "site",
+   "caption": "정원 산책로변에 설치된 목재 벤치",
+   "artist": "Basile Morin",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Front_view_of_a_wooden_outdoor_bench_in_Singapore_Botanic_Gardens_with_plants_in_sunshine_and_blue_sky.jpg"
+  }
+ ],
+ "pergola": [
+  {
+   "src": "images/pergola-1.jpg",
+   "type": "material",
+   "caption": "벽돌 기둥과 목재 보로 만든 퍼걸러",
+   "artist": "Daniel Case",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Rose_Pergola_at_Kew_Gardens.jpg"
+  },
+  {
+   "src": "images/pergola-site-1.jpg",
+   "type": "site",
+   "caption": "덩굴장미를 올린 터널형 퍼걸러 산책로",
+   "artist": "Andy Li",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Agius_Evolution_Garden_pergola_2025-05-14.jpg"
+  }
+ ],
+ "play-structure": [
+  {
+   "src": "images/play-structure-1.jpg",
+   "type": "material",
+   "caption": "미끄럼틀이 결합된 플라스틱 조합놀이대",
+   "artist": "Taken by Elf | Talk",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:PlayEquipComboPlastic_wb.jpg"
+  },
+  {
+   "src": "images/play-structure-site-1.jpg",
+   "type": "site",
+   "caption": "공원 놀이터에 설치된 조합놀이대",
+   "artist": "Barsaka2",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:UR_Ibaraki_Mishimaoka_East_combination_play_equipment.jpg"
+  }
+ ],
+ "curbstone": [
+  {
+   "src": "images/curbstone-1.jpg",
+   "type": "material",
+   "caption": "도로와 보도 사이에 놓인 화강석 경계석(가운데 밝은 줄)",
+   "artist": "Robert Brook from London, UK",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:GraniteKerbWithCobblestones.jpg"
+  },
+  {
+   "src": "images/curbstone-site-1.jpg",
+   "type": "site",
+   "caption": "화강석 경계석 설치 공사 현장",
+   "artist": "Rcsprinter123",
+   "license": "CC BY 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Laying_the_kerb,_Sheepcote_Street,_Birmingham.jpg"
+  },
+  {
+   "src": "images/curbstone-site-2.jpg",
+   "type": "site",
+   "caption": "콘크리트 경계석을 장비로 들어 설치하는 모습",
+   "artist": "Kenneth  Allen",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Unloading_kerbs,_Omagh_-_geograph.org.uk_-_3593474.jpg"
+  }
+ ],
+ "tarp": [
+  {
+   "src": "images/tarp-site-1.jpg",
+   "type": "site",
+   "caption": "공사 중인 도로를 덮어 보호한 대형 천막지",
+   "artist": "Basile Morin",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Giant_tarpaulin_covering_a_road_under_construction_at_sunrise_with_a_colorful_sky_in_Don_Det_Laos.jpg"
+  },
+  {
+   "src": "images/tarp-site-2.jpg",
+   "type": "site",
+   "caption": "발굴 현장 바닥을 덮고 파이프로 눌러 둔 PE 비닐 시트",
+   "artist": "peganum from Small Dole, England",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Mypex_-_Flickr_-_peganum_(2).jpg"
+  }
+ ],
+ "flagstone": [
+  {
+   "src": "images/flagstone-site-1.jpg",
+   "type": "site",
+   "caption": "부정형 판석(난형 판석)을 깐 정원 바닥",
+   "artist": "Barbara Carr",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Colchicums_and_crazy-paving_-_geograph.org.uk_-_3390907.jpg"
+  }
+ ],
+ "stepping-stone": [
+  {
+   "src": "images/stepping-stone-site-1.jpg",
+   "type": "site",
+   "caption": "연못을 건너도록 놓은 판석 디딤돌",
+   "artist": "Jean Aldridge",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Burgie_Arboretum_-_Japanese_Garden_Stepping_Stones_-_geograph.org.uk_-_6266727.jpg"
+  },
+  {
+   "src": "images/stepping-stone-site-2.jpg",
+   "type": "site",
+   "caption": "개울을 건너도록 놓은 다듬은 돌 징검다리(디딤돌)",
+   "artist": "The Richardson Fosters",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Stepping_Stones_by_The_Richardson_Fosters.jpg"
+  }
+ ],
+ "gazebo": [
+  {
+   "src": "images/gazebo-1.jpg",
+   "type": "material",
+   "caption": "창덕궁 후원의 육각 정자(존덕정)",
+   "artist": "travel oriented",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Changdeokgung_Huwon_19.jpg"
+  },
+  {
+   "src": "images/gazebo-2.jpg",
+   "type": "material",
+   "caption": "공원의 팔각 목조 쉼터(가제보)",
+   "artist": "Leutha",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wooden_Gazebo,_Holy_Wells_Park,_Ipswich.jpg"
+  }
+ ],
+ "car-bollard": [
+  {
+   "src": "images/car-bollard-1.jpg",
+   "type": "material",
+   "caption": "보도의 주철 차량 진입 방지 말뚝",
+   "artist": "M.Minderhoud",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Amsterdammertje.jpg"
+  },
+  {
+   "src": "images/car-bollard-2.jpg",
+   "type": "material",
+   "caption": "보도 경계에 일렬로 설치된 스테인리스 볼라드",
+   "artist": "Acabashi",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Bollards_in_Haringey_London_England_1.jpg"
+  },
+  {
+   "src": "images/car-bollard-site-1.jpg",
+   "type": "site",
+   "caption": "횡단보도 모서리의 구형 석재 볼라드",
+   "artist": "Design for Health",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Washington_D.C._Decorative_Bollards_Design_for_Health.jpg"
+  }
+ ],
+ "planter": [
+  {
+   "src": "images/planter-1.jpg",
+   "type": "material",
+   "caption": "꽃을 심은 사각 테라코타 플랜터",
+   "artist": "Dominicus Johannes Bergsma",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Vierkante_bloembakken._Locatie,_Tuinen_Mien_Ruys.jpg"
+  },
+  {
+   "src": "images/planter-site-1.jpg",
+   "type": "site",
+   "caption": "광장에 설치된 석재 마감 대형 플랜터",
+   "artist": "BrokenSphere",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:History_of_Union_Square_planter_box_carving.JPG"
+  }
+ ],
+ "saguseok": [
+  {
+   "src": "images/saguseok-1.jpg",
+   "type": "material",
+   "caption": "포장용 화강석 사고석(정육면체 블록) 자재",
+   "artist": "Frankie Fouganthin",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Setts_in_Stockholm.jpg"
+  },
+  {
+   "src": "images/saguseok-site-1.jpg",
+   "type": "site",
+   "caption": "사고석 부채꼴 포장 시공 과정",
+   "artist": "BrankaVV",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Sett_paving_process.jpg"
+  },
+  {
+   "src": "images/saguseok-site-2.jpg",
+   "type": "site",
+   "caption": "사고석으로 포장한 가로수 길",
+   "artist": "Bill Harrison",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Granite_setts_-_geograph.org.uk_-_4997354.jpg"
+  }
  ]
 };

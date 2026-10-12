@@ -1,0 +1,1 @@
+window.LM_PRICES = {};

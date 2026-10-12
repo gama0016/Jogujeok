@@ -232,6 +232,58 @@
     'irrigation-pipe': { kind: 'pipe', title: '관수 PE관 매설', pipes: [{ r: 12, n: 'PE Φ32 (본관)', fill: '#2b2b2b' }, { r: 9, n: 'PE Φ20', fill: '#2b2b2b' }], cover: '토피 300~600', tapeLabel: '관수관 표시 테이프' },
     'irrigation-controller': { kind: 'sprinkler', variant: 'hydrant', title: '밸브박스 안 전자밸브', head: '전자밸브 (솔밸브)' },
     'hydrant': { kind: 'sprinkler', variant: 'hydrant', title: '퀵커플러·살수전 박스' },
-    'rain-tank': { kind: 'box', variant: 'tank', title: '지하 빗물저류조 (모듈형)' }
+    'rain-tank': { kind: 'box', variant: 'tank', title: '지하 빗물저류조 (모듈형)' },
+
+    // ----- 시설물 -----
+    'bench': { kind: 'bench', title: '등벤치 설치 단면' },
+    'pergola': { kind: 'pergola', title: '목재 퍼걸러', post: '기둥 150×150 (방부목·집성재)', beam: '보 2×10 겹보' },
+    'gazebo': { kind: 'pergola', variant: 'roof', title: '정자·쉼터 (개념)', post: '기둥 (원형 Φ200~300)', beam: '보·도리' },
+    'play-structure': { kind: 'pole', type: 'post', title: '조합놀이대 기둥과 충격흡수 바닥', body: '놀이대 기둥 (스틸·알루미늄)', footing: '기초 (윗면은 바닥재 아래로 묻음)', conduit: false, surfaceP: 'rubber', surface: '충격흡수 바닥 (탄성포장)' },
+    'car-bollard': { kind: 'pole', type: 'post', title: '차량 진입 방지 볼라드 고정', body: '볼라드 (높이 800~1,000)', footing: '기초 콘크리트 (매립·앵커)', conduit: false },
+    'planter': L('플랜터 내부 단면', [
+      { n: '멀칭', t: '30~50', h: 40, p: 'mulch' },
+      { n: '식재 토양 (초화 300 / 관목 450~600)', t: '', h: 260, p: 'soil' },
+      { n: '부직포', line: 'geotex' },
+      { n: '배수층 (자갈·배수판)', t: '50~100', h: 70, p: 'gravel' }], { groundLabel: '플랜터 바닥 (배수구)', groundP: 'metal', scale: 0.38 }),
+
+    // ----- 녹화자재 -----
+    'green-roof-module': L('모듈형 옥상녹화 단면', [
+      { n: '세덤류 식생', t: '', h: 30, p: 'turf' },
+      { n: '경량토 (트레이 안)', t: '50~150', h: 100, p: 'artsoil' },
+      { n: '트레이 모듈 (배수 요철)', t: '', h: 30, p: 'plastic' },
+      { n: '보호매트', line: 'geotex' },
+      { n: '방근시트', line: 'membrane' },
+      { n: '방수층·구조체 슬래브', h: 120, p: 'conc' }], { groundLabel: '건물 구조체', groundP: 'conc' }),
+    'vegetation-mat': L('식생매트 덮기 (토사 비탈면)', [
+      { n: '식생매트 (종자·비료 부착)', t: '10~20', h: 20, p: 'mulch' },
+      { n: '고정핀 (U핀·말뚝) 0.5~1m 간격', line: 'mesh' },
+      { n: '비탈면 표토 (고르기)', h: 120, p: 'soil' }], { groundLabel: '비탈면 원지반', slope: '윗마루 끝은 땅에 묻어 고정' }),
+    'soil-spray': L('녹생토 취부 (암반 비탈면)', [
+      { n: '식생기반재 (녹생토) 취부', t: '30~100', h: 80, p: 'soil' },
+      { n: '철망 (라스망) + 앵커핀', line: 'mesh' },
+      { n: '암반 비탈면 (뜬돌 제거)', h: 120, p: 'stone' }], { groundLabel: '원지반 (암반)', groundP: 'stone' }),
+
+    // ----- 토양개량재 -----
+    'compost': L('식재 토양 개량 (퇴비 혼합)', [
+      { n: '멀칭', t: '50', h: 50, p: 'mulch' },
+      { n: '식재 토양 + 퇴비 혼합 (부피 10~20%)', t: '300~600', h: 220, p: 'soil' },
+      { n: '심토 (기존 흙)', h: 100, p: 'soil' }], { scale: 0.4 }),
+    'lime': L('산성 토양 개량 (석회 혼합)', [
+      { n: '표토 + 고토석회 혼합 (pH 검정 후)', t: '200~300', h: 200, p: 'sand' },
+      { n: '심토', h: 120, p: 'soil' }], { scale: 0.45 }),
+
+    // ----- 도료·마감재 -----
+    'oil-stain': { kind: 'deck', title: '오일스테인을 칠하는 곳 — 데크', boardLabel: '데크재 윗면·옆면·절단면 도장', screw: '피스 머리 주변까지 꼼꼼히' },
+    'anticorrosion-paint': L('철재 도장 체계 (확대 단면)', [
+      { n: '상도 (우레탄, 색·내후성)', t: '30~50μm', h: 40, p: 'rubber' },
+      { n: '중도 (에폭시)', t: '50~100μm', h: 50, p: 'mortar' },
+      { n: '하도 (방청 프라이머)', t: '40~75μm', h: 50, p: 'brick' }], { groundLabel: '강재 바탕 (녹·기름 제거)', groundP: 'metal', scale: 0.8 }),
+    'powder-coating': L('분체도장 단면 (확대)', [
+      { n: '분체 도막 (소부 180~200℃)', t: '60~100μm', h: 60, p: 'rubber' },
+      { n: '전처리 피막 (인산염)', line: 'membrane' },
+      { n: '아연도금층 (이중 방청 시)', t: '', h: 30, p: 'mortar' }], { groundLabel: '강재·알루미늄 바탕', groundP: 'metal', scale: 0.8 }),
+    'water-repellent': L('발수제 침투 (확대 단면)', [
+      { n: '발수제 침투층 (표면 수 mm)', t: '', h: 30, p: 'water' },
+      { n: '석재·콘크리트', h: 140, p: 'stone' }], { groundLabel: '바탕', groundP: 'stone' })
   };
 })();

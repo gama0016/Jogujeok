@@ -76,8 +76,9 @@
     label: function (x, y, t) { this.labels.push({ x: x, y: y, t: t }); },
     ground: function (x, y, w, h) { this.rect(x, y, w, h || 30, 'earth', 'stroke="none"'); this.line(x, y, x + w, y); },
     svg: function () {
-      // 라벨 겹침 정리
-      var L = this.labels.slice().sort(function (a, b) { return a.y - b.y; });
+      // 라벨 겹침 정리 (시공 단계에서는 이미 시공된 부분의 라벨만)
+      var clipY = this.clipY;
+      var L = this.labels.filter(function (l) { return clipY == null || clipY <= 0 || l.y >= clipY - 1; }).sort(function (a, b) { return a.y - b.y; });
       var gap = 17, minY = 16, maxY = this.h - 8;
       L.forEach(function (l, i) { l.ly = Math.max(l.y, i ? L[i - 1].ly + gap : minY); });
       for (var i = L.length - 1; i >= 0; i--) {
@@ -89,9 +90,17 @@
           '<polyline points="' + l.x + ',' + l.y + ' ' + (LX - 14) + ',' + l.ly + ' ' + (LX - 4) + ',' + l.ly + '" fill="none" stroke="#c0392b" stroke-width=".9"/>' +
           '<text x="' + LX + '" y="' + (l.ly + 4) + '" font-size="12.5" fill="#1d1d1d">' + esc(l.t) + '</text>';
       }).join('');
+      var body = this.parts.join('');
+      if (this.clipY != null && this.clipY > 0) {
+        // 시공 단계: 아직 시공하지 않은 부분은 흐리게, 시공된 부분(clipY 아래)만 진하게
+        var cy = this.clipY;
+        body = '<clipPath id="' + this.P + 'clip"><rect x="0" y="' + cy + '" width="' + VBW + '" height="' + (this.h - cy) + '"/></clipPath>' +
+          '<g opacity=".13">' + body + '</g><g clip-path="url(#' + this.P + 'clip)">' + body + '</g>' +
+          '<line x1="20" y1="' + cy + '" x2="440" y2="' + cy + '" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>';
+      }
       return '<svg class="section-svg" viewBox="0 0 ' + VBW + ' ' + this.h + '" xmlns="http://www.w3.org/2000/svg" role="img">' +
         defs(this.P) + '<rect width="' + VBW + '" height="' + this.h + '" fill="#fdfcf8"/>' +
-        this.parts.join('') + out + '</svg>';
+        body + out + '</svg>';
     }
   };
 
@@ -132,8 +141,12 @@
       c.label(X + W * (0.58 + (i % 3) * 0.12), y + h / 2, lt(l));
       y += h;
     });
-    c.ground(X, y, W, 34);
+    if (s.groundP) { c.rect(X, y, W, 34, s.groundP); } else { c.ground(X, y, W, 34); }
     c.label(X + W * 0.86, y + 18, s.groundLabel || '원지반 다짐');
+    if (s.stage && s.stage.upto != null && s.stage.upto < s.layers.length) {
+      var n = s.layers.length, k = s.stage.upto;
+      c.clipY = k <= 0 ? y : ys[n - k];
+    }
     if (s.insert) {
       var ins = s.insert, iw = ins.w || 60, ix = X + W * 0.28;
       var depth = 0, n = ins.through || 2;
@@ -150,6 +163,7 @@
   // ---------- 2. 경계석 ----------
   function curb(s) {
     var c = new Canvas(300), k = 0.55;
+    var st = s.stage && s.stage.st != null ? s.stage.st : 99;
     var G = 245, X = 30, W = 400;
     c.ground(X, G, W, 36);
     var cw = (s.cw || 150) * k, ch = (s.ch || 300) * k, cx = 230;
@@ -161,7 +175,7 @@
     var yy = paveTop, tot = 0;
     left.forEach(function (l) { tot += l.h * k; });
     var fit = (G - paveTop) / tot;
-    left.forEach(function (l, i) {
+    if (st >= 4) left.forEach(function (l, i) {
       var h = l.h * k * fit;
       c.rect(X, yy, cx - X - 30, h, l.p, l.joints ? '' : '');
       if (i === 0 && l.joints) for (var jx = X + 30; jx < cx - 30; jx += 30) c.line(jx, yy, jx, yy + h, 'stroke-width="2.4" stroke="#bfae7a"');
@@ -169,28 +183,33 @@
       yy += h;
     });
     // 기초 콘크리트
-    c.rect(cx - 30, baseY, cw + 60, baseH, 'conc');
+    if (st >= 1) c.rect(cx - 30, baseY, cw + 60, baseH, 'conc');
     // 뒷채움(뒷굽) 콘크리트
-    c.poly([[cx + cw, baseY], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], 'conc');
+    if (st >= 3) c.poly([[cx + cw, baseY], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], 'conc');
     // 오른쪽 흙
     var soilTop = curbTop + (s.soilDrop || 50) * k;
-    c.poly([[cx + cw, soilTop], [X + W, soilTop], [X + W, G], [cx + cw + 30, G], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], s.rightP || 'soil');
-    if ((s.rightP || 'soil') === 'soil' && s.turf) c.turfTop(cx + cw + 2, soilTop, X + W - cx - cw - 4);
+    if (st >= 4) c.poly([[cx + cw, soilTop], [X + W, soilTop], [X + W, G], [cx + cw + 30, G], [cx + cw + 30, baseY], [cx + cw, baseY - ch * 0.45]], s.rightP || 'soil');
+    if (st >= 4 && (s.rightP || 'soil') === 'soil' && s.turf) c.turfTop(cx + cw + 2, soilTop, X + W - cx - cw - 4);
     // 경계석
-    c.rect(cx, curbTop, cw, ch, 'stone');
-    c.path('M' + cx + ' ' + (curbTop + 6) + ' L' + (cx + 6) + ' ' + curbTop, 'stroke="#333" stroke-width="1" fill="none"');
-    c.label(cx + cw / 2, curbTop + ch * 0.3, s.curbLabel || '경계석');
-    c.label(cx + cw / 2, baseY + baseH / 2, '기초 콘크리트 t100');
-    c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
-    c.label(X + W - 40, soilTop + 20, s.rightLabel || '식재지 토양');
+    if (st >= 2) {
+      c.rect(cx, curbTop, cw, ch, 'stone');
+      c.path('M' + cx + ' ' + (curbTop + 6) + ' L' + (cx + 6) + ' ' + curbTop, 'stroke="#333" stroke-width="1" fill="none"');
+      c.label(cx + cw / 2, curbTop + ch * 0.3, s.curbLabel || '경계석');
+    }
+    if (st === 2) c.line(X, curbTop, X + W, curbTop, 'stroke="#c0392b" stroke-dasharray="6 4"');
+    if (st === 2) c.text(X + 4, curbTop - 6, '실띄우기 (선형·높이 기준)', 'fill="#c0392b"');
+    if (st >= 1) c.label(cx + cw / 2, baseY + baseH / 2, '기초 콘크리트 t100');
+    if (st >= 3) c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
+    if (st >= 4) c.label(X + W - 40, soilTop + 20, s.rightLabel || '식재지 토양');
     c.label(X + W - 30, G + 18, '원지반 다짐');
-    c.text(cx - 4, 18, '줄눈 10mm · 1,000mm마다');
+    if (st >= 4) c.text(cx - 4, 18, '줄눈 10mm · 1,000mm마다');
     return c.svg();
   }
 
   // ---------- 3. 옹벽·쌓기 ----------
   function wall(s) {
     var c = new Canvas(340);
+    if (s.stage && s.stage.y != null) c.clipY = s.stage.y;
     var X = 20, W = 420, base = 290, H = 210, top = base - H;
     var face = s.face || 'kenchi';
     c.ground(X, base + 10, W, 36);
@@ -272,6 +291,7 @@
   // ---------- 4. 데크 ----------
   function deck(s) {
     var c = new Canvas(300), X = 30, W = 400, G = 230;
+    if (s.stage && s.stage.y != null) c.clipY = s.stage.y;
     c.ground(X, G, W, 40);
     c.rect(X, G - 14, W, 14, 'crushed');
     c.label(X + 30, G - 7, s.under || '쇄석 + 잡초방지 시트');
@@ -298,20 +318,25 @@
   // ---------- 5. 암거 (유공관) ----------
   function trench(s) {
     var c = new Canvas(320), X = 30, W = 400, G = 70;
-    c.rect(X, G, W, 250, 'soil');
-    if (s.turf !== false) c.turfTop(X, G, W);
+    var st = s.stage && s.stage.st != null ? s.stage.st : 99;
     var tx = 150, tw = 150, ty = G + 60, th = 190;
-    c.rect(tx, ty, tw, th - 10, 'crushed');
-    c.geotex('M' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' Z');
-    c.circle(tx + tw / 2, ty + th - 50, 26, '#fafafa');
-    for (var a = 0; a < 8; a++) { var ang = a * Math.PI / 4; c.circle(tx + tw / 2 + Math.cos(ang) * 20, ty + th - 50 + Math.sin(ang) * 20, 1.8, '#333'); }
-    c.rect(tx, ty + th - 22, tw, 12, 'sand');
-    c.label(tx + tw / 2, ty + th - 50, s.pipe || '유공관 Φ100~150');
-    c.label(tx + 20, ty + 40, s.fill || '배수 쇄석 13~25mm');
-    c.label(tx + tw, ty + 80, '부직포로 감싸기');
-    c.label(tx + 30, ty + th - 16, '모래 기초');
-    c.label(X + 30, G + 25, s.top || '표토·잔디');
-    c.text(tx, ty - 8, '폭 300~500 · 깊이 600~1,000 · 기울기 1% 이상');
+    c.rect(X, G, W, 250, 'soil');
+    if (st >= 4 && s.turf !== false) c.turfTop(X, G, W);
+    if (st < 4) c.rect(tx, G, tw, ty - G, null, 'fill="#fdfcf8" stroke="#888" stroke-dasharray="3 3"');
+    c.rect(tx, ty, tw, th - 10, st >= 3 ? 'crushed' : null, st >= 3 ? '' : 'fill="#fdfcf8"');
+    if (st >= 1) c.geotex(st >= 4 ? 'M' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' Z' : 'M' + (tx - 20) + ' ' + (ty - 10) + ' L' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' L' + (tx + tw + 20) + ' ' + (ty - 10));
+    if (st >= 1) c.rect(tx, ty + th - 22, tw, 12, 'sand');
+    if (st >= 2) {
+      c.circle(tx + tw / 2, ty + th - 50, 26, '#fafafa');
+      for (var a = 0; a < 8; a++) { var ang = a * Math.PI / 4; c.circle(tx + tw / 2 + Math.cos(ang) * 20, ty + th - 50 + Math.sin(ang) * 20, 1.8, '#333'); }
+      c.label(tx + tw / 2, ty + th - 50, s.pipe || '유공관 Φ100~150');
+    }
+    if (st >= 3) c.label(tx + 20, ty + 40, s.fill || '배수 쇄석 13~25mm');
+    if (st >= 1) c.label(tx + tw, ty + 80, st >= 4 ? '부직포로 감싸기' : '부직포 깔기 (양옆 여유 남김)');
+    if (st >= 1) c.label(tx + 30, ty + th - 16, '모래 기초');
+    if (st >= 4) c.label(X + 30, G + 25, s.top || '표토·잔디');
+    if (st === 0) c.label(tx + tw / 2, ty + 60, '터파기 (바닥 기울기 1% 이상)');
+    c.text(tx, ty - 8 - (st < 4 ? 50 : 0), '폭 300~500 · 깊이 600~1,000 · 기울기 1% 이상');
     return c.svg();
   }
 
@@ -345,6 +370,7 @@
   function pole(s) {
     var type = s.type || 'pole';
     var c = new Canvas(type === 'bollard' ? 300 : 360), X = 30, W = 400;
+    if (s.stage && s.stage.y != null) c.clipY = s.stage.y;
     var G = type === 'bollard' ? 180 : 240;
     c.rect(X, G, W, 22, s.surfaceP || 'block');
     c.rect(X, G + 22, W, c.h - G - 22, 'soil');
@@ -426,26 +452,25 @@
       if (s.filter) c.label(170, 150, '→ 여과기·살균기로 순환');
       return c.svg();
     }
+    var st = s.stage && s.stage.st != null ? s.stage.st : 99;
     c.rect(X, G, W, 220, 'soil');
     var P = function (d) { return [[80 + d * 1.3, G], [150 + d * 0.6, 250 - d], [310 - d * 0.6, 250 - d], [380 - d * 1.3, G]]; };
-    c.poly(P(-14), 'sand');
-    c.membrane('M' + P(-6).map(function (q) { return q.join(' '); }).join(' L'));
-    c.geotex('M' + P(-10).map(function (q) { return q.join(' '); }).join(' L'));
-    c.poly(P(0), 'gravel');
-    c.poly(P(14), 'water', 'stroke="none"');
-    c.line(70, G + 14, 390, G + 14, 'stroke="#2b6ca3" stroke-width="1.4"');
+    var dPath = function (d) { return 'M' + P(d).map(function (q) { return q.join(' '); }).join(' L'); };
+    c.poly(P(-14), st >= 1 ? 'sand' : null, st >= 1 ? '' : 'fill="#fdfcf8"');
+    if (st >= 2) { c.membrane(dPath(-6)); c.geotex(dPath(-10)); }
+    if (st >= 3) c.poly(P(0), 'gravel'); else if (st >= 1) c.poly(P(-6), null, 'fill="#fdfcf8" stroke="none"');
+    if (st >= 4) { c.poly(P(14), 'water', 'stroke="none"'); c.line(70, G + 14, 390, G + 14, 'stroke="#2b6ca3" stroke-width="1.4"'); }
     // 가장자리 고정 트렌치
-    c.membrane('M64 ' + G + ' v20 h-14');
-    c.membrane('M396 ' + G + ' v20 h14');
-    c.poly([[40, G - 12], [86, G - 22], [104, G], [44, G + 6]], 'stone');
-    c.poly([[372, G - 2], [392, G - 24], [430, G - 12], [430, G + 6]], 'stone');
-    c.label(230, 255, '모래 50mm (바닥 고르기)');
-    c.label(330, 220, s.liner || '방수시트 (EPDM 1.0~1.2mm)');
-    c.label(300, 235, '보호 부직포 (상·하부)');
-    c.label(260, 200, '자갈·흙 덮기');
-    c.label(200, G + 50, '물');
-    c.label(60, G - 6, '가장자리 자연석 (시트 끝 덮기)');
-    c.label(396, G + 18, '시트 끝 트렌치 고정');
+    if (st >= 2) { c.membrane('M64 ' + G + ' v20 h-14'); c.membrane('M396 ' + G + ' v20 h14'); }
+    if (st >= 3) {
+      c.poly([[40, G - 12], [86, G - 22], [104, G], [44, G + 6]], 'stone');
+      c.poly([[372, G - 2], [392, G - 24], [430, G - 12], [430, G + 6]], 'stone');
+    }
+    if (st === 0) c.label(230, 200, '터파기 (돌·뿌리 제거)');
+    if (st >= 1) c.label(230, 255, '모래 50mm (바닥 고르기)');
+    if (st >= 2) { c.label(330, 220, s.liner || '방수시트 (EPDM 1.0~1.2mm)'); c.label(300, 235, '보호 부직포 (상·하부)'); c.label(396, G + 18, '시트 끝 트렌치 고정'); }
+    if (st >= 3) { c.label(260, 200, '자갈·흙 덮기'); c.label(60, G - 6, '가장자리 자연석 (시트 끝 덮기)'); }
+    if (st >= 4) c.label(200, G + 50, '물');
     return c.svg();
   }
 
@@ -622,8 +647,59 @@
     function s0(p) { return p; }
   }
 
+  // ---------- 17. 벤치 ----------
+  function bench(s) {
+    var c = new Canvas(300), X = 30, W = 400, G = 220;
+    if (s.stage && s.stage.y != null) c.clipY = s.stage.y;
+    c.rect(X, G, W, 20, 'block'); c.rect(X, G + 20, W, 60, 'soil');
+    [130, 330].forEach(function (x) {
+      c.rect(x - 40, G + 4, 80, 50, 'conc');
+      c.line(x - 10, G - 2, x - 10, G + 40, 'stroke="#555" stroke-width="2.5"');
+      c.line(x + 10, G - 2, x + 10, G + 40, 'stroke="#555" stroke-width="2.5"');
+      c.poly([[x - 26, G], [x + 26, G], [x + 18, 150], [x - 18, 150]], s.leg || 'metal');
+      c.poly([[x + 10, 150], [x + 18, 150], [x + 40, 70], [x + 32, 68]], s.leg || 'metal');
+    });
+    for (var i = 0; i < 6; i++) c.rect(96 + i * 46, 136, 40, 14, 'wood');
+    for (var j = 0; j < 3; j++) c.poly([[150 + j * 4, 120 - j * 22], [330 + j * 4, 120 - j * 22], [334 + j * 4, 106 - j * 22], [154 + j * 4, 106 - j * 22]], 'wood');
+    c.label(200, 143, s.seat || '좌판 (목재·합성목재)');
+    c.label(250, 92, '등받이 (각도 100~110°)');
+    c.label(130, 180, s.legLabel || '프레임 (주철·스틸, 분체도장)');
+    c.label(330, G + 30, '기초 콘크리트');
+    c.label(320, G + 15, '앵커볼트 고정');
+    c.label(X + 40, G + 10, '포장');
+    c.text(40, 145, '좌판 높이 400~450');
+    return c.svg();
+  }
+
+  // ---------- 18. 퍼걸러·정자 ----------
+  function pergola(s) {
+    var roof = s.variant === 'roof';
+    var c = new Canvas(330), X = 30, W = 400, G = 270;
+    if (s.stage && s.stage.y != null) c.clipY = s.stage.y;
+    c.rect(X, G, W, 16, 'block'); c.rect(X, G + 16, W, 44, 'soil');
+    [90, 370].forEach(function (x) {
+      c.rect(x - 35, G + 2, 70, 50, 'conc');
+      c.rect(x - 20, G - 4, 40, 6, 'metal');
+      c.rect(x - 12, 110, 24, G - 114, s.postP || 'wood');
+    });
+    c.rect(50, 92, 360, 20, s.beamP || 'wood');
+    if (roof) {
+      c.poly([[30, 96], [230, 30], [430, 96]], 'stone');
+      c.label(230, 60, s.roofLabel || '지붕 (기와·슁글·금속)');
+    } else {
+      for (var x = 60; x <= 395; x += 28) c.rect(x, 78, 12, 14, s.beamP || 'wood');
+      c.label(150, 85, s.rafter || '살 (서까래) @300~600');
+    }
+    c.label(300, 102, s.beam || '보');
+    c.label(370, 190, s.post || '기둥');
+    c.label(90, G - 1, '기둥 받침 철물 (물에 잠기지 않게)');
+    c.label(370, G + 30, '독립기초 + 앵커볼트');
+    if (roof) c.text(200, 200, '마루 높이 450~600', 'fill="#666"');
+    return c.svg();
+  }
+
   var builders = { layers: layers, curb: curb, wall: wall, deck: deck, trench: trench, pipe: pipe, pole: pole, boulder: boulder,
-    pond: pond, channel: channel, box: box, stake: stake, sprinkler: sprinkler, formwork: formwork, footing: footing, linearled: linearled };
+    pond: pond, channel: channel, box: box, stake: stake, sprinkler: sprinkler, formwork: formwork, footing: footing, linearled: linearled, bench: bench, pergola: pergola };
 
   window.LM_SECTION = {
     render: function (spec) {
