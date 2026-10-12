@@ -140,7 +140,7 @@
   ];
   function renderSidebar(activeCat, activeTool) {
     var html = '<h2>분류</h2>' +
-      '<a class="cat-link' + (!activeCat && !activeTool ? ' active' : '') + '" href="#/"><span class="cat-dot" style="background:var(--accent)"></span>전체<span class="cat-count">' + MATS.length + '</span></a>';
+      '<a class="cat-link' + (!activeCat && !activeTool ? ' active' : '') + '" href="#/all"><span class="cat-dot" style="background:var(--accent)"></span>전체<span class="cat-count">' + MATS.length + '</span></a>';
     CATS.forEach(function (c) {
       var n = MATS.filter(function (m) { return m.cat === c.id; }).length;
       html += '<a class="cat-link' + (activeCat === c.id ? ' active' : '') + '" href="#/cat/' + c.id + '">' +
@@ -160,27 +160,45 @@
   }
 
   // ---------- views ----------
-  function viewHome(catId) {
-    renderSidebar(catId);
+  // 분류 타일: 대표 사진 최대 3장 + 이름 + 재료 수 + 예시 재료
+  function catTile(c) {
+    var ms = MATS.filter(function (m) { return m.cat === c.id; });
+    var pics = [];
+    ms.forEach(function (m) {
+      if (pics.length >= 3) return;
+      var ph = (PHOTOS[m.id] || []).filter(function (p) { return p.type !== 'site'; })[0] || (PHOTOS[m.id] || [])[0];
+      if (ph) pics.push(ph.src);
+    });
+    var cover = pics.length ? '<div class="cat-cover n' + pics.length + '">' + pics.map(function (src) { return '<img loading="lazy" src="' + esc(src) + '" alt="">'; }).join('') + '</div>'
+      : '<div class="cat-cover none" style="background:' + c.color + '"></div>';
+    var names = ms.slice(0, 3).map(function (m) { return m.name; }).join(' · ') + (ms.length > 3 ? ' 외 ' + (ms.length - 3) + '종' : '');
+    return '<a class="cat-tile" href="#/cat/' + c.id + '">' + cover + '<div class="cat-tile-body"><div class="cat-tile-head"><span class="cat-dot" style="background:' + c.color + '"></span><b>' + esc(c.name) + '</b><span class="cat-num">' + ms.length + '</span></div>' +
+      '<span class="cat-names">' + esc(names) + '</span></div></a>';
+  }
+
+  function viewHome(catId, showAll) {
+    renderSidebar(catId, catId || showAll ? null : '#/');
     setNav('home');
     var items = MATS.filter(function (m) { return (!catId || m.cat === catId) && matches(m, query); });
     if (query) items.sort(function (a, b) { return score(a, query) - score(b, query) || byKo(a.name, b.name); });
 
     var slangCount = MATS.reduce(function (n, m) { return n + (m.slang || []).length; }, 0);
     var html = '';
-    if (!catId && !query) {
-      html += '<section class="hero"><h1>조경재료 백과사전</h1>' +
-        '<p>실제 조경 현장에서 자주 쓰는 재료·자재의 특성, 규격, 시공 단면도, 시공 방법, 그리고 현장에서 부르는 은어까지 정리했습니다. 식재(수목·초화류)는 다루지 않습니다.</p></section>' +
-        '<div class="stats"><span class="stat">재료 <b>' + MATS.length + '</b></span>' +
-        '<span class="stat">분류 <b>' + CATS.length + '</b></span>' +
-        '<span class="stat">현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b></span>' +
-        '<span class="stat">시공 단면도 <b>' + Object.keys(window.LM_SECTIONS || {}).filter(function (k) { return matById[k]; }).length + '</b></span>' +
-        '<span class="stat">사진 <b>' + Object.keys(PHOTOS).reduce(function (n, k) { return n + PHOTOS[k].length; }, 0) + '</b></span></div>';
-      var TOOL_DESC = { '#/guide': '상황별 추천 재료', '#/decide': '가중치로 재료 순위 매기기', '#/compare': '재료 나란히 비교', '#/calc': '면적 → 수량·자재비',
-        '#/defects': '하자 원인·예방·보수', '#/slang': '현장 은어·순화어', '#/refs': 'KCS·KS·법령 근거', '#/book': '표지·목차 포함 인쇄본' };
-      html += '<div class="tool-grid">' + TOOLS.map(function (t) {
-        return '<a class="tool-card" href="' + t.h + '"><b>' + esc(t.n) + '</b><span>' + esc(TOOL_DESC[t.h] || '') + '</span></a>';
-      }).join('') + '</div>';
+    var home = !catId && !query && !showAll;
+    if (home) {
+      var photoCount = Object.keys(PHOTOS).reduce(function (n, k) { return n + PHOTOS[k].length; }, 0);
+      var secCount = Object.keys(window.LM_SECTIONS || {}).filter(function (k) { return matById[k]; }).length;
+      html += '<section class="hero home-hero"><h1>조경재료 백과사전</h1>' +
+        '<p>현장에서 쓰는 재료의 특성·규격·시공 단면도와 현장 은어까지. 식재(수목·초화류)는 다루지 않습니다.</p>' +
+        '<p class="hero-meta">재료 <b>' + MATS.length + '</b> · 현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b> · 시공 단면도 <b>' + secCount + '</b> · 사진 <b>' + photoCount + '</b></p></section>';
+      html += '<nav class="tool-strip" aria-label="학습 도구">' + TOOLS.map(function (t) {
+        return '<a class="tool-pill" href="' + t.h + '">' + esc(t.n) + '</a>';
+      }).join('') + '</nav>';
+      html += '<div class="section-title"><h2>분류별로 둘러보기</h2><span>' + CATS.length + '개 분류</span>' +
+        '<a class="see-all" href="#/all">재료 전체 목록 ' + MATS.length + '종 ›</a></div>';
+      html += '<div class="cat-grid">' + CATS.map(catTile).join('') + '</div>';
+      app.innerHTML = html;
+      return;
     }
     if (query) {
       html += '<div class="section-title"><h2>“' + esc(query) + '” 검색 결과</h2><span>' + items.length + '건</span></div>';
@@ -188,10 +206,11 @@
         : '<div class="empty">찾는 재료가 없습니다. 다른 이름이나 은어로 검색해 보세요.</div>';
     } else if (catId) {
       var c = catById[catId];
-      html += '<div class="crumbs"><a href="#/">전체</a> › ' + esc(c.name) + '</div>' +
+      html += '<div class="crumbs"><a href="#/">홈</a> › ' + esc(c.name) + '</div>' +
         '<div class="section-title"><h2>' + esc(c.name) + '</h2><span>' + esc(c.desc) + ' · ' + items.length + '종</span></div>' +
         '<div class="grid">' + items.map(card).join('') + '</div>';
     } else {
+      html += '<div class="crumbs"><a href="#/">홈</a> › 전체 목록</div>';
       CATS.forEach(function (c) {
         var group = items.filter(function (m) { return m.cat === c.id; });
         if (!group.length) return;
@@ -210,7 +229,7 @@
     setNav('home');
     document.title = m.name + ' · 조경재료 백과사전';
 
-    var html = '<div class="crumbs"><a href="#/">전체</a> › <a href="#/cat/' + c.id + '">' + esc(c.name) + '</a>' +
+    var html = '<div class="crumbs"><a href="#/">홈</a> › <a href="#/cat/' + c.id + '">' + esc(c.name) + '</a>' +
       (m.sub ? ' › ' + esc(m.sub) : '') + '</div>';
     html += '<div class="detail-head"><h1>' + esc(m.name) + '</h1><span class="en">' + esc(m.en || '') + '</span>' +
       '<div class="tools"><button class="btn" id="cmp-btn" type="button">비교에 추가</button>' +
@@ -374,7 +393,10 @@
   function creditText(p) {
     if (p.credit) return p.credit;
     if (!p.artist && !p.license) return '';
-    return (p.artist || '작자 미상') + (p.license ? ' / ' + p.license : '') + ' (Wikimedia Commons)';
+    var host = '';
+    try { host = new URL(p.url).hostname; } catch (e) { /* url 없음 */ }
+    var src = /wikimedia|wikipedia/.test(host) ? 'Wikimedia Commons' : /flickr/.test(host) ? 'Flickr' : /geograph/.test(host) ? 'Geograph' : host.replace(/^www\./, '');
+    return (p.artist || '작자 미상') + (p.license ? ' / ' + p.license : '') + (src && (p.artist || '').indexOf('(' ) === -1 ? ' (' + src + ')' : '');
   }
   function creditHtml(p) {
     var t = esc(creditText(p));
@@ -886,7 +908,7 @@
     });
     if (!rows.length) return '';
     return '<h2 id="credits">사진 출처 (' + rows.length + '장)</h2>' +
-      '<p>아래 사진은 위키미디어 공용(Wikimedia Commons)의 자유 이용 허락(CC·퍼블릭 도메인) 사진을 비상업적 교육 목적으로 사용했습니다. 원본은 각 링크에서 확인할 수 있습니다.</p>' +
+      '<p>아래 사진은 위키미디어 공용(Wikimedia Commons)과 Flickr 등에 올라온 자유 이용 허락(CC·퍼블릭 도메인) 사진을 비상업적 교육 목적으로 사용했습니다. 원본은 각 링크에서 확인할 수 있습니다.</p>' +
       '<div class="table-wrap"><table class="gtable"><thead><tr><th>재료</th><th>사진</th><th>저작자 / 라이선스</th></tr></thead><tbody>' +
       rows.map(function (r) {
         return '<tr><td><a href="#/m/' + r.m.id + '">' + esc(r.m.name) + '</a></td><td>' + esc(r.p.caption || '') +
@@ -963,6 +985,7 @@
     document.body.classList.toggle('is-book', parts[0] === 'book');
     if (parts[0] === 'm' && parts[1]) viewMaterial(decodeURIComponent(parts[1]));
     else if (parts[0] === 'cat' && parts[1]) viewHome(parts[1]);
+    else if (parts[0] === 'all') viewHome(null, true);
     else if (parts[0] === 'compare') viewCompare(parts.slice(1).join('/'));
     else if (parts[0] === 'guide') viewGuide(parts[1]);
     else if (parts[0] === 'calc') viewCalc(parts[1]);
@@ -980,7 +1003,7 @@
     query = search.value.trim();
     var h = location.hash;
     if (/^#\/slang/.test(h)) { viewSlang(); return; }
-    if (query && !/^#\/(cat\/.*)?$/.test(h) && h !== '') { location.hash = '#/'; return; }
+    if (query && !/^#\/(cat\/.*|all)?$/.test(h) && h !== '') { location.hash = '#/'; return; }
     route();
   });
 
