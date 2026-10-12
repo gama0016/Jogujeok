@@ -612,12 +612,84 @@ window.LM_PHOTOS = {
  ],
  "lime": [
   {
+   "src": "images/lime-1.jpg",
+   "type": "material",
+   "caption": "소석회(수산화칼슘) 분말",
+   "artist": "Picture taken by w:User:Walkerma in June 2005.",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:Calcium_hydroxide.jpg"
+  },
+  {
    "src": "images/lime-site-1.jpg",
    "type": "site",
    "caption": "밭에 살포된 석회",
    "artist": "Philip Halling",
    "license": "CC BY-SA 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Lime_spread_on_a_field_-_geograph.org.uk_-_7994384.jpg"
+  }
+ ],
+ "plywood": [
+  {
+   "src": "images/plywood-1.jpg",
+   "type": "material",
+   "caption": "합판 단면(얇은 단판을 엇갈려 겹친 층)",
+   "artist": "Rotor DB at English Wikipedia",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Plywood.jpg"
+  },
+  {
+   "src": "images/plywood-2.jpg",
+   "type": "material",
+   "caption": "현장에 쌓아 둔 합판 더미",
+   "artist": "Downtowngal",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Plywood_panels_for_new_construction.jpg"
+  }
+ ],
+ "wpc": [
+  {
+   "src": "images/wpc-1.jpg",
+   "type": "material",
+   "caption": "합성목재(WPC) 데크재 단면과 표면",
+   "artist": "VarunRajendran at English Wikipedia",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Wood_plastic_composite.JPG"
+  }
+ ],
+ "mortar": [
+  {
+   "src": "images/mortar-1.jpg",
+   "type": "material",
+   "caption": "벽돌 사이로 비어져 나온 시멘트 모르타르 줄눈",
+   "artist": "Shakko",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Red_brick_wall_with_rude_cement_(Moscow).JPG"
+  },
+  {
+   "src": "images/mortar-site-1.jpg",
+   "type": "site",
+   "caption": "기초 공사용 모르타르를 삽으로 비비는 모습",
+   "artist": "Korbla Johnny",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Mortar_mixing.jpg"
+  }
+ ],
+ "brick-clay": [
+  {
+   "src": "images/brick-clay-1.jpg",
+   "type": "material",
+   "caption": "적색 점토벽돌 표면과 줄눈 근접 사진",
+   "artist": "Nicolas Papastathopoulos",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:One_brick_among_6_other_bricks,_held_together_with_mortar.JPG"
+  },
+  {
+   "src": "images/brick-clay-site-1.jpg",
+   "type": "site",
+   "caption": "오래된 점토벽돌 바닥 포장 (각인 벽돌)",
+   "artist": "Ebyabe",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:St._Pete_Domestic_Sci_Bldg_bricks01.jpg"
   }
  ]
 };
