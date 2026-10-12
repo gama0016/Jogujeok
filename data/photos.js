@@ -298,14 +298,6 @@ window.LM_PHOTOS = {
    "artist": "Basile Morin",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Giant_tarpaulin_covering_a_road_under_construction_at_sunrise_with_a_colorful_sky_in_Don_Det_Laos.jpg"
-  },
-  {
-   "src": "images/tarp-site-2.jpg",
-   "type": "site",
-   "caption": "발굴 현장 바닥을 덮고 파이프로 눌러 둔 PE 비닐 시트",
-   "artist": "peganum from Small Dole, England",
-   "license": "CC BY-SA 2.0",
-   "url": "https://commons.wikimedia.org/wiki/File:Mypex_-_Flickr_-_peganum_(2).jpg"
   }
  ],
  "flagstone": [
@@ -606,6 +598,26 @@ window.LM_PHOTOS = {
    "artist": "Wikideas1",
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Foundation_formwork.webp"
+  }
+ ],
+ "compost": [
+  {
+   "src": "images/compost-1.jpg",
+   "type": "material",
+   "caption": "숙성이 끝난 퇴비 더미",
+   "artist": "Bernard Dejean",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Compost_final.jpg"
+  }
+ ],
+ "lime": [
+  {
+   "src": "images/lime-site-1.jpg",
+   "type": "site",
+   "caption": "밭에 살포된 석회",
+   "artist": "Philip Halling",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Lime_spread_on_a_field_-_geograph.org.uk_-_7994384.jpg"
   }
  ]
 };
