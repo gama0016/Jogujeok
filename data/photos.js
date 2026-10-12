@@ -199,5 +199,15 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Ketelmeerdijk,_kunst_van_cortenstaal_nabij_de_Ketelhaven._21-03-2022._(actm.)_05.jpg"
   }
+ ],
+ "rubble": [
+  {
+   "src": "images/rubble-site-1.jpg",
+   "type": "site",
+   "caption": "깬돌(잡석)을 채운 개비온 옹벽",
+   "artist": "Kgbo",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Gabion_basket_stone_walls_at_Corinda,_Queensland.jpg"
+  }
  ]
 };
