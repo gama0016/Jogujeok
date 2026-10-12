@@ -298,6 +298,14 @@ window.LM_PHOTOS = {
    "artist": "Basile Morin",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Giant_tarpaulin_covering_a_road_under_construction_at_sunrise_with_a_colorful_sky_in_Don_Det_Laos.jpg"
+  },
+  {
+   "src": "images/tarp-site-2.jpg",
+   "type": "site",
+   "caption": "태풍 피해 지붕을 임시로 덮은 청색 방수 천막",
+   "artist": "Barry Bahler",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:FEMA_-_38076_-_A_Blue_Tarp_installed_on_a_home_in_Terrebone_Parrish,_LA.jpg"
   }
  ],
  "flagstone": [
@@ -1572,6 +1580,24 @@ window.LM_PHOTOS = {
    "artist": "voyager.annelid",
    "license": "CC BY 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Kupferle_Foundry_%22Eclipse_No._2%22_Yard_Hydrant,_Jaffrey,_NH.jpg"
+  }
+ ],
+ "linear-led": [
+  {
+   "src": "images/linear-led-1.jpg",
+   "type": "material",
+   "caption": "커버 안에 LED 칩이 일정 간격으로 박힌 LED 라인조명과 컨트롤러",
+   "artist": "Maksym Kozlenko",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:LED_light_strip.jpg"
+  },
+  {
+   "src": "images/linear-led-2.jpg",
+   "type": "material",
+   "caption": "유연하게 휘어지는 띠 모양 LED 스트립 조명",
+   "artist": "Nashucks",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Light_blue_LED_strip.jpg"
   }
  ]
 };
