@@ -18,12 +18,25 @@
 | 골재·토양 | `data/aggregate.js` |
 | 배수·관로 | `data/drainage.js` |
 | 합성수지·토목섬유 | `data/synthetic.js` |
+| 수경시설 | `data/water.js` |
+| 조명 | `data/lighting.js` |
+| 관수 | `data/irrigation.js` |
 | 공정·작업 은어 | `data/glossary.js` |
+| 시공 단면도 정의 | `data/sections.js` (그리는 코드: `assets/js/section-diagram.js`) |
+| 비교표 추천 묶음 | `data/compare-presets.js` |
+| 인터넷 수집 사진 목록·출처 | `data/photos.js` |
 
 항목 형식은 `data/categories.js` 맨 위 주석에 있습니다. 재료를 추가하려면 해당 분류 파일의 `LM.add( … )` 안에 항목을 하나 더 넣으면 됩니다.
 
+## 주요 기능
+- **시공 단면도**: 재료 페이지마다 그 재료가 어떤 층·부재와 함께 시공되는지 SVG 개념 단면도로 보여줍니다. `data/sections.js`에서 층 이름·두께를 고치면 그림이 바로 바뀝니다.
+- **재료 비교표** (`#/compare`): 최대 4종을 나란히 비교합니다. 재료 페이지의 “비교에 추가” 버튼이나 추천 비교 묶음을 쓰세요.
+- **현장 은어 사전** (`#/slang`): 재료 은어와 공정 은어를 어원·바른 말과 함께 정리했습니다.
+
 ## 사진 넣기
-`images/` 폴더에 재료 id로 이름을 붙여 넣으면 자동으로 표시됩니다.
+인터넷 사진은 위키미디어 공용(Wikimedia Commons)의 자유 이용 허락 사진만 썼고, 저작자·라이선스를 사진 아래와 “안내” 페이지에 표시합니다.
+
+`data/photos.js`에 사진이 없는 재료는 `images/` 폴더에 재료 id로 이름을 붙여 넣으면 자동으로 표시됩니다. (이미 사진이 등록된 재료에 더 넣으려면 `data/photos.js`에 항목을 추가하세요.)
 
 ```
 images/granite-1.jpg ~ granite-3.jpg            재료 사진
