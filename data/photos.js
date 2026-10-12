@@ -780,6 +780,14 @@ window.LM_PHOTOS = {
    "artist": "Lucis",
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:Hydroton.jpg"
+  },
+  {
+   "src": "images/artificial-soil-site-1.jpg",
+   "type": "site",
+   "caption": "옥상녹화 공사 중 포설된 경량 식재 기반토(인공토양)",
+   "artist": "KaiKemmann",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Gr%C3%BCndach_mit_abgegrenzter_Substratschicht_und_Loro_Dachabl%C3%A4ufen._Neubau_Wohnblock_Auf_dem_H%C3%BCgel_66,_53121_Bonn,_Germany.jpg"
   }
  ],
  "bark": [
@@ -988,6 +996,62 @@ window.LM_PHOTOS = {
    "artist": "Wilfredor",
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Railroad_ties_in_Germany.jpg"
+  }
+ ],
+ "artificial-turf": [
+  {
+   "src": "images/artificial-turf-site-1.jpg",
+   "type": "site",
+   "caption": "인조잔디를 깐 주택 어린이 놀이 공간",
+   "artist": "Enyasystem",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Residential_Playarea_,after_3.jpg"
+  }
+ ],
+ "sandbag": [
+  {
+   "src": "images/sandbag-1.jpg",
+   "type": "material",
+   "caption": "흙을 채워 쌓아 둔 PP 마대(토낭)",
+   "artist": "Osumi Akari",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Sandbags_at_Ikuta-Ryokuchi_Park_North_Gate_20200219.jpg"
+  }
+ ],
+ "crushed-stone": [
+  {
+   "src": "images/crushed-stone-1.jpg",
+   "type": "material",
+   "caption": "모서리가 각진 쇄석 골재 근접 사진",
+   "artist": "irvin calicut",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Rock_crushed_crus.jpg"
+  },
+  {
+   "src": "images/crushed-stone-2.jpg",
+   "type": "material",
+   "caption": "공사 현장에 야적된 쇄석 더미",
+   "artist": "RanjithSiji",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Stone_Crush_Metel.JPG"
+  },
+  {
+   "src": "images/crushed-stone-site-1.jpg",
+   "type": "site",
+   "caption": "덤프트럭으로 쇄석을 포설하는 철도 공사 현장",
+   "artist": "Antti Leppänen",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Dump_truck_laying_crushed_stone_in_Jyv%C3%A4skyl%C3%A4.JPG"
+  }
+ ],
+ "subbase": [
+  {
+   "src": "images/subbase-site-1.jpg",
+   "type": "site",
+   "caption": "롤러로 다짐 중인 쇄석 보조기층 도로",
+   "artist": "",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:USMC-120323-M-UP355-001.jpg"
   }
  ]
 };
