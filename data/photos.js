@@ -1157,5 +1157,15 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 3.0",
    "url": "https://commons.wikimedia.org/wiki/File:Korea-Seoul-Changdeokgung-Donginmun-01.jpg"
   }
+ ],
+ "wapyeon-wall": [
+  {
+   "src": "images/wapyeon-wall-site-1.jpg",
+   "type": "site",
+   "caption": "경복궁 자경전 꽃담 — 붉은 전돌로 낸 길상문자·꽃무늬",
+   "artist": "by abex",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Korea-Gyeongbokgung-Jagyeongjeon-01.jpg"
+  }
  ]
 };
