@@ -1599,5 +1599,15 @@ window.LM_PHOTOS = {
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Light_blue_LED_strip.jpg"
   }
+ ],
+ "permeable-concrete": [
+  {
+   "src": "images/permeable-concrete-1.jpg",
+   "type": "material",
+   "caption": "투수콘크리트 시편 — 굵은 골재를 시멘트풀로 엮어 틈새가 뚫린 구조",
+   "artist": "johny",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Pervious_concrete.JPG"
+  }
  ]
 };
