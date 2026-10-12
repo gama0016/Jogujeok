@@ -465,3 +465,17 @@ img { max-width: 100%; display: block; }
 .tool-card:hover { border-color: var(--accent); text-decoration: none; }
 .tool-card b { font-size: 14px; }
 .tool-card span { font-size: 12px; color: var(--muted); }
+.verify-panel { margin-top: 24px; }
+.verify-panel summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; cursor: pointer; list-style: none; }
+.verify-panel summary::-webkit-details-marker { display: none; }
+.verify-panel summary h3 { margin: 0; }
+.verify-panel summary::after { content: '펼치기 ▾'; font-size: 12px; color: var(--muted); margin-left: auto; }
+.verify-panel[open] summary::after { content: '접기 ▴'; }
+.vcount { display: flex; gap: 6px; }
+.vtag { font-size: 11.5px; padding: 1px 7px; border-radius: 6px; font-weight: 700; white-space: nowrap; }
+.vtag.ok { background: #e2efe7; color: #1f5a3f; }
+.vtag.fix { background: #fff1d6; color: #8a5a00; }
+.vtag.na { background: var(--surface-2); color: var(--muted); }
+.verify-list { list-style: none; padding: 0 !important; margin: 12px 0 0; font-size: 13.5px; }
+.verify-list li { padding: 8px 0; border-top: 1px solid var(--line); }
+.vmeta { font-size: 12px; color: var(--muted); margin-top: 2px; }

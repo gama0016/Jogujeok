@@ -470,7 +470,7 @@
       c.rect(121, G + 20, 218, 240 - G - 21, 'water', 'stroke="none"');
       c.line(122, G + 20, 338, G + 20, 'stroke="#2b6ca3" stroke-width="1.4"');
       c.label(110, 200, '철근콘크리트 수조');
-      c.label(124, 150, s.coat || '도막방수 (우레탄 2~3mm)');
+      c.label(124, 150, s.coat || '도막방수 (우레탄 2mm 표준)');
       c.label(100, G - 7, '마감 석재(갓돌)');
       c.label(200, G + 20, '계획 수위');
       // 펌프·노즐

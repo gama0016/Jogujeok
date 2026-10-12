@@ -82,6 +82,7 @@
   var PROCS = window.LM_PROCEDURES || {};
   var REFS = window.LM_REFS || { refs: {}, materials: {} };
   var PRICES = window.LM_PRICES || {};
+  var VERIFY = window.LM_VERIFY || {};
   function priceHtml(p) {
     var meta = [p.spec, p.basis, p.year ? p.year + '년' : ''].filter(Boolean).join(' · ');
     var conf = { high: '신뢰 높음', medium: '신뢰 보통', low: '신뢰 낮음' }[p.confidence];
@@ -259,6 +260,21 @@
           '<button type="button" class="btn" id="sec-next">다음 ▶</button></div>' : '') +
         '<p class="section-note">개념 단면도(축척 없음) · 두께 단위 mm · 수치는 대표 예시이며 실제 설계는 표준시방서·설계도를 따릅니다.' +
         (proc ? ' 시공 순서에서 흐리게 보이는 부분은 아직 시공 전입니다.' : '') + '</p></div></div>';
+    }
+
+    var ver = VERIFY[m.id] || [];
+    if (ver.length) {
+      var cnt = { confirmed: 0, corrected: 0, unverifiable: 0 };
+      ver.forEach(function (v) { cnt[v.status] = (cnt[v.status] || 0) + 1; });
+      var FIELD = { props: '특성', specs: '규격', steps: '시공', cautions: '주의', care: '유지관리', summary: '요약', slang: '은어', section: '단면도', procedure: '시공 순서' };
+      var ST = { confirmed: ['ok', '확인'], corrected: ['fix', '수정 반영'], unverifiable: ['na', '확인 불가'] };
+      html += '<details class="panel verify-panel"><summary><h3>표준 대조 결과</h3><span class="vcount"><span class="vtag ok">확인 ' + cnt.confirmed + '</span>' +
+        '<span class="vtag fix">수정 ' + cnt.corrected + '</span><span class="vtag na">확인 불가 ' + cnt.unverifiable + '</span></span></summary>' +
+        '<ul class="verify-list">' + ver.map(function (v) {
+          var st = ST[v.status] || ['na', v.status];
+          return '<li><span class="vtag ' + st[0] + '">' + st[1] + '</span> <span class="dash">[' + esc(FIELD[v.field] || v.field) + ']</span> ' + esc(v.text || '') +
+            '<div class="vmeta">' + (v.ref ? '<b>' + esc(v.ref) + '</b> · ' : '') + esc(v.note || '') + '</div></li>';
+        }).join('') + '</ul><p class="note">본문의 주요 수치·기준을 조경공사 표준시방서(KCS 34, 2024) 원문과 관련 법령·KS로 대조한 결과입니다. 수정 항목은 본문에 이미 반영되어 있습니다.</p></details>';
     }
 
     var refKeys = (REFS.materials || {})[m.id] || [];
@@ -573,6 +589,21 @@
     var ph = (PHOTOS[m.id] || []).filter(function (p) { return p.type !== 'site'; })[0] || (PHOTOS[m.id] || [])[0];
     var sec = (window.LM_SECTIONS || {})[m.id];
     var svg = sec ? window.LM_SECTION.render(sec) : '';
+    var ver = VERIFY[m.id] || [];
+    if (ver.length) {
+      var cnt = { confirmed: 0, corrected: 0, unverifiable: 0 };
+      ver.forEach(function (v) { cnt[v.status] = (cnt[v.status] || 0) + 1; });
+      var FIELD = { props: '특성', specs: '규격', steps: '시공', cautions: '주의', care: '유지관리', summary: '요약', slang: '은어', section: '단면도', procedure: '시공 순서' };
+      var ST = { confirmed: ['ok', '확인'], corrected: ['fix', '수정 반영'], unverifiable: ['na', '확인 불가'] };
+      html += '<details class="panel verify-panel"><summary><h3>표준 대조 결과</h3><span class="vcount"><span class="vtag ok">확인 ' + cnt.confirmed + '</span>' +
+        '<span class="vtag fix">수정 ' + cnt.corrected + '</span><span class="vtag na">확인 불가 ' + cnt.unverifiable + '</span></span></summary>' +
+        '<ul class="verify-list">' + ver.map(function (v) {
+          var st = ST[v.status] || ['na', v.status];
+          return '<li><span class="vtag ' + st[0] + '">' + st[1] + '</span> <span class="dash">[' + esc(FIELD[v.field] || v.field) + ']</span> ' + esc(v.text || '') +
+            '<div class="vmeta">' + (v.ref ? '<b>' + esc(v.ref) + '</b> · ' : '') + esc(v.note || '') + '</div></li>';
+        }).join('') + '</ul><p class="note">본문의 주요 수치·기준을 조경공사 표준시방서(KCS 34, 2024) 원문과 관련 법령·KS로 대조한 결과입니다. 수정 항목은 본문에 이미 반영되어 있습니다.</p></details>';
+    }
+
     var refKeys = (REFS.materials || {})[m.id] || [];
     var h = '<section class="book-entry" id="bk-' + m.id + '">' +
       '<div class="be-head"><span class="chip cat" style="background:' + c.color + '">' + esc(c.name) + '</span><h2>' + esc(m.name) + ' <small>' + esc(m.en || '') + '</small></h2>' +

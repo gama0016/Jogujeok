@@ -89,7 +89,7 @@ LM.add(
   cons: ['낙엽·쓰레기로 막힘', '하이힐 빠짐(격자 간격)'],
   uses: ['광장', '주차장', '건물 출입구'],
   steps: ['트렌치 본체를 콘크리트 기초에 매립(구배는 본체 내장 또는 기초로)', '집수정 연결 → 그레이팅 덮기'],
-  cautions: ['보행로 그레이팅 간격 15mm 이하 권장'],
+  cautions: ['보행로 그레이팅 틈 20mm 이하(법정), 15mm 이하 권장'],
   care: ['덮개 열고 청소'],
   related: ['u-gutter', 'catch-basin', 'cast-iron', 'stainless'],
   cost: 2
