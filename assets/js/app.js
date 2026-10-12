@@ -319,6 +319,7 @@
       if (mode === 'full') { box.innerHTML = window.LM_SECTION.render(sec); stepper.hidden = true; return; }
       stepper.hidden = false;
       box.innerHTML = window.LM_SECTION.render(Object.assign({}, sec, { stage: proc[i] }));
+      if (canAnimate(box)) box.animate([{ opacity: .55 }, { opacity: 1 }], { duration: reducedMotion() ? 1 : 220, easing: SPRING });
       document.getElementById('sec-num').textContent = (i + 1) + ' / ' + proc.length;
       document.getElementById('sec-text').textContent = proc[i].t;
       document.getElementById('sec-prev').disabled = i === 0;
@@ -360,7 +361,7 @@
           cap.addEventListener('click', function (e) { e.stopPropagation(); });
           fig.appendChild(cap);
         }
-        img.addEventListener('click', function () { openLightbox(p.src, (p.caption || '') + (credit ? ' — ' + credit : '')); });
+        img.addEventListener('click', function () { openLightbox(p.src, (p.caption || '') + (credit ? ' — ' + credit : ''), img); });
         el.appendChild(fig);
         done();
       };
@@ -764,14 +765,34 @@
         var parts = s.map(function (v, i) { return v * W[i] / sw; });
         return { m: matById[id], s: s, parts: parts, total: parts.reduce(function (a, b) { return a + b; }, 0) };
       }).sort(function (a, b) { return b.total - a.total; });
-      var chart = '<div class="legend">' + CRIT.map(function (c, i) { return '<span><i class="sw c' + (i + 1) + '"></i>' + esc(c.name) + ' ×' + W[i] + '</span>'; }).join('') + '</div>' +
-        rows.map(function (r, k) {
-          return '<div class="bar-row"><a class="bar-name" href="#/m/' + r.m.id + '">' + (k + 1) + '. ' + esc(r.m.name) + '</a>' +
-            '<div class="bar-track">' + r.parts.map(function (v, i) {
-              return v > 0 ? '<span class="seg c' + (i + 1) + '" style="width:' + (v / 5 * 100) + '%" data-tip="' + esc(r.m.name + ' · ' + CRIT[i].name + ' ' + r.s[i] + '점 × 가중치 ' + W[i] + ' → ' + v.toFixed(2)) + '"></span>' : '';
-            }).join('') + '</div><b class="bar-val">' + r.total.toFixed(2) + '</b></div>';
-        }).join('') + '<div class="bar-axis"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
-      document.getElementById('dc-chart').innerHTML = chart;
+      // 행은 재료별로 한 번만 만들고, 가중치가 바뀌면 막대 길이만 바꾼 뒤 순위 이동을 FLIP 으로 미끄러지게 한다.
+      var chartEl = document.getElementById('dc-chart');
+      if (!chartEl.querySelector('.bar-list')) {
+        chartEl.innerHTML = '<div class="legend"></div><div class="bar-list">' + rows.map(function (r) {
+          return '<div class="bar-row" data-id="' + r.m.id + '"><a class="bar-name" href="#/m/' + r.m.id + '"></a><div class="bar-track">' +
+            CRIT.map(function (c, i) { return '<span class="seg c' + (i + 1) + '"></span>'; }).join('') + '</div><b class="bar-val"></b></div>';
+        }).join('') + '</div><div class="bar-axis"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
+      }
+      chartEl.querySelector('.legend').innerHTML = CRIT.map(function (c, i) { return '<span><i class="sw c' + (i + 1) + '"></i>' + esc(c.name) + ' ×' + W[i] + '</span>'; }).join('');
+      var list = chartEl.querySelector('.bar-list');
+      var before = {};
+      list.querySelectorAll('.bar-row').forEach(function (el) { before[el.getAttribute('data-id')] = el.getBoundingClientRect().top; });
+      rows.forEach(function (r, k) {
+        var el = list.querySelector('[data-id="' + r.m.id + '"]');
+        el.querySelector('.bar-name').textContent = (k + 1) + '. ' + r.m.name;
+        el.querySelector('.bar-val').textContent = r.total.toFixed(2);
+        el.querySelectorAll('.seg').forEach(function (seg, i) {
+          var v = r.parts[i];
+          seg.style.width = (v / 5 * 100) + '%';
+          seg.style.display = v > 0 ? '' : 'none';
+          seg.setAttribute('data-tip', r.m.name + ' · ' + CRIT[i].name + ' ' + r.s[i] + '점 × 가중치 ' + W[i] + ' → ' + v.toFixed(2));
+        });
+        list.appendChild(el);
+      });
+      if (!reducedMotion()) list.querySelectorAll('.bar-row').forEach(function (el) {
+        var dy = (before[el.getAttribute('data-id')] || 0) - el.getBoundingClientRect().top;
+        if (dy && canAnimate(el)) el.animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 420, easing: SPRING });
+      });
       document.getElementById('dc-table').innerHTML = '<table class="gtable"><thead><tr><th>재료</th>' + CRIT.map(function (c) { return '<th class="num">' + esc(c.name) + '</th>'; }).join('') + '<th class="num">종합</th></tr></thead><tbody>' +
         rows.map(function (r) { return '<tr><td>' + esc(r.m.name) + '</td>' + r.s.map(function (v) { return '<td class="num">' + v + '</td>'; }).join('') + '<td class="num"><b>' + r.total.toFixed(2) + '</b></td></tr>'; }).join('') + '</tbody></table>';
     }
@@ -872,18 +893,66 @@
       }).join('') + '</tbody></table></div>';
   }
 
+  // ---------- motion helpers ----------
+  // 임계 감쇠 스프링에 가까운 곡선. 동작 줄이기 설정이면 짧은 크로스페이드로 대체한다.
+  var SPRING = 'cubic-bezier(.22, 1, .36, 1)';
+  function reducedMotion() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function canAnimate(el) { return el && typeof el.animate === 'function'; }
+
   // ---------- lightbox ----------
+  // 사진이 갤러리 속 제자리에서 커져 나오고, 닫으면 같은 길로 돌아간다(공간 일관성).
+  // 열리는 도중에 닫아도 같은 애니메이션을 그 자리에서 되돌린다(중단 가능).
   var lb = document.createElement('div');
   lb.className = 'lightbox';
   lb.innerHTML = '<div><img alt=""><p></p></div>';
   document.body.appendChild(lb);
-  lb.addEventListener('click', function () { lb.classList.remove('open'); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('open'); });
-  function openLightbox(src, caption) {
-    lb.querySelector('img').src = src;
-    lb.querySelector('p').textContent = caption || '';
-    lb.classList.add('open');
+  var lbImg = lb.querySelector('img'), lbAnim = null, lbFade = null, lbSource = null;
+  function flipFrom(src) {
+    var a = src.getBoundingClientRect(), b = lbImg.getBoundingClientRect();
+    if (!a.width || !b.width) return null;
+    return 'translate(' + (a.left - b.left) + 'px,' + (a.top - b.top) + 'px) scale(' + (a.width / b.width) + ',' + (a.height / b.height) + ')';
   }
+  function closeLightbox() {
+    if (!lb.classList.contains('open')) return;
+    var finish = function () { lb.classList.remove('open'); lbAnim = lbFade = null; };
+    if (lbAnim && lbFade && !reducedMotion()) {
+      lbAnim.onfinish = null;
+      lbAnim.playbackRate = 1.25; lbFade.playbackRate = 1.25;
+      lbAnim.reverse(); lbFade.reverse();
+      lbFade.onfinish = finish;
+    } else if (canAnimate(lb)) {
+      lb.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease-out' }).onfinish = finish;
+    } else finish();
+  }
+  lb.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+  function openLightbox(src, caption, fromEl) {
+    lbSource = fromEl || null;
+    lb.querySelector('p').textContent = caption || '';
+    lbImg.src = src;
+    lb.classList.add('open');
+    if (!canAnimate(lb)) return;
+    if (reducedMotion()) { lb.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing: 'ease-out' }); return; }
+    var run = function () {
+      lbFade = lb.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: SPRING, fill: 'both' });
+      var from = lbSource && flipFrom(lbSource);
+      lbAnim = lbImg.animate(from ? [{ transform: from, borderRadius: '10px' }, { transform: 'none', borderRadius: '12px' }]
+        : [{ transform: 'scale(.94)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: SPRING, fill: 'both' });
+    };
+    if (lbImg.complete && lbImg.naturalWidth) run(); else lbImg.onload = function () { lbImg.onload = null; run(); };
+  }
+
+  // 화면 전환: 새 화면이 살짝 떠오르며 나타남 (동작 줄이기면 짧은 페이드)
+  function enterView() {
+    if (!canAnimate(app)) return;
+    app.animate(reducedMotion() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+      { duration: reducedMotion() ? 140 : 360, easing: SPRING });
+  }
+
+  // 상단 바: 내용이 밑으로 들어갈 때만 가장자리 표시 (하드 구분선 대신)
+  var topbar = document.querySelector('.topbar');
+  function onScroll() { topbar.classList.toggle('scrolled', window.scrollY > 4); }
+  window.addEventListener('scroll', onScroll, { passive: true });
 
   // ---------- router ----------
   function route() {
@@ -905,18 +974,16 @@
     else viewHome(null);
   }
 
-  var timer;
+  // 검색: 입력 즉시 결과 반영 (지연 없음)
   search.addEventListener('input', function () {
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      query = search.value.trim();
-      var h = location.hash;
-      if (/^#\/slang/.test(h)) { viewSlang(); return; }
-      if (query && !/^#\/(cat\/.*)?$/.test(h) && h !== '') { location.hash = '#/'; return; }
-      route();
-    }, 120);
+    query = search.value.trim();
+    var h = location.hash;
+    if (/^#\/slang/.test(h)) { viewSlang(); return; }
+    if (query && !/^#\/(cat\/.*)?$/.test(h) && h !== '') { location.hash = '#/'; return; }
+    route();
   });
 
-  window.addEventListener('hashchange', function () { route(); window.scrollTo(0, 0); });
+  window.addEventListener('hashchange', function () { window.scrollTo(0, 0); route(); enterView(); onScroll(); });
   route();
+  onScroll();
 })();

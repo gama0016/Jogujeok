@@ -1,0 +1,173 @@
+/*
+ * Apple 디자인 레이어 — style.css 위에 덮어쓴다.
+ * 원칙: 반투명 소재로 위계 표현, 누르는 순간 반응, 끊김 없는(감쇠 스프링 같은) 움직임,
+ *       크기별 자간·행간, 동작 줄이기·투명도 줄이기·대비 높이기 설정 존중.
+ */
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #f0f0f3;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --line: rgba(0, 0, 0, .09);
+  --accent: #1d7a50;
+  --accent-soft: #e3f2ea;
+  --slang: #a1520e;
+  --slang-soft: #fdf0e3;
+  --shadow: 0 1px 1px rgba(0, 0, 0, .03), 0 4px 14px rgba(0, 0, 0, .05);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, .04), 0 16px 36px rgba(0, 0, 0, .10);
+  --radius: 16px;
+  --glass: rgba(250, 250, 252, .72);
+  --glass-edge: rgba(255, 255, 255, .6);
+  /* 임계 감쇠 스프링(damping 1.0, response ≈ 0.35s)에 가까운 곡선 */
+  --spring: cubic-bezier(.22, 1, .36, 1);
+  --t-move: 380ms;
+  --t-press: 90ms;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0c; --surface: #1c1c1e; --surface-2: #2c2c2e; --text: #f5f5f7; --muted: #98989d;
+    --line: rgba(255, 255, 255, .1); --accent: #6fd0a0; --accent-soft: #173527; --slang: #ffad66; --slang-soft: #3a2616;
+    --shadow: 0 0 0 1px rgba(255, 255, 255, .04); --shadow-lift: 0 0 0 1px rgba(255, 255, 255, .08), 0 16px 36px rgba(0, 0, 0, .5);
+    --glass: rgba(28, 28, 30, .72); --glass-edge: rgba(255, 255, 255, .08);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0b0c; --surface: #1c1c1e; --surface-2: #2c2c2e; --text: #f5f5f7; --muted: #98989d;
+  --line: rgba(255, 255, 255, .1); --accent: #6fd0a0; --accent-soft: #173527; --slang: #ffad66; --slang-soft: #3a2616;
+  --shadow: 0 0 0 1px rgba(255, 255, 255, .04); --shadow-lift: 0 0 0 1px rgba(255, 255, 255, .08), 0 16px 36px rgba(0, 0, 0, .5);
+  --glass: rgba(28, 28, 30, .72); --glass-edge: rgba(255, 255, 255, .08);
+}
+
+/* ---------- 타이포그래피: 시스템 글꼴, 크기별 자간·행간 ---------- */
+html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 1rem; line-height: 1.6; letter-spacing: -0.003em;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, h3 { font-optical-sizing: auto; }
+.hero h1 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1.12; letter-spacing: -0.028em; font-weight: 700; }
+.hero p { font-size: 1.05rem; line-height: 1.55; }
+.detail-head h1 { font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.08; letter-spacing: -0.032em; }
+.section-title h2 { font-size: 1.3rem; line-height: 1.25; letter-spacing: -0.018em; }
+.panel h3 { font-size: .98rem; letter-spacing: -0.01em; }
+.card-title { font-size: 1.02rem; letter-spacing: -0.012em; }
+.chip, .stat, .vtag, .tag, .slang-origin, .footer, .note, .section-note { letter-spacing: .01em; }
+.summary { font-size: 1.06rem; line-height: 1.65; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/* ---------- 반투명 상단 바 (내용이 아래로 흐른다) ---------- */
+.topbar {
+  background: var(--glass);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  box-shadow: inset 0 -1px 0 transparent;
+  transition: box-shadow var(--t-move) var(--spring), border-color var(--t-move) var(--spring);
+}
+/* 하드 구분선 대신, 내용이 바 밑으로 들어갈 때만 가장자리 표시 */
+.topbar.scrolled { border-bottom-color: var(--line); box-shadow: 0 6px 18px -12px rgba(0, 0, 0, .25); }
+.brand-mark { border-radius: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25); }
+#search {
+  background: var(--surface-2); border-radius: 12px; height: 38px;
+  transition: box-shadow 200ms var(--spring), background-color 200ms var(--spring);
+}
+#search:focus { border-color: transparent; background: var(--surface); box-shadow: 0 0 0 4px var(--accent-soft), 0 0 0 1px var(--accent); }
+.topnav a { border-radius: 10px; transition: background-color 160ms ease, color 160ms ease; }
+
+/* ---------- 사이드바: 무게감 있는 구조 영역 ---------- */
+.sidebar { border-right: 1px solid var(--line); }
+.cat-link { border-radius: 10px; transition: background-color 160ms ease, color 160ms ease, transform var(--t-press) ease-out; }
+.sidebar h2 { text-transform: none; letter-spacing: .02em; font-weight: 600; }
+
+/* ---------- 누르는 순간 반응 (pointer-down 피드백) ---------- */
+.card, .guide-card, .tool-card, .btn, .chip.preset, .cat-link, .tab, .topnav a, .pager a, .gallery figure, .cmp-chip button, .sec-dots button {
+  -webkit-tap-highlight-color: transparent;
+}
+.card:active, .guide-card:active, .tool-card:active { transform: scale(.985); transition: transform var(--t-press) ease-out; }
+.btn:active, .chip.preset:active, .cat-link:active, .tab:active, .topnav a:active, .pager a:active { transform: scale(.96); transition: transform var(--t-press) ease-out; }
+
+/* ---------- 카드·패널: 부드러운 깊이 ---------- */
+.card, .panel, .guide-card, .tool-card, .calc-inputs, .weights, .decide-chart, .table-wrap, .book-tools, .slang-box, .section-figure, .photo-slot {
+  border-radius: var(--radius);
+}
+.card, .guide-card, .tool-card { border-color: var(--line); box-shadow: var(--shadow); transition: transform var(--t-move) var(--spring), box-shadow var(--t-move) var(--spring), border-color 200ms ease; }
+.panel, .calc-inputs, .weights, .decide-chart, .book-tools { border-color: var(--line); box-shadow: var(--shadow); }
+@media (hover: hover) {
+  .card:hover, .guide-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: var(--line); }
+  .tool-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); border-color: var(--line); }
+  .card:hover .thumb img { transform: scale(1.03); }
+}
+.thumb img { transition: transform 600ms var(--spring); }
+.summary { border-left-width: 3px; box-shadow: var(--shadow); }
+.btn { border-radius: 10px; border-color: var(--line); transition: transform var(--t-press) ease-out, background-color 160ms ease, border-color 160ms ease, color 160ms ease; }
+.btn.primary { border-radius: 12px; box-shadow: 0 1px 2px rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .18); }
+.chip { border-radius: 999px; }
+
+/* ---------- 세그먼트 컨트롤 (탭) ---------- */
+.tabs, .sec-tabs {
+  display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: var(--surface-2);
+}
+.tab {
+  border: 0; background: transparent; border-radius: 9px; color: var(--muted); font-weight: 500;
+  transition: background-color 220ms var(--spring), color 220ms var(--spring), box-shadow 220ms var(--spring), transform var(--t-press) ease-out;
+}
+.tab.active { background: var(--surface); color: var(--text); border: 0; box-shadow: 0 1px 2px rgba(0, 0, 0, .1), 0 3px 8px rgba(0, 0, 0, .06); }
+.sec-tabs { background: #ececef; }
+.sec-tabs .tab { background: transparent; color: #555; border: 0; }
+.sec-tabs .tab.active { background: #fff; color: #1d1d1f; }
+
+/* ---------- 입력 요소 ---------- */
+.calc-field input, .calc-field select, #cmp-add {
+  border-radius: 10px; border-color: var(--line); background: var(--surface-2);
+  transition: box-shadow 200ms var(--spring), background-color 200ms var(--spring);
+}
+.calc-field input:focus, .calc-field select:focus, #cmp-add:focus { outline: none; background: var(--surface); box-shadow: 0 0 0 4px var(--accent-soft), 0 0 0 1px var(--accent); }
+.weight input[type="range"] { accent-color: var(--accent); }
+
+/* ---------- 막대그래프: 순위가 바뀌면 미끄러지듯 이동 ---------- */
+.bar-track .seg { transition: width var(--t-move) var(--spring); }
+.bar-track .seg:first-child { border-radius: 4px 0 0 4px; }
+.bar-row { will-change: transform; }
+
+/* ---------- 라이트박스: 사진이 제자리에서 커지며 나타남 ---------- */
+.lightbox {
+  background: rgba(0, 0, 0, .55);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+.lightbox img { border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, .45); transform-origin: top left; }
+.lightbox p { color: rgba(255, 255, 255, .86); }
+
+/* ---------- 사진 갤러리 ---------- */
+.gallery figure { border-color: var(--line); box-shadow: var(--shadow); transition: transform var(--t-move) var(--spring), box-shadow var(--t-move) var(--spring); }
+@media (hover: hover) { .gallery figure:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); } }
+
+/* ---------- 모바일 사이드바 칩 ---------- */
+@media (max-width: 900px) {
+  .sidebar { background: var(--bg); border-right: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+  .sidebar::-webkit-scrollbar { display: none; }
+  .cat-link { background: var(--surface); border-color: var(--line); border-radius: 999px; }
+  .cat-link.active { background: var(--text); color: var(--surface); border-color: var(--text); }
+}
+
+/* ---------- 접근성 설정 존중 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; scroll-behavior: auto !important; }
+  .card:hover, .guide-card:hover, .tool-card:hover, .gallery figure:hover, .card:hover .thumb img { transform: none !important; }
+  .card:active, .btn:active, .tab:active, .cat-link:active { transform: none !important; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .topbar { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: var(--line); }
+  .lightbox { background: rgba(0, 0, 0, .9); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  :root { --line: rgba(0, 0, 0, .35); --muted: #48484a; --glass: #ffffff; }
+  .topbar { background: var(--surface); backdrop-filter: none; border-bottom-color: var(--line); }
+  .card, .panel { border-color: var(--line); }
+}
+@media print {
+  .topbar { backdrop-filter: none; background: #fff; }
+  .card:hover { transform: none; }
+}

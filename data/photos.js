@@ -826,7 +826,7 @@ window.LM_PHOTOS = {
   {
    "src": "images/bark-2.jpg",
    "type": "material",
-   "caption": "화단 위에 깔린 우드칩 멀칭",
+   "caption": "회색빛으로 풍화된 우드칩 멀칭재 근접 사진",
    "artist": "Wilfredor",
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Wood_chip_mulch,_Quebec_City.jpg"
@@ -1352,6 +1352,50 @@ window.LM_PHOTOS = {
    "artist": "U3211603",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Retaining_Wall_Blocks.jpg"
+  }
+ ],
+ "hume-pipe": [
+  {
+   "src": "images/hume-pipe-1.jpg",
+   "type": "material",
+   "caption": "공사 현장에 반입된 원심력 철근콘크리트관(흄관)",
+   "artist": "Fumikas Sagisavas",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Jiangsu_Provincial_Highway_238_construction_site_(20240710)_P13.jpg"
+  },
+  {
+   "src": "images/hume-pipe-2.jpg",
+   "type": "material",
+   "caption": "야적된 대구경 콘크리트 배수관",
+   "artist": "Dave Spicer",
+   "license": "CC BY-SA 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Drainage_or_culvert_pipes_near_Riverside_Farm_-_geograph.org.uk_-_2175413.jpg"
+  },
+  {
+   "src": "images/hume-pipe-site-1.jpg",
+   "type": "site",
+   "caption": "논 옆 배수로 터파기에 연결 매설 중인 콘크리트관",
+   "artist": "Judgefloro",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:1405Pulilan_Bulacan_Road_Constructions_09.jpg"
+  }
+ ],
+ "u-gutter": [
+  {
+   "src": "images/u-gutter-1.jpg",
+   "type": "material",
+   "caption": "도로변 배수로 공사용 프리캐스트 콘크리트 U형 측구 블록",
+   "artist": "SATELIT BM",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Semen_Pracetak_Untuk_Saluran_Drainase_Di_Jl.Soetoyo_Kebumen_Jateng_NKRI.jpg"
+  },
+  {
+   "src": "images/u-gutter-site-1.jpg",
+   "type": "site",
+   "caption": "비탈면에 설치된 프리캐스트 콘크리트 계단식 배수로",
+   "artist": "Kai Kemmann",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Sohlschale_aus_Betonelementen_als_Entw%C3%A4sserungkaskade,_Hangentw%C3%A4sserung.jpg"
   }
  ]
 };
