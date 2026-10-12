@@ -181,5 +181,23 @@ window.LM_PHOTOS = {
    "license": "CC BY-SA 2.0",
    "url": "https://commons.wikimedia.org/wiki/File:Neat_dry_stone_wall_made_from_very_rounded_beach_stones_-_geograph.org.uk_-_8226694.jpg"
   }
+ ],
+ "corten": [
+  {
+   "src": "images/corten-1.jpg",
+   "type": "material",
+   "caption": "녹 보호층이 형성된 내후성강(코르텐강) 조형물 표면",
+   "artist": "No machine-readable author provided. Gerardus assumed (based on copyright claims).",
+   "license": "Public domain",
+   "url": "https://commons.wikimedia.org/wiki/File:COR-TEN-Steel_detail_1.JPG"
+  },
+  {
+   "src": "images/corten-site-1.jpg",
+   "type": "site",
+   "caption": "제방 녹지에 설치된 내후성강 조형물",
+   "artist": "Agnes Monkelbaan",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Ketelmeerdijk,_kunst_van_cortenstaal_nabij_de_Ketelhaven._21-03-2022._(actm.)_05.jpg"
+  }
  ]
 };
