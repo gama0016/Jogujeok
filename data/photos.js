@@ -436,12 +436,28 @@ window.LM_PHOTOS = {
  ],
  "rebar": [
   {
+   "src": "images/rebar-1.jpg",
+   "type": "material",
+   "caption": "마디가 있는 이형철근 다발 근접 사진",
+   "artist": "W.carter",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:A_bunch_of_rebar_up_close.jpg"
+  },
+  {
    "src": "images/rebar-site-1.jpg",
    "type": "site",
    "caption": "교량 상판 철근 배근 후 타설 전",
    "artist": "Federal Highway Administration",
    "license": "Public domain",
    "url": "https://commons.wikimedia.org/wiki/File:Deck_Reinforcement_VT_(8495188335).jpg"
+  },
+  {
+   "src": "images/rebar-site-2.jpg",
+   "type": "site",
+   "caption": "공사 현장에 가공·적치된 철근과 띠철근",
+   "artist": "Vsolymossy",
+   "license": "CC BY 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Rebar_01.JPG"
   }
  ],
  "wire-mesh": [
