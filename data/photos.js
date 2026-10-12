@@ -772,6 +772,14 @@ window.LM_PHOTOS = {
  ],
  "gravel": [
   {
+   "src": "images/gravel-1.jpg",
+   "type": "material",
+   "caption": "다양한 색의 둥근 강자갈(콩자갈) 포설면",
+   "artist": "Acabashi",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Gravel_texture_at_High_Easter_Essex.jpg"
+  },
+  {
    "src": "images/gravel-site-1.jpg",
    "type": "site",
    "caption": "정원 잔디 사이로 낸 자갈 포장 길",
@@ -1274,6 +1282,58 @@ window.LM_PHOTOS = {
    "artist": "Johnnybam",
    "license": "CC BY-SA 4.0",
    "url": "https://commons.wikimedia.org/wiki/File:Bundled_PVC_pipes_for_drainage_in_Awka.jpg"
+  },
+  {
+   "src": "images/pvc-pipe-site-1.jpg",
+   "type": "site",
+   "caption": "대구경 HDPE 이중벽 하수관 매설 공사",
+   "artist": "Tomascastelazo",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Hdpe_pipe_installation.jpg"
+  }
+ ],
+ "grating": [
+  {
+   "src": "images/grating-1.jpg",
+   "type": "material",
+   "caption": "콘크리트 틀에 끼운 강재 그레이팅 덮개",
+   "artist": "運動会プロテインパワー",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Grating_large_size_2023-07-1.jpg"
+  },
+  {
+   "src": "images/grating-2.jpg",
+   "type": "material",
+   "caption": "보도 옆 집수 시설의 아연도금 강재 그레이팅",
+   "artist": "運動会プロテインパワー",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Multiple_rectangle_grating_2023-05-1.jpg"
+  },
+  {
+   "src": "images/grating-site-1.jpg",
+   "type": "site",
+   "caption": "농로를 가로질러 설치된 트렌치 배수로와 그레이팅",
+   "artist": "UuMUfQ",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Schlitz_Fraurombach_Drainage_groove_Grating_Jan.png"
+  }
+ ],
+ "catch-basin": [
+  {
+   "src": "images/catch-basin-1.jpg",
+   "type": "material",
+   "caption": "빗물받이(집수정) 상부의 주철 유입구 그레이트",
+   "artist": "Michelle Arseneault",
+   "license": "CC BY-SA 3.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Storm_Drain_Dryden.JPG"
+  },
+  {
+   "src": "images/catch-basin-site-1.jpg",
+   "type": "site",
+   "caption": "보도 굴착 공사 중 드러난 콘크리트 맨홀 구체와 뚜껑",
+   "artist": "Infrogmation",
+   "license": "CC BY-SA 4.0",
+   "url": "https://commons.wikimedia.org/wiki/File:Construction_around_sidewalk_manhole_cover,_O_C_Haley_Blvd_New_Orleans,_2_June_2026_-_1.jpg"
   }
  ]
 };
