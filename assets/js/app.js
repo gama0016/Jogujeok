@@ -563,6 +563,7 @@
       '<div class="cover-fields"><div><span>과목</span><b contenteditable="true">과목명을 입력하세요</b></div>' +
       '<div><span>학번 · 이름</span><b contenteditable="true">학번 · 이름</b></div>' +
       '<div><span>제출일</span><b contenteditable="true">' + new Date().toISOString().slice(0, 10) + '</b></div></div>' +
+      '<p class="cover-note">콘텐츠 제작 © 2631063 유인선</p>' +
       '<p class="cover-note">재료 ' + MATS.length + '종 · 분류 ' + CATS.length + '개 · 표시된 글자(과목·이름)는 눌러서 고칠 수 있습니다.</p></section>';
     html += '<section class="book-toc"><h2>목차</h2>' + CATS.map(function (c) {
       var ms = MATS.filter(function (m) { return m.cat === c.id; });
