@@ -582,7 +582,7 @@
       '<button class="btn primary" type="button" id="bk-print">인쇄 · PDF로 저장</button></div>';
     html += '<div class="book" id="book">';
     html += '<section class="book-cover"><div class="cover-mark">조</div><h1>조경재료 백과사전</h1><p class="cover-sub">현장에서 쓰는 재료·자재의 특성, 규격, 시공 단면, 현장 은어</p>' +
-      '<div class="cover-fields"><div><span>과목</span><b contenteditable="true">과목명을 입력하세요</b></div>' +
+      '<div class="cover-fields"><div><span>과목</span><b contenteditable="true">조경구조및적산</b></div>' +
       '<div><span>학번 · 이름</span><b contenteditable="true">2631063 · 유인선</b></div>' +
       '<div><span>제출일</span><b contenteditable="true">' + new Date().toISOString().slice(0, 10) + '</b></div></div>' +
       '<p class="cover-note">콘텐츠 제작 © 2631063 유인선</p>' +
@@ -884,7 +884,7 @@
 
   function byline() {
     return '<p class="byline"><span class="byline-avatar" aria-hidden="true">유</span>' +
-      '<span>제작 <b>유인선</b><span class="byline-sep">·</span>2631063</span></p>';
+      '<span>조경구조및적산<span class="byline-sep">·</span>제작 <b>유인선</b><span class="byline-sep">·</span>2631063</span></p>';
   }
 
   function viewAbout() {
@@ -893,7 +893,7 @@
     document.title = '안내 · 조경재료 백과사전';
     app.innerHTML = '<div class="prose"><h1>안내</h1>' +
       '<div class="author-card"><span class="author-avatar" aria-hidden="true">유</span><div><span class="author-label">제작</span>' +
-      '<b class="author-name">유인선</b><span class="author-id">학번 2631063</span></div>' +
+      '<b class="author-name">유인선</b><span class="author-id">학번 2631063 · 조경구조및적산</span></div>' +
       '</div>' +
       '<p>이 백과사전은 조경 시공 현장에서 자주 쓰이는 <b>재료와 자재</b>를 정리한 자료입니다. 수목·초화류 같은 <b>식재는 제외</b>. 지주목·인공토양·멀칭재처럼 식재를 돕는 자재는 포함했습니다.</p>' +
       '<h2>보는 방법</h2><ul>' +
