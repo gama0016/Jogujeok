@@ -188,7 +188,7 @@
     if (home) {
       var photoCount = Object.keys(PHOTOS).reduce(function (n, k) { return n + PHOTOS[k].length; }, 0);
       var secCount = Object.keys(window.LM_SECTIONS || {}).filter(function (k) { return matById[k]; }).length;
-      html += '<section class="hero home-hero"><h1>조경재료 백과사전</h1>' +
+      html += '<section class="hero home-hero"><h1>조경재료 백과사전</h1>' + byline() +
         '<p>현장에서 쓰는 재료의 특성·규격·시공 단면도와 현장 은어까지. 식재(수목·초화류)는 다루지 않습니다.</p>' +
         '<p class="hero-meta">재료 <b>' + MATS.length + '</b> · 현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b> · 시공 단면도 <b>' + secCount + '</b> · 사진 <b>' + photoCount + '</b></p></section>';
       html += '<nav class="tool-strip" aria-label="학습 도구">' + TOOLS.map(function (t) {
@@ -583,7 +583,7 @@
     html += '<div class="book" id="book">';
     html += '<section class="book-cover"><div class="cover-mark">조</div><h1>조경재료 백과사전</h1><p class="cover-sub">현장에서 쓰는 재료·자재의 특성, 규격, 시공 단면, 현장 은어</p>' +
       '<div class="cover-fields"><div><span>과목</span><b contenteditable="true">과목명을 입력하세요</b></div>' +
-      '<div><span>학번 · 이름</span><b contenteditable="true">학번 · 이름</b></div>' +
+      '<div><span>학번 · 이름</span><b contenteditable="true">2631063 · 유인선</b></div>' +
       '<div><span>제출일</span><b contenteditable="true">' + new Date().toISOString().slice(0, 10) + '</b></div></div>' +
       '<p class="cover-note">콘텐츠 제작 © 2631063 유인선</p>' +
       '<p class="cover-note">재료 ' + MATS.length + '종 · 분류 ' + CATS.length + '개 · 표시된 글자(과목·이름)는 눌러서 고칠 수 있습니다.</p></section>';
@@ -882,11 +882,19 @@
     });
   }
 
+  function byline() {
+    return '<p class="byline"><span class="byline-avatar" aria-hidden="true">유</span>' +
+      '<span>제작 <b>유인선</b><span class="byline-sep">·</span>2631063</span></p>';
+  }
+
   function viewAbout() {
     renderSidebar(null);
     setNav('about');
     document.title = '안내 · 조경재료 백과사전';
     app.innerHTML = '<div class="prose"><h1>안내</h1>' +
+      '<div class="author-card"><span class="author-avatar" aria-hidden="true">유</span><div><span class="author-label">제작</span>' +
+      '<b class="author-name">유인선</b><span class="author-id">학번 2631063</span></div>' +
+      '<p class="author-note">조경재료 수업 과제 제출용 자료입니다.</p></div>' +
       '<p>이 백과사전은 조경 시공 현장에서 자주 쓰이는 <b>재료와 자재</b>를 정리한 자료입니다. 수목·초화류 같은 <b>식재는 조경재료가 아니므로 다루지 않습니다</b>. 지주목·인공토양·멀칭재처럼 식재를 돕는 자재는 포함했습니다.</p>' +
       '<h2>보는 방법</h2><ul>' +
       '<li>위쪽 검색창에 재료명이나 <b>현장 은어</b>(예: 공구리, 다루끼, 노깡)를 입력하면 해당 재료를 찾습니다.</li>' +
