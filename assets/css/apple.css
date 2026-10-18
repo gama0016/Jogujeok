@@ -248,5 +248,4 @@ h1, h2, h3 { font-optical-sizing: auto; }
 .author-label { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
 .author-name { font-size: 1.15rem; letter-spacing: -.01em; }
 .author-id { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.author-card .author-note { flex: 1 1 220px; margin: 0; color: var(--muted); font-size: .9rem; }
 @media print { .brand-sub, .byline { display: none; } }
