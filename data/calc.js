@@ -14,7 +14,7 @@
 
   window.LM_CALC = [
     {
-      id: 'block-paving', name: '보도블록 포장', unit: '㎡', mat: 'concrete-block-paver',
+      id: 'block-paving', name: '보도블록 포장 (보도용 60T)', unit: '㎡', mat: 'concrete-block-paver',
       desc: '블록 60T + 모래 안정층 + 보조기층 (보행용)',
       params: [
         { key: 'tSand', label: '모래 안정층', unit: 'mm', value: 35 },
@@ -22,6 +22,22 @@
       ],
       items: [
         { name: '콘크리트 보도블록 60T', mat: 'concrete-block-paver', unit: '㎡', loss: 0.03, price: 9700,
+          q: function (A) { return A; }, how: function () { return '면적 × (1 + 할증 3%)'; } },
+        { name: '모래 (안정층·줄눈)', mat: 'sand', unit: '톤', loss: 0.10, price: 90000,
+          q: function (A, p) { return A * p.tSand / 1000 * SAND; }, how: function (p) { return '면적 × ' + p.tSand + 'mm × 단위중량 1.6t/㎥ + 할증 10%'; } },
+        { name: '보조기층재 (혼합골재)', mat: 'subbase', unit: '톤', loss: 0, price: 10000,
+          q: function (A, p) { return A * p.tSub / 1000 * COMPACT * AGG; }, how: function (p) { return '면적 × ' + p.tSub + 'mm × 다짐 할증 1.25 × 1.8t/㎥'; } }
+      ]
+    },
+    {
+      id: 'block-paving-car', name: '보도블록 포장 (차량용 80T)', unit: '㎡', mat: 'concrete-block-paver',
+      desc: '블록 80T + 모래 안정층 + 보조기층 (주차장·차량 진입로)',
+      params: [
+        { key: 'tSand', label: '모래 안정층', unit: 'mm', value: 35 },
+        { key: 'tSub', label: '보조기층 (차도·주차장 150)', unit: 'mm', value: 150 }
+      ],
+      items: [
+        { name: '콘크리트 블록 80T', mat: 'concrete-block-paver', unit: '㎡', loss: 0.03, price: 10900,
           q: function (A) { return A; }, how: function () { return '면적 × (1 + 할증 3%)'; } },
         { name: '모래 (안정층·줄눈)', mat: 'sand', unit: '톤', loss: 0.10, price: 90000,
           q: function (A, p) { return A * p.tSand / 1000 * SAND; }, how: function (p) { return '면적 × ' + p.tSand + 'mm × 단위중량 1.6t/㎥ + 할증 10%'; } },

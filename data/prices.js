@@ -235,9 +235,9 @@ window.LM_PRICES = {
   "confidence": "medium"
  },
  "brick-clay": {
-  "price": "약 720~1,050원",
+  "price": "약 720~810원",
   "unit": "개",
-  "spec": "포장용 점토블록 230×114×60T 720~810원, 76T 1,050원 (VAT 별도). 벽체용 표준형(190×90×57)은 별도",
+  "spec": "포장용 점토블록 230×114×60T 720~810원 (VAT 별도). 벽체용 표준형(190×90×57)은 별도",
   "basis": "자재비",
   "year": 2026,
   "source": "https://ktomok.com/shop/list_search.php?ca_id=3510",

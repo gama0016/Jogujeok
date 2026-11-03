@@ -81,11 +81,11 @@
 
     // ----- 포장재 -----
     'concrete-block-paver': L('보도블록 포장 (보행용)', [
-      { n: '콘크리트 블록', t: '60', h: 60, p: 'block', joints: 44 },
+      { n: '콘크리트 블록 60T (차량용은 80T)', t: '60', h: 60, p: 'block', joints: 44 },
       { n: '모래 안정층', t: '30~40', h: 35, p: 'sand' },
       { n: '보조기층 (쇄석, 보도 100 / 차도·주차장 150)', t: '', h: 120, p: 'crushed' }], { slope: '가장자리는 경계석으로 구속 · 줄눈 모래 채움' }),
     'permeable-block': L('투수블록 포장', [
-      { n: '투수블록', t: '60~80', h: 70, p: 'block', joints: 44, jp: 'crushed' },
+      { n: '투수블록 (보도용 60T · 차량용 80T)', t: '60', h: 60, p: 'block', joints: 44, jp: 'crushed' },
       { n: '투수성 안정층 (쇄석 5~13)', t: '40', h: 40, p: 'gravel' },
       { n: '부직포', line: 'geotex' },
       { n: '투수성 보조기층 (단입도 쇄석)', t: '200', h: 200, p: 'crushed' }], { groundLabel: '원지반 (빗물 침투)' }),

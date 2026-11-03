@@ -1979,7 +1979,7 @@ window.LM_VERIFY = {
    "status": "confirmed",
    "ref": "KS F 4419; https://news.seoul.go.kr/citybuild/archives/205551",
    "note": "KS F 4419 두께는 보도용 60mm, 차도용 80mm이다.",
-   "text": "보도 60mm / 차도 80mm 이상"
+   "text": "보도용 60mm(60T) / 차량용 80mm(80T) 두 종류"
   },
   {
    "field": "props",

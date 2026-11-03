@@ -5,9 +5,9 @@
 window.LM_GUIDE = [
   {
     id: 'parking', title: '주차장·차량 진입로 포장', q: '차가 다니는 바닥을 만들어야 해요',
-    consider: ['차량 하중 — 블록은 두께 80mm 이상, 기층 콘크리트 필요 여부', '빗물 처리 — 투수·녹지 면적 기준(지자체 조례)', '유지관리 — 부분 보수 가능 여부'],
+    consider: ['차량 하중 — 블록은 차량용 80T(보도용은 60T), 기층 콘크리트 필요 여부', '빗물 처리 — 투수·녹지 면적 기준(지자체 조례)', '유지관리 — 부분 보수 가능 여부'],
     options: [
-      { label: '경제성과 내구성이 우선', picks: ['ascon', 'concrete-block-paver'], why: '아스콘은 넓은 면적을 가장 빠르고 싸게 포장한다. 블록(80mm)은 부분 교체가 쉽다.' },
+      { label: '경제성과 내구성이 우선', picks: ['ascon', 'concrete-block-paver'], why: '아스콘은 넓은 면적을 가장 빠르고 싸게 포장한다. 블록(차량용 80T)은 부분 교체가 쉽다.' },
       { label: '녹지·빗물 침투를 늘리고 싶다', picks: ['grass-block', 'permeable-block', 'permeable-concrete'], why: '잔디블록은 녹지 면적으로, 투수블록·투수콘은 빗물 침투로 물순환을 돕는다. 대형 차량 동선은 피한다.' },
       { label: '진입 광장처럼 경관이 중요하다', picks: ['saguseok', 'granite', 'curbstone'], why: '사고석·두꺼운 화강석(50mm 이상 + 콘크리트 기층)은 차량 하중을 견디며 고급스럽다. 속도 저감 효과도 있다.' }
     ]
