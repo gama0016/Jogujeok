@@ -7,22 +7,23 @@
   <meta name="description" content="실제 조경 현장에서 자주 쓰이는 재료·자재의 특성, 규격, 시공 방법, 현장 은어를 정리한 백과사전">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/apple.css">
-  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="assets/css/sheet.css">
+  <meta name="theme-color" content="#f3f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141614" media="(prefers-color-scheme: dark)">
 </head>
 <body>
+  <button type="button" class="skip" id="skip">본문 바로가기</button>
   <header class="topbar">
-    <a class="brand" href="#/">
+    <a class="brand" href="#/" aria-label="조경재료 백과사전 홈 · 제작 2631063 유인선">
       <span class="brand-mark" aria-hidden="true">조</span>
       <span class="brand-stack"><span class="brand-text">조경재료 백과사전</span><span class="brand-sub">2631063 유인선</span></span>
     </a>
     <div class="search-wrap">
-      <input id="search" type="search" placeholder="재료명·은어·초성 검색 (예: 공구리, 투바이, ㄷㄹㄲ)" autocomplete="off" aria-label="재료 검색">
+      <input id="search" type="search" placeholder="재료명·은어·초성 검색 (예: 공구리, ㄷㄹㄲ)" autocomplete="off" aria-label="재료 검색">
     </div>
-    <nav class="topnav">
+    <nav class="topnav" aria-label="주요 메뉴">
       <a href="#/" data-nav="home">재료</a>
       <a href="#/guide" data-nav="guide">선정 가이드</a>
       <a href="#/compare" data-nav="compare">비교표</a>
@@ -37,7 +38,14 @@
   </div>
 
   <footer class="footer">
-    <p>조경재료 백과사전 · 조경구조및적산 과제 자료 · 규격·수치는 대표값이며 제조사·현장 조건에 따라 다를 수 있습니다.</p>
+    <dl class="titleblock" aria-label="자료 정보">
+      <div class="tb-name"><dt>자료명</dt><dd>조경재료 백과사전</dd></div>
+      <div><dt>과목</dt><dd>조경구조및적산</dd></div>
+      <div><dt>작성</dt><dd>유인선</dd></div>
+      <div><dt>학번</dt><dd class="num">2631063</dd></div>
+      <div><dt>단위</dt><dd class="num">mm</dd></div>
+    </dl>
+    <p>규격·수치는 대표값이며 제조사·현장 조건에 따라 다를 수 있습니다.</p>
     <p class="copyright">콘텐츠 제작 © 2631063 유인선</p>
   </footer>
 

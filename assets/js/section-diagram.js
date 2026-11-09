@@ -85,11 +85,20 @@
         var lim = i === L.length - 1 ? maxY : L[i + 1].ly - gap;
         if (L[i].ly > lim) L[i].ly = lim;
       }
-      var out = L.map(function (l) {
-        return '<circle cx="' + l.x + '" cy="' + l.y + '" r="2.4" fill="#c0392b"/>' +
-          '<polyline points="' + l.x + ',' + l.y + ' ' + (LX - 14) + ',' + l.ly + ' ' + (LX - 4) + ',' + l.ly + '" fill="none" stroke="#c0392b" stroke-width=".9"/>' +
-          '<text x="' + LX + '" y="' + (l.ly + 4) + '" font-size="12.5" fill="#1d1d1d">' + esc(l.t) + '</text>';
+      var compact = OPTS.compact, bare = OPTS.bare;
+      var out = bare ? '' : L.map(function (l, i) {
+        if (compact) {
+          // 휴대폰: 지시선 대신 번호 표시 → 그림 아래 범례(LM_SECTION.lastLabels)
+          return '<circle cx="' + l.x + '" cy="' + l.y + '" r="9" fill="#b3322a" stroke="#fbf9f2" stroke-width="1.5"/>' +
+            '<text x="' + l.x + '" y="' + (l.y + 4) + '" font-size="11" fill="#fff" text-anchor="middle" font-family="IBM Plex Mono, monospace">' + (i + 1) + '</text>';
+        }
+        return '<circle cx="' + l.x + '" cy="' + l.y + '" r="2.4" fill="#b3322a"/>' +
+          '<polyline points="' + l.x + ',' + l.y + ' ' + (LX - 14) + ',' + l.ly + ' ' + (LX - 4) + ',' + l.ly + '" fill="none" stroke="#b3322a" stroke-width=".9"/>' +
+          '<text x="' + LX + '" y="' + (l.ly + 4) + '" font-size="12.5" fill="#1c1f1d">' + esc(l.t) + '</text>';
       }).join('');
+      LAST = L.map(function (l) { return l.t; });
+      var vbw = compact || bare ? 460 : VBW;
+      var title = (CUR && CUR.title ? CUR.title + ' — ' : '') + '위에서부터 ' + LAST.join(' / ');
       if (CUR && CUR.marks) drawMarks(this, CUR.marks);
       var body = this.parts.join('');
       if (this.clipY != null && this.clipY > 0) {
@@ -97,10 +106,11 @@
         var cy = this.clipY;
         body = '<clipPath id="' + this.P + 'clip"><rect x="0" y="' + cy + '" width="' + VBW + '" height="' + (this.h - cy) + '"/></clipPath>' +
           '<g opacity=".13">' + body + '</g><g clip-path="url(#' + this.P + 'clip)">' + body + '</g>' +
-          '<line x1="20" y1="' + cy + '" x2="440" y2="' + cy + '" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>';
+          '<line x1="20" y1="' + cy + '" x2="440" y2="' + cy + '" stroke="#b3322a" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>';
       }
-      return '<svg class="section-svg" viewBox="0 0 ' + VBW + ' ' + this.h + '" xmlns="http://www.w3.org/2000/svg" role="img">' +
-        defs(this.P) + '<rect width="' + VBW + '" height="' + this.h + '" fill="#fdfcf8"/>' +
+      return '<svg class="section-svg" viewBox="0 0 ' + vbw + ' ' + this.h + '" xmlns="http://www.w3.org/2000/svg" role="img"' + (bare ? ' aria-hidden="true"' : '') + '>' +
+        (bare ? '' : '<title>' + esc('시공 단면도: ' + title) + '</title>') +
+        defs(this.P) + '<rect width="' + VBW + '" height="' + this.h + '" fill="#fbf9f2"/>' +
         body + out + '</svg>';
     }
   };
@@ -114,7 +124,7 @@
     for (k in o) out += ' ' + k + '="' + o[k] + '"';
     return out;
   }
-  var CUR = null;
+  var CUR = null, OPTS = {}, LAST = [];
   // 하자 표시: 빨간 균열·처짐·화살표·물방울·X·메모
   function drawMarks(c, marks) {
     var R = 'stroke="#d0021b" fill="none" stroke-width="2.2"';
@@ -227,8 +237,8 @@
       c.path('M' + cx + ' ' + (curbTop + 6) + ' L' + (cx + 6) + ' ' + curbTop, 'stroke="#333" stroke-width="1" fill="none"');
       c.label(cx + cw / 2, curbTop + ch * 0.3, s.curbLabel || '경계석');
     }
-    if (st === 2) c.line(X, curbTop, X + W, curbTop, 'stroke="#c0392b" stroke-dasharray="6 4"');
-    if (st === 2) c.text(X + 4, curbTop - 6, '실띄우기 (선형·높이 기준)', 'fill="#c0392b"');
+    if (st === 2) c.line(X, curbTop, X + W, curbTop, 'stroke="#b3322a" stroke-dasharray="6 4"');
+    if (st === 2) c.text(X + 4, curbTop - 6, '실띄우기 (선형·높이 기준)', 'fill="#b3322a"');
     if (st >= 1) c.label(cx + cw / 2, baseY + baseH / 2, '기초 콘크리트 t100');
     if (st >= 3 && !s.noHaunch) c.label(cx + cw + 8, baseY - ch * 0.12, '뒷채움 콘크리트');
     if (st >= 4) c.label(X + W - 40, soilTop + 20, s.rightLabel || '식재지 토양');
@@ -357,8 +367,8 @@
     var tx = 150, tw = 150, ty = G + 60, th = 190;
     c.rect(X, G, W, 250, 'soil');
     if (st >= 4 && s.turf !== false) c.turfTop(X, G, W);
-    if (st < 4) c.rect(tx, G, tw, ty - G, null, 'fill="#fdfcf8" stroke="#888" stroke-dasharray="3 3"');
-    c.rect(tx, ty, tw, th - 10, st >= 3 ? 'crushed' : null, st >= 3 ? '' : 'fill="#fdfcf8"');
+    if (st < 4) c.rect(tx, G, tw, ty - G, null, 'fill="#fbf9f2" stroke="#888" stroke-dasharray="3 3"');
+    c.rect(tx, ty, tw, th - 10, st >= 3 ? 'crushed' : null, st >= 3 ? '' : 'fill="#fbf9f2"');
     if (st >= 1 && !s.noGeo) c.geotex(st >= 4 ? 'M' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' Z' : 'M' + (tx - 20) + ' ' + (ty - 10) + ' L' + tx + ' ' + ty + ' V' + (ty + th - 10) + ' H' + (tx + tw) + ' V' + ty + ' L' + (tx + tw + 20) + ' ' + (ty - 10));
     if (st >= 1) c.rect(tx, ty + th - 22, tw, 12, 'sand');
     if (st >= 2) {
@@ -396,7 +406,7 @@
     });
     c.label(tx + 20, ty + 90, s.bed || '모래 (관 주변 채움·기초)');
     c.label(X + W - 30, ty + 30, '되메우기 흙 다짐');
-    c.line(tx - 20, G, tx - 20, ty + 120, 'stroke="#c0392b" stroke-dasharray="3 2"');
+    c.line(tx - 20, G, tx - 20, ty + 120, 'stroke="#b3322a" stroke-dasharray="3 2"');
     c.text(tx - 18 - 70, ty + 40, s.cover || '토피 600 이상', 'transform="rotate(-90 ' + (tx - 26) + ' ' + (ty + 40) + ')"');
     return c.svg();
   }
@@ -491,9 +501,9 @@
     c.rect(X, G, W, 220, 'soil');
     var P = function (d) { return [[80 + d * 1.3, G], [150 + d * 0.6, 250 - d], [310 - d * 0.6, 250 - d], [380 - d * 1.3, G]]; };
     var dPath = function (d) { return 'M' + P(d).map(function (q) { return q.join(' '); }).join(' L'); };
-    c.poly(P(-14), st >= 1 && !s.noProtect ? 'sand' : null, st >= 1 && !s.noProtect ? '' : 'fill="#fdfcf8"');
+    c.poly(P(-14), st >= 1 && !s.noProtect ? 'sand' : null, st >= 1 && !s.noProtect ? '' : 'fill="#fbf9f2"');
     if (st >= 2) { c.membrane(dPath(-6)); if (!s.noProtect) c.geotex(dPath(-10)); }
-    if (st >= 3) c.poly(P(0), 'gravel'); else if (st >= 1) c.poly(P(-6), null, 'fill="#fdfcf8" stroke="none"');
+    if (st >= 3) c.poly(P(0), 'gravel'); else if (st >= 1) c.poly(P(-6), null, 'fill="#fbf9f2" stroke="none"');
     if (st >= 4) { c.poly(P(14), 'water', 'stroke="none"'); c.line(70, G + 14, 390, G + 14, 'stroke="#2b6ca3" stroke-width="1.4"'); }
     // 가장자리 고정 트렌치
     if (st >= 2) { c.membrane('M64 ' + G + ' v20 h-14'); c.membrane('M396 ' + G + ' v20 h14'); }
@@ -737,11 +747,13 @@
     pond: pond, channel: channel, box: box, stake: stake, sprinkler: sprinkler, formwork: formwork, footing: footing, linearled: linearled, bench: bench, pergola: pergola };
 
   window.LM_SECTION = {
-    render: function (spec) {
+    // opts.compact: 휴대폰용(번호 표시, 라벨은 lastLabels로), opts.bare: 썸네일(라벨 없음)
+    render: function (spec, opts) {
       var b = builders[spec.kind];
       if (!b) return '';
-      CUR = spec;
-      try { return b(spec); } catch (e) { console.error(e); return ''; } finally { CUR = null; }
-    }
+      CUR = spec; OPTS = opts || {}; LAST = [];
+      try { return b(spec); } catch (e) { console.error(e); return ''; } finally { CUR = null; OPTS = {}; }
+    },
+    lastLabels: function () { return LAST.slice(); }
   };
 })();

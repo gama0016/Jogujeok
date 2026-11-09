@@ -94,13 +94,45 @@
     if (!r) return '';
     return '<li>' + (tag ? '<span class="chip">' + esc(tag) + '</span> ' : '') +
       (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' : esc(r.title)) +
-      (r.org ? ' <span class="dash">— ' + esc(r.org) + '</span>' : '') + '</li>';
+      (r.org ? ' <span class="dash">· ' + esc(r.org) + '</span>' : '') + '</li>';
   }
 
   function placeholder(m) {
-    var c = catById[m.cat] || { color: '#888', name: '' };
-    return '<div class="placeholder" style="background-color:' + c.color + '">' + esc(m.name.charAt(0)) +
+    var c = catById[m.cat] || { color: '#888888', name: '' };
+    return '<div class="placeholder" style="--hatch:' + c.color + '66">' + esc(m.name.charAt(0)) +
       '<small>사진 준비중</small></div>';
+  }
+  function catChip(c) {
+    return '<span class="chip cat"><i style="background:' + (c.color || '#888') + '" aria-hidden="true"></i>' + esc(c.name || '') + '</span>';
+  }
+  function crumbs(name) { return '<div class="crumbs"><a href="#/">홈</a> › ' + esc(name) + '</div>'; }
+
+  // 검색어가 재료의 어디에 걸렸는지 (이름에 바로 보이면 생략)
+  function matchReason(m, q) {
+    var w = q.split(/\s+/).filter(Boolean)[0];
+    if (!w) return '';
+    var hit = function (t) { return isCho(w) ? norm(cho(t)).indexOf(w) !== -1 : norm(t).indexOf(norm(w)) !== -1; };
+    if (hit(m.name)) return '';
+    var s = (m.slang || []).filter(function (x) { return hit(x.t); })[0];
+    if (s) return '은어 ‘' + s.t + '’';
+    var a = (m.aka || []).filter(hit)[0];
+    if (a) return '다른 이름 ‘' + a + '’';
+    if (isCho(w)) return '';
+    s = (m.slang || []).filter(function (x) { return hit(x.m || ''); })[0];
+    if (s) return '은어 ‘' + s.t + '’ 설명에 나옴';
+    var u = (m.uses || []).filter(hit)[0];
+    if (u) return '용도: ' + u;
+    return '';
+  }
+
+  // 단면도: 넓은 화면은 지시선 라벨, 휴대폰은 번호 + 범례
+  function secHtml(spec) {
+    var full = window.LM_SECTION.render(spec);
+    if (!full) return '';
+    var small = window.LM_SECTION.render(spec, { compact: true });
+    var labels = window.LM_SECTION.lastLabels();
+    return '<div class="sec-full section-scroll">' + full + '</div><div class="sec-compact">' + small +
+      (labels.length ? '<ol class="sec-legend">' + labels.map(function (t, i) { return '<li><b>' + (i + 1) + '</b><span>' + esc(t) + '</span></li>'; }).join('') + '</ol>' : '') + '</div>';
   }
 
   // 사진: 재료의 photos 필드 → data/photos.js(인터넷 수집 사진) → images/{id}-N.jpg 자동 탐색 순
@@ -127,28 +159,31 @@
       '</div>' +
       '<div class="card-body">' +
         '<div><span class="card-title">' + esc(m.name) + '</span> <span class="card-en">' + esc(m.en || '') + '</span></div>' +
-        '<div class="chips"><span class="chip cat" style="background:' + c.color + '">' + esc(c.name || '') + '</span>' + slang + '</div>' +
+        (query && matchReason(m, query) ? '<div class="card-hit">' + esc(matchReason(m, query)) + '</div>' : '') +
+        '<div class="chips">' + catChip(c) + slang + '</div>' +
         '<div class="card-sum">' + esc(m.summary || '') + '</div>' +
       '</div></a>';
   }
 
   // ---------- sidebar ----------
   var TOOLS = [
-    { h: '#/guide', n: '재료 선정 가이드' }, { h: '#/decide', n: '다기준 의사결정' }, { h: '#/compare', n: '재료 비교표' },
-    { h: '#/calc', n: '물량·공사비 계산기' }, { h: '#/defects', n: '하자 사례' }, { h: '#/slang', n: '현장 은어 사전' },
+    { h: '#/guide', n: '선정 가이드' }, { h: '#/decide', n: '다기준 의사결정' }, { h: '#/compare', n: '비교표' },
+    { h: '#/calc', n: '물량·공사비 계산기' }, { h: '#/defects', n: '하자 사례' }, { h: '#/slang', n: '현장 은어' },
     { h: '#/refs', n: '참고문헌' }, { h: '#/book', n: '전체 PDF' }
   ];
-  function renderSidebar(activeCat, activeTool) {
+  // showOnMobile: 휴대폰에서는 분류·재료 화면에서만 분류 칩 줄을 보인다
+  function renderSidebar(activeCat, activeTool, showOnMobile) {
+    sidebar.classList.toggle('mob-hide', !showOnMobile);
     var html = '<h2>분류</h2>' +
       '<a class="cat-link' + (!activeCat && !activeTool ? ' active' : '') + '" href="#/all"><span class="cat-dot" style="background:var(--accent)"></span>전체<span class="cat-count">' + MATS.length + '</span></a>';
     CATS.forEach(function (c) {
       var n = MATS.filter(function (m) { return m.cat === c.id; }).length;
-      html += '<a class="cat-link' + (activeCat === c.id ? ' active' : '') + '" href="#/cat/' + c.id + '">' +
+      html += '<a class="cat-link' + (activeCat === c.id ? ' active' : '') + '" href="#/cat/' + c.id + '"' + (activeCat === c.id ? ' aria-current="page"' : '') + '>' +
         '<span class="cat-dot" style="background:' + c.color + '"></span>' + esc(c.name) +
         '<span class="cat-count">' + n + '</span></a>';
     });
     html += '<h2 class="side-tools">학습 도구</h2>' + TOOLS.map(function (t) {
-      return '<a class="cat-link tool-link' + (activeTool === t.h ? ' active' : '') + '" href="' + t.h + '">' + esc(t.n) + '</a>';
+      return '<a class="cat-link tool-link' + (activeTool === t.h ? ' active' : '') + '" href="' + t.h + '"' + (activeTool === t.h ? ' aria-current="page"' : '') + '>' + esc(t.n) + '</a>';
     }).join('');
     sidebar.innerHTML = html;
   }
@@ -177,7 +212,7 @@
   }
 
   function viewHome(catId, showAll) {
-    renderSidebar(catId, catId || showAll ? null : '#/');
+    renderSidebar(catId, catId || showAll ? null : '#/', !!(catId || showAll));
     setNav('home');
     var items = MATS.filter(function (m) { return (!catId || m.cat === catId) && matches(m, query); });
     if (query) items.sort(function (a, b) { return score(a, query) - score(b, query) || byKo(a.name, b.name); });
@@ -201,16 +236,29 @@
       return;
     }
     if (query) {
-      html += '<div class="section-title"><h2>“' + esc(query) + '” 검색 결과</h2><span>' + items.length + '건</span></div>';
+      var all = catId ? MATS.filter(function (m) { return matches(m, query); }).length : items.length;
+      var gl = GLOSSARY.filter(function (r) { return textMatch(r.t + '|' + (r.s || ''), r.t, query); });
+      html += '<div class="section-title"><h2>“' + esc(query) + '” 검색 결과</h2><span>재료 ' + items.length + '건</span></div>';
+      if (catId) html += '<p class="search-scope">' + esc(catById[catId].name) + ' 분류 안에서 찾은 결과입니다.' +
+        (all > items.length ? ' <a href="#/all">전체 분류에서 ' + all + '건 보기 ›</a>' : '') + '</p>';
+      html += gl.map(function (r) {
+        return '<div class="gloss-hit">‘<b>' + esc(r.t) + '</b>’은(는) 재료가 아닌 공정·작업 은어입니다 · 바른 말 <b>' + esc(r.s || '') + '</b>' +
+          '<div>' + esc(r.m || '') + ' <a href="#/slang">현장 은어 사전 ›</a></div></div>';
+      }).join('');
       html += items.length ? '<div class="grid">' + items.map(card).join('') + '</div>'
-        : '<div class="empty">찾는 재료가 없습니다. 다른 이름이나 은어로 검색해 보세요.</div>';
+        : '<div class="empty"><b>“' + esc(query) + '”에 맞는 재료가 없습니다.</b><div class="empty-help">이렇게 찾아보세요<ul>' +
+          (catId && all ? '<li><a href="#/all">전체 분류에서 ' + all + '건 보기</a></li>' : '') +
+          '<li><a href="#/slang">현장 은어 사전</a>에서 같은 말 찾기 (공정 은어는 재료가 아님)</li>' +
+          '<li>초성만 넣어도 됩니다: <b>ㄷㄹㄲ</b> → 다루끼</li>' +
+          '<li><a href="#/all">재료 전체 목록</a>에서 둘러보기</li></ul>' +
+          '<button class="btn" type="button" id="clear-q">검색어 지우기</button></div></div>';
     } else if (catId) {
       var c = catById[catId];
       html += '<div class="crumbs"><a href="#/">홈</a> › ' + esc(c.name) + '</div>' +
         '<div class="section-title"><h2>' + esc(c.name) + '</h2><span>' + esc(c.desc) + ' · ' + items.length + '종</span></div>' +
         '<div class="grid">' + items.map(card).join('') + '</div>';
     } else {
-      html += '<div class="crumbs"><a href="#/">홈</a> › 전체 목록</div>';
+      html += crumbs('전체 목록');
       CATS.forEach(function (c) {
         var group = items.filter(function (m) { return m.cat === c.id; });
         if (!group.length) return;
@@ -219,67 +267,78 @@
       });
     }
     app.innerHTML = html;
+    var clr = document.getElementById('clear-q');
+    if (clr) clr.addEventListener('click', function () { search.value = ''; query = ''; route(); search.focus(); });
   }
 
   function viewMaterial(id) {
     var m = matById[id];
     if (!m) { app.innerHTML = '<div class="empty">없는 항목입니다. <a href="#/">목록으로</a></div>'; return; }
     var c = catById[m.cat] || {};
-    renderSidebar(m.cat);
+    renderSidebar(m.cat, null, true);
     setNav('home');
     document.title = m.name + ' · 조경재료 백과사전';
+    var siblings = MATS.filter(function (x) { return x.cat === m.cat; });
+    var idx = siblings.indexOf(m);
+    var no = (c.id || 'xx').slice(0, 2).toUpperCase() + '-' + (idx < 9 ? '0' : '') + (idx + 1);
 
     var html = '<div class="crumbs"><a href="#/">홈</a> › <a href="#/cat/' + c.id + '">' + esc(c.name) + '</a>' +
       (m.sub ? ' › ' + esc(m.sub) : '') + '</div>';
-    html += '<div class="detail-head"><h1>' + esc(m.name) + '</h1><span class="en">' + esc(m.en || '') + '</span>' +
+    // 표제란: 이름(왼쪽) + 분류·번호·세부·단위(오른쪽)
+    html += '<header class="sheet-head"><div class="sh-name"><h1>' + esc(m.name) + '</h1>' +
+      (m.en ? '<span class="en" lang="en">' + esc(m.en) + '</span>' : '') +
+      (m.aka && m.aka.length ? '<div class="aka">다른 이름 · ' + m.aka.map(esc).join(', ') + '</div>' : '') + '</div>' +
+      '<div class="sh-side"><dl class="sh-block">' +
+      '<div><dt>분류</dt><dd>' + esc(c.name) + '</dd></div><div><dt>번호</dt><dd class="num">' + no + '</dd></div>' +
+      '<div><dt>세부</dt><dd>' + esc(m.sub || '-') + '</dd></div><div><dt>단위</dt><dd class="num">mm</dd></div></dl>' +
       '<div class="tools"><button class="btn" id="cmp-btn" type="button">비교에 추가</button>' +
-      '<button class="btn" id="print-btn" type="button">인쇄·PDF</button></div></div>';
-    if (m.aka && m.aka.length) html += '<div class="aka">다른 이름 · ' + m.aka.map(esc).join(', ') + '</div>';
+      '<button class="btn" id="print-btn" type="button">인쇄·PDF</button></div></div></header>';
     if (m.summary) html += '<p class="summary">' + esc(m.summary) + '</p>';
 
     if (m.slang && m.slang.length) {
-      html += '<div class="slang-box"><h3>현장에서는 이렇게 불러요</h3><ul class="slang-list">' +
+      html += '<div class="slang-box"><h2>현장에서는 이렇게 불러요</h2><ul class="slang-list">' +
         m.slang.map(function (s) {
           return '<li><div><span class="slang-term">' + esc(s.t) + '</span>' +
             (s.o ? '<div class="slang-origin">' + esc(s.o) + '</div>' : '') + '</div><div>' + esc(s.m || '') + '</div></li>';
         }).join('') + '</ul></div>';
     }
 
-    html += '<div class="gallery-wrap" id="g-material"><div class="section-title"><h2>재료 사진</h2></div><div class="gallery"></div></div>';
-
-    html += '<div class="sections">';
-    if (m.props && m.props.length) {
-      html += '<div class="panel"><h3>재료 특성</h3><table class="props">' +
-        m.props.map(function (p) { return '<tr><th>' + esc(p[0]) + '</th><td>' + esc(p[1]) + '</td></tr>'; }).join('') +
-        (m.cost ? '<tr><th>상대 가격대</th><td>' + costHtml(m.cost) + '</td></tr>' : '') +
-        (PRICES[m.id] ? '<tr><th>참고 단가</th><td>' + priceHtml(PRICES[m.id]) + '</td></tr>' : '') + '</table></div>';
-    }
-    if (m.specs && m.specs.length) html += '<div class="panel"><h3>대표 규격</h3>' + list(m.specs) + '</div>';
-    if (m.pros && m.pros.length) html += '<div class="panel"><h3>장점</h3>' + list(m.pros, 'pros') + '</div>';
-    if (m.cons && m.cons.length) html += '<div class="panel"><h3>단점</h3>' + list(m.cons, 'cons') + '</div>';
-    if (m.uses && m.uses.length) html += '<div class="panel wide"><h3>주요 용도</h3><div class="chips">' +
-      m.uses.map(function (u) { return '<span class="chip">' + esc(u) + '</span>'; }).join('') + '</div></div>';
-    if (m.steps && m.steps.length) html += '<div class="panel wide"><h3>시공 방법</h3><ol class="steps">' +
-      m.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>';
-    if (m.cautions && m.cautions.length) html += '<div class="panel"><h3>시공 시 주의</h3>' + list(m.cautions) + '</div>';
-    if (m.care && m.care.length) html += '<div class="panel"><h3>유지관리</h3>' + list(m.care) + '</div>';
-    html += '</div>';
-
+    // 시공 단면도: 이 사전에서 가장 고유한 자료라 요약·은어 바로 다음에 둔다
     var sec = (window.LM_SECTIONS || {})[m.id];
     var svg = sec && window.LM_SECTION ? window.LM_SECTION.render(sec) : '';
     var proc = PROCS[m.id];
     if (svg) {
-      html += '<div class="section-wrap"><div class="section-title"><h2>시공 단면도</h2><span>' + esc(sec.title || '') + '</span></div>' +
+      html += '<section class="section-wrap" aria-labelledby="sec-h"><div class="section-title"><h2 id="sec-h">시공 단면도</h2><span>' + esc(sec.title || '') + '</span></div>' +
         '<div class="section-figure">' +
-        (proc ? '<div class="sec-tabs"><button type="button" class="tab active" data-sec="full">완성 단면</button>' +
-          '<button type="button" class="tab" data-sec="steps">시공 순서 (' + proc.length + '단계)</button></div>' : '') +
-        '<div class="section-scroll" id="sec-svg">' + svg + '</div>' +
+        (proc ? '<div class="sec-tabs" role="tablist" aria-label="단면도 보기 방식"><button type="button" role="tab" aria-selected="true" class="tab active" data-sec="full">완성 단면</button>' +
+          '<button type="button" role="tab" aria-selected="false" class="tab" data-sec="steps">시공 순서 (' + proc.length + '단계)</button></div>' : '') +
+        '<div id="sec-svg">' + secHtml(sec) + '</div>' +
         (proc ? '<div class="sec-stepper" id="sec-stepper" hidden><button type="button" class="btn" id="sec-prev">◀ 이전</button>' +
-          '<div class="sec-cap"><b id="sec-num"></b> <span id="sec-text"></span><div class="sec-dots" id="sec-dots"></div></div>' +
+          '<div class="sec-cap" aria-live="polite"><b id="sec-num"></b> <span id="sec-text"></span><div class="sec-dots" id="sec-dots"></div></div>' +
           '<button type="button" class="btn" id="sec-next">다음 ▶</button></div>' : '') +
         '<p class="section-note">개념 단면도(축척 없음) · 두께 단위 mm · 수치는 대표 예시이며 실제 설계는 표준시방서·설계도를 따릅니다.' +
-        (proc ? ' 시공 순서에서 흐리게 보이는 부분은 아직 시공 전입니다.' : '') + '</p></div></div>';
+        (proc ? ' 시공 순서에서 흐리게 보이는 부분은 아직 시공 전입니다.' : '') + '</p></div></section>';
     }
+
+    html += '<div class="gallery-wrap" id="g-material"><div class="section-title"><h2>재료 사진</h2></div><div class="gallery"></div></div>';
+
+    html += '<div class="sections">';
+    if (m.props && m.props.length) {
+      html += '<div class="panel"><h2>재료 특성</h2><table class="props">' +
+        m.props.map(function (p) { return '<tr><th scope="row">' + esc(p[0]) + '</th><td>' + esc(p[1]) + '</td></tr>'; }).join('') +
+        (m.cost ? '<tr><th scope="row">상대 가격대</th><td>' + costHtml(m.cost) + '</td></tr>' : '') +
+        (PRICES[m.id] ? '<tr><th scope="row">참고 단가</th><td>' + priceHtml(PRICES[m.id]) + '</td></tr>' : '') + '</table></div>';
+    }
+    if (m.specs && m.specs.length) html += '<div class="panel"><h2>대표 규격</h2>' + list(m.specs) + '</div>';
+    if (m.steps && m.steps.length) html += '<div class="panel wide"><h2>시공 방법</h2><ol class="steps">' +
+      m.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></div>';
+    if (m.pros && m.pros.length) html += '<div class="panel"><h2>장점</h2>' + list(m.pros, 'pros') + '</div>';
+    if (m.cons && m.cons.length) html += '<div class="panel"><h2>단점</h2>' + list(m.cons, 'cons') + '</div>';
+    if (m.cautions && m.cautions.length) html += '<div class="panel"><h2>시공 시 주의</h2>' + list(m.cautions) + '</div>';
+    if (m.care && m.care.length) html += '<div class="panel"><h2>유지관리</h2>' + list(m.care) + '</div>';
+    if (m.uses && m.uses.length) html += '<div class="panel wide"><h2>주요 용도</h2><div class="chips">' +
+      m.uses.map(function (u) { return '<span class="chip">' + esc(u) + '</span>'; }).join('') + '</div></div>';
+    html += '</div>';
 
     var ver = VERIFY[m.id] || [];
     if (ver.length) {
@@ -287,18 +346,19 @@
       ver.forEach(function (v) { cnt[v.status] = (cnt[v.status] || 0) + 1; });
       var FIELD = { props: '특성', specs: '규격', steps: '시공', cautions: '주의', care: '유지관리', summary: '요약', slang: '은어', section: '단면도', procedure: '시공 순서' };
       var ST = { confirmed: ['ok', '확인'], corrected: ['fix', '수정 반영'], unverifiable: ['na', '확인 불가'] };
-      html += '<details class="panel verify-panel"><summary><h3>표준 대조 결과</h3><span class="vcount"><span class="vtag ok">확인 ' + cnt.confirmed + '</span>' +
-        '<span class="vtag fix">수정 ' + cnt.corrected + '</span><span class="vtag na">확인 불가 ' + cnt.unverifiable + '</span></span></summary>' +
+      html += '<details class="panel verify-panel"><summary><h2>표준 대조 결과</h2><span class="vcount"><span class="vtag ok">확인 ' + cnt.confirmed + '</span>' +
+        '<span class="vtag fix">수정 반영 ' + cnt.corrected + '</span><span class="vtag na">확인 불가 ' + cnt.unverifiable + '</span></span>' +
+        '<p class="verify-intro">본문의 수치·기준을 표준시방서(KCS 34)·KS 원문과 맞춰 본 결과입니다. ‘수정 반영’은 대조 후 이미 고친 항목입니다.</p></summary>' +
         '<ul class="verify-list">' + ver.map(function (v) {
           var st = ST[v.status] || ['na', v.status];
           return '<li><span class="vtag ' + st[0] + '">' + st[1] + '</span> <span class="dash">[' + esc(FIELD[v.field] || v.field) + ']</span> ' + esc(v.text || '') +
             '<div class="vmeta">' + (v.ref ? '<b>' + esc(v.ref) + '</b> · ' : '') + esc(v.note || '') + '</div></li>';
-        }).join('') + '</ul><p class="note">본문의 주요 수치·기준을 조경공사 표준시방서(KCS 34, 2024) 원문과 관련 법령·KS로 대조한 결과입니다. 수정 항목은 본문에 이미 반영되어 있습니다.</p></details>';
+        }).join('') + '</ul><p class="note">대조 근거는 조경공사 표준시방서(KCS 34, 2024) 원문과 관련 법령·KS입니다.</p></details>';
     }
 
     var refKeys = (REFS.materials || {})[m.id] || [];
     if (refKeys.length || (m.slang && m.slang.length && (REFS.slangRefs || []).length)) {
-      html += '<div class="panel refs-panel"><h3>근거 자료</h3><ul class="refs">' +
+      html += '<div class="panel refs-panel"><h2>근거 자료</h2><ul class="refs">' +
         refKeys.map(function (k) { return refItem(k); }).join('') +
         (m.slang && m.slang.length ? (REFS.slangRefs || []).map(function (k) { return refItem(k, '은어·순화어'); }).join('') : '') +
         '</ul><p class="note"><a href="#/refs">전체 참고문헌 보기</a></p></div>';
@@ -306,24 +366,38 @@
 
     html += '<div class="gallery-wrap" id="g-site" style="margin-top:28px"><div class="section-title"><h2>시공 사례</h2></div><div class="gallery"></div></div>';
 
+    // 다음 단계: 이 재료로 이어지는 도구
+    var steps = ['<li><button type="button" id="cmp-btn2"><b>비교표에 담기</b><span>다른 재료와 특성·가격을 나란히</span></button></li>'];
+    DEFECTS.filter(function (d) { return d.mats.indexOf(m.id) !== -1; }).forEach(function (d) {
+      steps.push('<li><a href="#/defects/' + d.id + '"><b>하자 사례 · ' + esc(d.title) + '</b><span>' + esc(d.symptom) + '</span></a></li>');
+    });
+    CALC.filter(function (x) { return x.mat === m.id; }).forEach(function (x) {
+      steps.push('<li><a href="#/calc/' + x.id + '"><b>계산기 · ' + esc(x.name) + '</b><span>수량·자재비 계산</span></a></li>');
+    });
+    GUIDE.filter(function (g) { return g.options.some(function (o) { return o.picks.indexOf(m.id) !== -1; }); }).forEach(function (g) {
+      steps.push('<li><a href="#/guide/' + g.id + '"><b>선정 가이드 · ' + esc(g.title) + '</b><span>' + esc(g.q) + '</span></a></li>');
+    });
+    html += '<nav class="next-steps" aria-labelledby="next-h"><h2 id="next-h">이 재료로 이어서 보기</h2><ul>' + steps.join('') + '</ul></nav>';
+
     var rel = (m.related || []).map(function (r) { return matById[r]; }).filter(Boolean);
     if (rel.length) {
       html += '<div class="related"><div class="section-title"><h2>관련 재료</h2></div><div class="grid">' + rel.map(card).join('') + '</div></div>';
     }
 
-    var siblings = MATS.filter(function (x) { return x.cat === m.cat; });
-    var idx = siblings.indexOf(m);
     var prev = siblings[idx - 1], next = siblings[idx + 1];
-    html += '<div class="pager">' + (prev ? '<a href="#/m/' + prev.id + '">← ' + esc(prev.name) + '</a>' : '<span></span>') +
-      (next ? '<a href="#/m/' + next.id + '">' + esc(next.name) + ' →</a>' : '<span></span>') + '</div>';
+    html += '<nav class="pager" aria-label="같은 분류의 이전·다음 재료">' +
+      (prev ? '<a href="#/m/' + prev.id + '">← ' + esc(prev.name) + '</a>' : '<a href="#/cat/' + c.id + '">← ' + esc(c.name) + ' 목록</a>') +
+      (next ? '<a href="#/m/' + next.id + '">' + esc(next.name) + ' →</a>' : '<a href="#/cat/' + c.id + '">' + esc(c.name) + ' 목록 →</a>') + '</nav>';
 
     app.innerHTML = html;
     document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
-    document.getElementById('cmp-btn').addEventListener('click', function () {
+    var addCmp = function () {
       var ids = loadCompare().filter(function (x) { return x !== m.id; });
       ids.push(m.id);
       location.hash = '#/compare/' + ids.slice(-4).join(',');
-    });
+    };
+    document.getElementById('cmp-btn').addEventListener('click', addCmp);
+    document.getElementById('cmp-btn2').addEventListener('click', addCmp);
     if (proc && svg) bindStepper(sec, proc);
     fillGallery(document.querySelector('#g-material .gallery'), photoList(m, 'material'), m, 'material');
     fillGallery(document.querySelector('#g-site .gallery'), photoList(m, 'site'), m, 'site');
@@ -335,20 +409,23 @@
     var dots = document.getElementById('sec-dots');
     dots.innerHTML = proc.map(function (_, k) { return '<button type="button" data-k="' + k + '" aria-label="' + (k + 1) + '단계"></button>'; }).join('');
     function draw() {
-      if (mode === 'full') { box.innerHTML = window.LM_SECTION.render(sec); stepper.hidden = true; return; }
+      if (mode === 'full') { box.innerHTML = secHtml(sec); stepper.hidden = true; return; }
       stepper.hidden = false;
-      box.innerHTML = window.LM_SECTION.render(Object.assign({}, sec, { stage: proc[i] }));
+      box.innerHTML = secHtml(Object.assign({}, sec, { stage: proc[i] }));
       if (canAnimate(box)) box.animate([{ opacity: .55 }, { opacity: 1 }], { duration: reducedMotion() ? 1 : 220, easing: SPRING });
       document.getElementById('sec-num').textContent = (i + 1) + ' / ' + proc.length;
       document.getElementById('sec-text').textContent = proc[i].t;
       document.getElementById('sec-prev').disabled = i === 0;
       document.getElementById('sec-next').disabled = i === proc.length - 1;
-      dots.querySelectorAll('button').forEach(function (d, k) { d.classList.toggle('on', k === i); });
+      dots.querySelectorAll('button').forEach(function (d, k) {
+        d.classList.toggle('on', k === i);
+        if (k === i) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
+      });
     }
     app.querySelectorAll('[data-sec]').forEach(function (b) {
       b.addEventListener('click', function () {
         mode = b.getAttribute('data-sec');
-        app.querySelectorAll('[data-sec]').forEach(function (x) { x.classList.toggle('active', x === b); });
+        app.querySelectorAll('[data-sec]').forEach(function (x) { x.classList.toggle('active', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
         i = 0; draw();
       });
     });
@@ -371,7 +448,11 @@
       img.onload = function () {
         shown++;
         var fig = document.createElement('figure');
-        fig.appendChild(img);
+        var zoom = document.createElement('button');
+        zoom.type = 'button'; zoom.className = 'zoom';
+        zoom.setAttribute('aria-label', '사진 크게 보기: ' + (p.caption || m.name));
+        zoom.appendChild(img);
+        fig.appendChild(zoom);
         img.alt = p.caption || m.name;
         var credit = creditText(p);
         if (p.caption || credit) {
@@ -380,7 +461,7 @@
           cap.addEventListener('click', function (e) { e.stopPropagation(); });
           fig.appendChild(cap);
         }
-        img.addEventListener('click', function () { openLightbox(p.src, (p.caption || '') + (credit ? ' — ' + credit : ''), img); });
+        zoom.addEventListener('click', function () { openLightbox(p.src, (p.caption || '') + (credit ? ' · ' + credit : ''), img, zoom); });
         el.appendChild(fig);
         done();
       };
@@ -423,7 +504,7 @@
     var mats = ids.map(function (id) { return matById[id]; });
     var presets = window.LM_COMPARE_PRESETS || [];
 
-    var html = '<section class="hero"><h1>재료 비교표</h1><p>재료를 최대 4개까지 골라 특성·규격·장단점·가격대를 나란히 비교합니다. 재료 페이지의 <b>비교에 추가</b> 버튼으로도 담을 수 있습니다.</p></section>';
+    var html = crumbs('비교표') + '<section class="hero"><h1>재료 비교표</h1><p>재료를 최대 4개까지 골라 특성·규격·장단점·가격대를 나란히 비교합니다. 재료 페이지의 <b>비교에 추가</b> 버튼으로도 담을 수 있습니다.</p></section>';
     html += '<div class="preset-row"><span class="preset-label">추천 비교</span>' + presets.map(function (p) {
       return '<a class="chip preset" href="#/compare/' + p.ids.join(',') + '">' + esc(p.name) + '</a>';
     }).join('') + '</div>';
@@ -459,14 +540,15 @@
     }); });
     var shared = propLabels.filter(function (l) { return labelCount[l] > 1; });
 
-    var t = '<div class="table-wrap cmp-wrap"><table class="gtable cmp-table"><thead><tr><th></th>' +
+    var t = '<div class="table-wrap cmp-wrap"><table class="gtable cmp-table" style="--n:' + mats.length + '"><colgroup><col class="c-label">' +
+      mats.map(function () { return '<col>'; }).join('') + '</colgroup><thead><tr><th scope="col"><span class="sr-only">항목</span></th>' +
       mats.map(function (m) {
         var c = catById[m.cat] || {};
         var ph = photoList(m, 'material')[0] || photoList(m, 'site')[0];
         return '<th scope="col"><a class="cmp-head" href="#/m/' + m.id + '"><div class="cmp-thumb">' + placeholder(m) +
           (ph ? '<img src="' + esc(ph.src) + '" alt="" onerror="this.remove()">' : '') + '</div>' +
           '<b>' + esc(m.name) + '</b><span>' + esc(m.en || '') + '</span></a>' +
-          '<span class="chip cat" style="background:' + c.color + '">' + esc(c.name || '') + '</span></th>';
+          catChip(c) + '</th>';
       }).join('') + '</tr></thead><tbody>';
     t += row('현장 은어', function (m) {
       return (m.slang || []).length ? '<div class="chips">' + m.slang.map(function (s) { return '<span class="chip slang">' + esc(s.t) + '</span>'; }).join('') + '</div>' : '<span class="dash">—</span>';
@@ -521,7 +603,7 @@
     var g = GUIDE.filter(function (x) { return x.id === id; })[0];
     if (!g) {
       document.title = '재료 선정 가이드 · 조경재료 백과사전';
-      app.innerHTML = '<section class="hero"><h1>재료 선정 가이드</h1><p>상황을 고르면 조건별로 어떤 재료를 쓰면 좋을지 후보와 이유를 보여줍니다. 후보는 바로 비교표로 넘겨 비교할 수 있습니다.</p></section>' +
+      app.innerHTML = crumbs('선정 가이드') + '<section class="hero"><h1>재료 선정 가이드</h1><p>상황을 고르면 조건별로 어떤 재료를 쓰면 좋을지 후보와 이유를 보여줍니다. 후보는 바로 비교표로 넘겨 비교할 수 있습니다.</p></section>' +
         '<div class="guide-grid">' + GUIDE.map(function (x) {
           var mats = [];
           x.options.forEach(function (o) { o.picks.forEach(function (p) { if (mats.indexOf(p) === -1 && matById[p]) mats.push(p); }); });
@@ -533,7 +615,7 @@
     document.title = g.title + ' · 재료 선정 가이드';
     var html = '<div class="crumbs"><a href="#/guide">재료 선정 가이드</a> › ' + esc(g.title) + '</div>' +
       '<section class="hero"><h1>' + esc(g.title) + '</h1><p>“' + esc(g.q) + '”</p></section>';
-    if (g.consider && g.consider.length) html += '<div class="panel consider"><h3>먼저 따져볼 것</h3>' + list(g.consider) + '</div>';
+    if (g.consider && g.consider.length) html += '<div class="panel consider"><h2>먼저 따져볼 것</h2>' + list(g.consider) + '</div>';
     g.options.forEach(function (o, i) {
       var picks = o.picks.map(function (p) { return matById[p]; }).filter(Boolean);
       html += '<section class="guide-option"><div class="guide-opt-head"><span class="guide-num">' + (i + 1) + '</span><h2>' + esc(o.label) + '</h2>' +
@@ -557,14 +639,14 @@
     });
     var types = {};
     keys.forEach(function (k) { var t = refs[k].type || '기타'; (types[t] = types[t] || []).push(k); });
-    var html = '<section class="hero"><h1>참고문헌</h1><p>재료별 설명의 근거가 되는 국가건설기준(KCS), 한국산업표준(KS), 법령·지침, 국립국어원 자료입니다. 각 재료 페이지 아래 “근거 자료”에도 연결되어 있습니다.</p></section>';
+    var html = crumbs('참고문헌') + '<section class="hero"><h1>참고문헌</h1><p>재료별 설명의 근거가 되는 국가건설기준(KCS), 한국산업표준(KS), 법령·지침, 국립국어원 자료입니다. 각 재료 페이지 아래 “근거 자료”에도 연결되어 있습니다.</p></section>';
     if (!keys.length) html += '<div class="empty">참고문헌을 정리하는 중입니다.</div>';
     Object.keys(types).sort().forEach(function (t) {
       html += '<div class="section-title"><h2>' + esc(t) + '</h2><span>' + types[t].length + '건</span></div><ol class="ref-list">' +
         types[t].sort(function (a, b) { return byKo(refs[a].title, refs[b].title); }).map(function (k) {
           var r = refs[k], ms = (used[k] || []).map(function (id) { return matById[id]; }).filter(Boolean);
           return '<li><div>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' : esc(r.title)) +
-            (r.org ? ' <span class="dash">— ' + esc(r.org) + '</span>' : '') + '</div>' +
+            (r.org ? ' <span class="dash">· ' + esc(r.org) + '</span>' : '') + '</div>' +
             (r.note ? '<div class="note">' + esc(r.note) + '</div>' : '') +
             (ms.length ? '<div class="chips">' + ms.map(function (m) { return '<a class="chip" href="#/m/' + m.id + '">' + esc(m.name) + '</a>'; }).join('') + '</div>' : '') + '</li>';
         }).join('') + '</ol>';
@@ -613,24 +695,9 @@
     var ph = (PHOTOS[m.id] || []).filter(function (p) { return p.type !== 'site'; })[0] || (PHOTOS[m.id] || [])[0];
     var sec = (window.LM_SECTIONS || {})[m.id];
     var svg = sec ? window.LM_SECTION.render(sec) : '';
-    var ver = VERIFY[m.id] || [];
-    if (ver.length) {
-      var cnt = { confirmed: 0, corrected: 0, unverifiable: 0 };
-      ver.forEach(function (v) { cnt[v.status] = (cnt[v.status] || 0) + 1; });
-      var FIELD = { props: '특성', specs: '규격', steps: '시공', cautions: '주의', care: '유지관리', summary: '요약', slang: '은어', section: '단면도', procedure: '시공 순서' };
-      var ST = { confirmed: ['ok', '확인'], corrected: ['fix', '수정 반영'], unverifiable: ['na', '확인 불가'] };
-      html += '<details class="panel verify-panel"><summary><h3>표준 대조 결과</h3><span class="vcount"><span class="vtag ok">확인 ' + cnt.confirmed + '</span>' +
-        '<span class="vtag fix">수정 ' + cnt.corrected + '</span><span class="vtag na">확인 불가 ' + cnt.unverifiable + '</span></span></summary>' +
-        '<ul class="verify-list">' + ver.map(function (v) {
-          var st = ST[v.status] || ['na', v.status];
-          return '<li><span class="vtag ' + st[0] + '">' + st[1] + '</span> <span class="dash">[' + esc(FIELD[v.field] || v.field) + ']</span> ' + esc(v.text || '') +
-            '<div class="vmeta">' + (v.ref ? '<b>' + esc(v.ref) + '</b> · ' : '') + esc(v.note || '') + '</div></li>';
-        }).join('') + '</ul><p class="note">본문의 주요 수치·기준을 조경공사 표준시방서(KCS 34, 2024) 원문과 관련 법령·KS로 대조한 결과입니다. 수정 항목은 본문에 이미 반영되어 있습니다.</p></details>';
-    }
-
     var refKeys = (REFS.materials || {})[m.id] || [];
     var h = '<section class="book-entry" id="bk-' + m.id + '">' +
-      '<div class="be-head"><span class="chip cat" style="background:' + c.color + '">' + esc(c.name) + '</span><h2>' + esc(m.name) + ' <small>' + esc(m.en || '') + '</small></h2>' +
+      '<div class="be-head">' + catChip(c) + '<h2>' + esc(m.name) + ' <small>' + esc(m.en || '') + '</small></h2>' +
       (m.aka && m.aka.length ? '<div class="aka">다른 이름 · ' + m.aka.map(esc).join(', ') + '</div>' : '') + '</div>' +
       '<div class="be-top">' + (ph ? '<figure class="be-photo"><img src="' + esc(ph.src) + '" alt=""><figcaption>' + esc(ph.caption || '') + ' · ' + esc(creditText(ph)) + '</figcaption></figure>' : '') +
       '<div><p class="summary">' + esc(m.summary || '') + '</p>' +
@@ -643,7 +710,7 @@
       (m.pros && m.pros.length ? '<div><h4>장점</h4>' + list(m.pros, 'pros') + '</div>' : '') +
       (m.cons && m.cons.length ? '<div><h4>단점</h4>' + list(m.cons, 'cons') + '</div>' : '') + '</div>' +
       (m.steps && m.steps.length ? '<h4>시공 방법</h4><ol class="steps">' + m.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' : '') +
-      (svg ? '<div class="be-sec"><h4>시공 단면도 — ' + esc(sec.title || '') + '</h4>' + svg + '</div>' : '') +
+      (svg ? '<div class="be-sec"><h4>시공 단면도 · ' + esc(sec.title || '') + '</h4>' + svg + '</div>' : '') +
       '<div class="be-grid">' + (m.cautions && m.cautions.length ? '<div><h4>시공 시 주의</h4>' + list(m.cautions) + '</div>' : '') +
       (m.care && m.care.length ? '<div><h4>유지관리</h4>' + list(m.care) + '</div>' : '') + '</div>' +
       (refKeys.length ? '<div class="be-refs"><h4>근거 자료</h4><ul class="refs">' + refKeys.map(function (k) { return refItem(k); }).join('') + '</ul></div>' : '') +
@@ -666,15 +733,15 @@
     setNav('');
     document.title = '물량·공사비 계산기 · 조경재료 백과사전';
     var a = CALC.filter(function (x) { return x.id === id; })[0] || CALC[0];
-    var html = '<section class="hero"><h1>물량·공사비 계산기</h1><p>면적이나 길이를 넣으면 단면도의 층 구성대로 필요한 재료 수량과 대략의 자재비를 계산합니다. 두께·간격을 바꿔 보며 공사비가 어떻게 달라지는지 확인해 보세요.</p></section>' +
+    var html = crumbs('물량·공사비 계산기') + '<section class="hero"><h1>물량·공사비 계산기</h1><p>면적이나 길이를 넣으면 단면도의 층 구성대로 필요한 재료 수량과 대략의 자재비를 계산합니다. 두께·간격을 바꿔 보며 공사비가 어떻게 달라지는지 확인해 보세요.</p></section>' +
       '<div class="calc-pick">' + CALC.map(function (x) {
         return '<a class="chip preset' + (x === a ? ' on' : '') + '" href="#/calc/' + x.id + '">' + esc(x.name) + '</a>';
       }).join('') + '</div>';
     html += '<div class="calc-box"><div class="calc-inputs"><h2>' + esc(a.name) + '</h2><p class="dash">' + esc(a.desc) + ' · <a href="#/m/' + a.mat + '">재료 보기</a></p>' +
-      '<label class="calc-field"><span>' + (a.unit === 'm' ? '길이' : '면적') + '</span><input type="number" id="calc-a" min="0" step="1" value="100"> <b>' + a.unit + '</b></label>' +
+      '<label class="calc-field"><span>' + (a.unit === 'm' ? '길이' : '면적') + '</span><input type="number" inputmode="decimal" id="calc-a" min="0" step="1" value="100"> <b>' + a.unit + '</b></label>' +
       a.params.map(function (p) {
-        return '<label class="calc-field"><span>' + esc(p.label) + '</span><input type="number" data-p="' + p.key + '" min="0" step="1" value="' + p.value + '"> <b>' + esc(p.unit) + '</b></label>';
-      }).join('') + '</div><div class="calc-out" id="calc-out"></div></div>' +
+        return '<label class="calc-field"><span>' + esc(p.label) + '</span><input type="number" inputmode="decimal" data-p="' + p.key + '" min="0" step="1" value="' + p.value + '"> <b>' + esc(p.unit) + '</b></label>';
+      }).join('') + '<div class="calc-sum" id="calc-sum" aria-live="polite"></div></div><div class="calc-out" id="calc-out"></div></div>' +
       '<p class="note">※ 자재비만 계산합니다 (인건비·장비비·운반비·부가세 제외). 단가는 <a href="#/m/' + a.mat + '">재료 페이지</a>의 참고 단가(출처 표시)에서 대표값을 골랐고, 할증(손실·겹침·다짐)은 일반적인 값을 가정했습니다. 실제 적산은 표준품셈과 견적을 따르세요.</p>';
     app.innerHTML = html;
     function calc() {
@@ -687,13 +754,17 @@
         var cost = it.price != null ? q * it.price : null;
         if (cost != null) total += cost; else missing = true;
         return '<tr><td><a href="#/m/' + it.mat + '">' + esc(it.name) + '</a><div class="calc-how">' + esc(it.how(P)) + (it.loss ? ' (할증 포함)' : '') + '</div></td>' +
-          '<td class="num">' + fmtNum(q, q < 10 ? 2 : 1) + '</td><td>' + esc(it.unit) + '</td>' +
-          '<td class="num">' + (it.price != null ? fmtNum(it.price, 0) : '<span class="dash">—</span>') + '</td>' +
-          '<td class="num">' + (cost != null ? fmtNum(cost, 0) : '<span class="dash">단가 없음</span>') + '</td></tr>';
+          '<td class="num" data-label="수량">' + fmtNum(q, q < 10 ? 2 : 1) + ' ' + esc(it.unit) + '</td>' +
+          '<td class="num" data-label="단가(원)">' + (it.price != null ? fmtNum(it.price, 0) : '<span class="dash">-</span>') + '</td>' +
+          '<td class="num" data-label="금액(원)">' + (cost != null ? fmtNum(cost, 0) : '<span class="dash">단가 없음</span>') + '</td></tr>';
       }).join('');
-      document.getElementById('calc-out').innerHTML = '<div class="table-wrap"><table class="gtable calc-table"><thead><tr><th>재료 · 산출 근거</th><th class="num">수량</th><th>단위</th><th class="num">단가(원)</th><th class="num">금액(원)</th></tr></thead><tbody>' + rows +
-        '</tbody><tfoot><tr><th colspan="4">자재비 합계' + (missing ? ' (단가 없는 항목 제외)' : '') + '</th><th class="num">' + fmtNum(total, 0) + '</th></tr>' +
-        (A > 0 ? '<tr><th colspan="4">' + a.unit + '당 자재비</th><th class="num">' + fmtNum(total / A, 0) + '</th></tr>' : '') + '</tfoot></table></div>';
+      document.getElementById('calc-out').innerHTML = '<div class="table-wrap"><table class="gtable calc-table stack-sm"><thead><tr><th>재료 · 산출 근거</th><th class="num">수량</th><th class="num">단가(원)</th><th class="num">금액(원)</th></tr></thead><tbody>' + rows +
+        '</tbody><tfoot><tr><th colspan="3">자재비 합계' + (missing ? ' (단가 없는 항목 제외)' : '') + '</th><th class="num">' + fmtNum(total, 0) + '</th></tr>' +
+        (A > 0 ? '<tr><th colspan="3">' + a.unit + '당 자재비</th><th class="num">' + fmtNum(total / A, 0) + '</th></tr>' : '') + '</tfoot></table></div>';
+      var zero = a.params.filter(function (p) { return P[p.key] === 0; }).map(function (p) { return p.label; });
+      document.getElementById('calc-sum').innerHTML = '<span>자재비 합계' + (missing ? ' (단가 없는 항목 제외)' : '') + '</span><b>' + fmtNum(total, 0) + '원</b>' +
+        (A > 0 ? '<small>' + a.unit + '당 ' + fmtNum(total / A, 0) + '원</small>' : '<small>면적·길이를 넣으세요</small>') +
+        (zero.length ? '<small class="calc-warn">' + esc(zero.join(', ')) + '이(가) 0이라 그 재료가 빠졌습니다</small>' : '');
     }
     app.querySelectorAll('.calc-inputs input').forEach(function (el) { el.addEventListener('input', calc); });
     calc();
@@ -708,9 +779,10 @@
     var d = DEFECTS.filter(function (x) { return x.id === id; })[0];
     if (!d) {
       document.title = '하자 사례 · 조경재료 백과사전';
-      app.innerHTML = '<section class="hero"><h1>하자 사례</h1><p>조경 현장에서 자주 생기는 하자를 원인·예방·보수로 정리하고, 정상 시공 단면과 잘못 시공한 단면을 나란히 비교합니다.</p></section>' +
+      app.innerHTML = crumbs('하자 사례') + '<section class="hero"><h1>하자 사례</h1><p>조경 현장에서 자주 생기는 하자를 원인·예방·보수로 정리하고, 정상 시공 단면과 잘못 시공한 단면을 위아래로 비교합니다.</p></section>' +
         '<div class="guide-grid">' + DEFECTS.map(function (x) {
-          return '<a class="guide-card" href="#/defects/' + x.id + '"><b>' + esc(x.title) + '</b><span class="guide-q">' + esc(x.symptom) + '</span>' +
+          return '<a class="guide-card defect-card" href="#/defects/' + x.id + '"><div class="defect-thumb">' + window.LM_SECTION.render(x.bad, { bare: true }) + '</div>' +
+            '<b>' + esc(x.title) + '</b><span class="guide-q">' + esc(x.symptom) + '</span>' +
             '<span class="guide-meta">' + x.mats.map(function (m) { return matById[m] ? matById[m].name : ''; }).filter(Boolean).join(' · ') + '</span></a>';
         }).join('') + '</div>';
       return;
@@ -719,13 +791,13 @@
     var good = sectionOf(d.good), bad = d.bad;
     var html = '<div class="crumbs"><a href="#/defects">하자 사례</a> › ' + esc(d.title) + '</div>' +
       '<section class="hero"><h1>' + esc(d.title) + '</h1><p>' + esc(d.symptom) + '</p></section>' +
-      '<div class="defect-pair"><figure class="section-figure good"><figcaption><span class="tag ok">✓ 올바른 시공</span> ' + esc(good && good.title || '') + '</figcaption>' +
-      '<div class="section-scroll">' + (good ? window.LM_SECTION.render(good) : '') + '</div></figure>' +
-      '<figure class="section-figure bad"><figcaption><span class="tag ng">✕ 하자 발생</span> ' + esc(bad.title || '') + '</figcaption>' +
-      '<div class="section-scroll">' + window.LM_SECTION.render(bad) + '</div></figure></div>' +
-      '<div class="sections"><div class="panel"><h3>원인</h3>' + list(d.causes, 'cons') + '</div>' +
-      '<div class="panel"><h3>예방</h3>' + list(d.prevent, 'pros') + '</div>' +
-      '<div class="panel wide"><h3>보수 방법</h3>' + list(d.repair) + '</div></div>' +
+      '<div class="defect-pair"><figure class="section-figure bad"><figcaption><span class="tag ng">✕ 하자 발생</span> ' + esc(bad.title || '') + '</figcaption>' +
+      secHtml(bad) + '</figure>' +
+      '<figure class="section-figure good"><figcaption><span class="tag ok">✓ 올바른 시공</span> ' + esc(good && good.title || '') + '</figcaption>' +
+      (good ? secHtml(good) : '') + '</figure></div>' +
+      '<div class="sections"><div class="panel"><h2>원인</h2>' + list(d.causes, 'cons') + '</div>' +
+      '<div class="panel"><h2>예방</h2>' + list(d.prevent, 'pros') + '</div>' +
+      '<div class="panel wide"><h2>보수 방법</h2>' + list(d.repair) + '</div></div>' +
       '<div class="related"><div class="section-title"><h2>관련 재료</h2></div><div class="grid">' +
       d.mats.map(function (m) { return matById[m]; }).filter(Boolean).map(card).join('') + '</div></div>';
     app.innerHTML = html;
@@ -764,7 +836,7 @@
     var W = loadWeights();
     var byGroup = {};
     groups.forEach(function (x) { (byGroup[x.group] = byGroup[x.group] || []).push(x); });
-    var html = '<section class="hero"><h1>다기준 의사결정</h1><p>내구성·경제성·시공성·유지관리·친환경성 다섯 기준에 가중치를 주면, 후보 재료의 종합 점수가 다시 계산되어 순위가 바뀝니다. (가중합 방식, 0~5점)</p></section>' +
+    var html = crumbs('다기준 의사결정') + '<section class="hero"><h1>다기준 의사결정</h1><p>내구성·경제성·시공성·유지관리·친환경성 다섯 기준에 가중치를 주면, 후보 재료의 종합 점수가 다시 계산되어 순위가 바뀝니다. (가중합 방식, 0~5점)</p></section>' +
       '<div class="decide-top"><label class="calc-field"><span>후보 묶음</span><select id="dc-group">' + Object.keys(byGroup).map(function (gn) {
         return '<optgroup label="' + esc(gn) + '">' + byGroup[gn].map(function (x) {
           return '<option value="' + x.key + '"' + (x === grp ? ' selected' : '') + '>' + esc(x.name) + '</option>';
@@ -777,7 +849,7 @@
         '<button type="button" class="btn" data-wp="2,5,3,2,1">예산 우선</button><button type="button" class="btn" data-wp="5,1,2,5,2">오래가는 공공시설</button>' +
         '<button type="button" class="btn" data-wp="2,2,2,3,5">친환경 우선</button><button type="button" class="btn" data-wp="3,3,5,3,1">공기 단축</button></div></div>' +
       '<div class="decide-chart" id="dc-chart"></div></div>' +
-      '<details class="decide-table"><summary>점수표 보기</summary><div class="table-wrap" id="dc-table"></div></details>' +
+      '<details class="decide-table" open><summary>점수표</summary><div class="table-wrap" id="dc-table"></div></details>' +
       '<p class="note">※ 기준별 점수(1~5)는 각 재료 페이지의 장단점·가격대·유지관리 내용을 바탕으로 작성자가 매긴 상대 평가입니다. 같은 용도 재료끼리 비교할 때 의미가 있으며, 가중치를 바꿔 보는 민감도 분석에 활용하세요.</p>';
     app.innerHTML = html;
     var ids = grp.ids.filter(function (id) { return matById[id] && SCORES[id]; });
@@ -857,27 +929,44 @@
     });
     mat.sort(function (a, b) { return byKo(a.t, b.t); });
     var gl = GLOSSARY.slice().sort(function (a, b) { return byKo(a.t, b.t); });
+    var matRows = mat.filter(function (r) { return !query || textMatch(r.t + '|' + r.m + '|' + r.mat.name, r.t + '|' + r.mat.name, query); });
+    var glRows = gl.filter(function (r) { return !query || textMatch(r.t + '|' + r.m + '|' + r.s, r.t + '|' + r.s, query); });
+    var cnt = function (shown, total) { return query ? shown + '/' + total : total; };
+    var none = function (cols) {
+      return '<tr class="slang-empty"><td colspan="' + cols + '">“' + esc(query) + '”에 맞는 은어가 없습니다. 초성(예: ㄴㄹㅅ)이나 바른 말로도 찾아보세요.</td></tr>';
+    };
+    // 검색어가 공정 은어에만 맞으면 그 탭을 먼저 연다
+    var first = query && !matRows.length && glRows.length ? 'work' : 'mat';
 
-    app.innerHTML = '<section class="hero"><h1>현장 은어 사전</h1>' +
+    app.innerHTML = crumbs('현장 은어') + '<section class="hero"><h1>현장 은어 사전</h1>' +
       '<p>조경·건설 현장에서 실제로 오가는 말을 모았습니다. 일본어에서 온 말이 많아 국립국어원 순화어(바른 말)를 함께 적었습니다. 보고서·도면에는 바른 말을 쓰는 것이 원칙입니다.</p></section>' +
-      '<div class="tabs"><button class="tab active" data-tab="mat" type="button">재료 은어 (' + mat.length + ')</button>' +
-      '<button class="tab" data-tab="work" type="button">공정·작업 은어 (' + gl.length + ')</button></div>' +
-      '<div id="tab-mat" class="table-wrap"><table class="gtable"><thead><tr><th>은어</th><th>어원</th><th>뜻</th><th>재료</th></tr></thead><tbody>' +
-        mat.filter(function (r) { return !query || textMatch(r.t + '|' + r.m + '|' + r.mat.name, r.t + '|' + r.mat.name, query); }).map(function (r) {
-          return '<tr><td class="term">' + esc(r.t) + '</td><td>' + esc(r.o || '') + '</td><td>' + esc(r.m || '') + '</td>' +
-            '<td><a href="#/m/' + r.mat.id + '">' + esc(r.mat.name) + '</a></td></tr>';
-        }).join('') + '</tbody></table></div>' +
-      '<div id="tab-work" class="table-wrap" hidden><table class="gtable"><thead><tr><th>은어</th><th>어원</th><th>바른 말</th><th>뜻</th></tr></thead><tbody>' +
-        gl.filter(function (r) { return !query || textMatch(r.t + '|' + r.m + '|' + r.s, r.t + '|' + r.s, query); }).map(function (r) {
-          return '<tr><td class="term">' + esc(r.t) + '</td><td>' + esc(r.o || '') + '</td><td>' + esc(r.s || '') + '</td><td>' + esc(r.m || '') + '</td></tr>';
-        }).join('') + '</tbody></table></div>' +
+      (query ? '<p class="search-scope">“' + esc(query) + '” 검색 중 · 위 검색창을 비우면 전체가 보입니다.</p>' : '') +
+      '<div class="tabs" role="tablist" aria-label="은어 종류">' +
+      '<button class="tab' + (first === 'mat' ? ' active' : '') + '" role="tab" aria-selected="' + (first === 'mat') + '" aria-controls="tab-mat" id="t-mat" data-tab="mat" type="button">재료 은어 (' + cnt(matRows.length, mat.length) + ')</button>' +
+      '<button class="tab' + (first === 'work' ? ' active' : '') + '" role="tab" aria-selected="' + (first === 'work') + '" aria-controls="tab-work" id="t-work" data-tab="work" type="button">공정·작업 은어 (' + cnt(glRows.length, gl.length) + ')</button></div>' +
+      '<div id="tab-mat" class="table-wrap" role="tabpanel" aria-labelledby="t-mat"' + (first === 'mat' ? '' : ' hidden') + '><table class="gtable stack-sm"><thead><tr><th>은어</th><th>어원</th><th>뜻</th><th>재료</th></tr></thead><tbody>' +
+        (matRows.length ? matRows.map(function (r) {
+          return '<tr><td class="term">' + esc(r.t) + '</td><td data-label="어원">' + esc(r.o || '-') + '</td><td>' + esc(r.m || '') + '</td>' +
+            '<td data-label="재료"><a href="#/m/' + r.mat.id + '">' + esc(r.mat.name) + '</a></td></tr>';
+        }).join('') : none(4)) + '</tbody></table></div>' +
+      '<div id="tab-work" class="table-wrap" role="tabpanel" aria-labelledby="t-work"' + (first === 'work' ? '' : ' hidden') + '><table class="gtable stack-sm"><thead><tr><th>은어</th><th>어원</th><th>바른 말</th><th>뜻</th></tr></thead><tbody>' +
+        (glRows.length ? glRows.map(function (r) {
+          return '<tr><td class="term">' + esc(r.t) + '</td><td data-label="어원">' + esc(r.o || '-') + '</td><td data-label="바른 말">' + esc(r.s || '') + '</td><td>' + esc(r.m || '') + '</td></tr>';
+        }).join('') : none(4)) + '</tbody></table></div>' +
       '<p class="note">※ 은어의 뜻과 치수는 지역·업체마다 조금씩 다를 수 있습니다. 발주·도면에는 표준 명칭과 mm 치수를 쓰세요.</p>';
 
-    app.querySelectorAll('.tab').forEach(function (b) {
-      b.addEventListener('click', function () {
-        app.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('active', x === b); });
-        document.getElementById('tab-mat').hidden = b.getAttribute('data-tab') !== 'mat';
-        document.getElementById('tab-work').hidden = b.getAttribute('data-tab') !== 'work';
+    var tabs = app.querySelectorAll('.tab');
+    function select(b) {
+      tabs.forEach(function (x) { x.classList.toggle('active', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      document.getElementById('tab-mat').hidden = b.getAttribute('data-tab') !== 'mat';
+      document.getElementById('tab-work').hidden = b.getAttribute('data-tab') !== 'work';
+    }
+    tabs.forEach(function (b, k) {
+      b.addEventListener('click', function () { select(b); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        var nb = tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        select(nb); nb.focus();
       });
     });
   }
@@ -935,9 +1024,11 @@
   // 열리는 도중에 닫아도 같은 애니메이션을 그 자리에서 되돌린다(중단 가능).
   var lb = document.createElement('div');
   lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', '사진 크게 보기 (닫기: Esc 또는 클릭)');
+  lb.tabIndex = -1;
   lb.innerHTML = '<div><img alt=""><p></p></div>';
   document.body.appendChild(lb);
-  var lbImg = lb.querySelector('img'), lbAnim = null, lbFade = null, lbSource = null;
+  var lbImg = lb.querySelector('img'), lbAnim = null, lbFade = null, lbSource = null, lbReturn = null;
   function flipFrom(src) {
     var a = src.getBoundingClientRect(), b = lbImg.getBoundingClientRect();
     if (!a.width || !b.width) return null;
@@ -945,7 +1036,7 @@
   }
   function closeLightbox() {
     if (!lb.classList.contains('open')) return;
-    var finish = function () { lb.classList.remove('open'); lbAnim = lbFade = null; };
+    var finish = function () { lb.classList.remove('open'); lbAnim = lbFade = null; if (lbReturn) lbReturn.focus({ preventScroll: true }); lbReturn = null; };
     if (lbAnim && lbFade && !reducedMotion()) {
       lbAnim.onfinish = null;
       lbAnim.playbackRate = 1.25; lbFade.playbackRate = 1.25;
@@ -957,11 +1048,14 @@
   }
   lb.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
-  function openLightbox(src, caption, fromEl) {
+  function openLightbox(src, caption, fromEl, returnEl) {
     lbSource = fromEl || null;
+    lbReturn = returnEl || null;
     lb.querySelector('p').textContent = caption || '';
     lbImg.src = src;
+    lbImg.alt = caption || '';
     lb.classList.add('open');
+    lb.focus({ preventScroll: true });
     if (!canAnimate(lb)) return;
     if (reducedMotion()) { lb.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing: 'ease-out' }); return; }
     var run = function () {
@@ -1007,15 +1101,23 @@
   }
 
   // 검색: 입력 즉시 결과 반영 (지연 없음)
+  var keepFocus = false;
   search.addEventListener('input', function () {
     query = search.value.trim();
     var h = location.hash;
     if (/^#\/slang/.test(h)) { viewSlang(); return; }
-    if (query && !/^#\/(cat\/.*|all)?$/.test(h) && h !== '') { location.hash = '#/'; return; }
+    if (query && !/^#\/(cat\/.*|all)?$/.test(h) && h !== '') { keepFocus = true; location.hash = '#/'; return; }
     route();
   });
 
-  window.addEventListener('hashchange', function () { window.scrollTo(0, 0); route(); enterView(); onScroll(); });
+  // 화면이 바뀌면 키보드·화면낭독기 초점을 본문으로 옮긴다 (검색 중에는 검색창 유지)
+  window.addEventListener('hashchange', function () {
+    window.scrollTo(0, 0); route(); enterView(); onScroll();
+    if (!keepFocus) app.focus({ preventScroll: true });
+    keepFocus = false;
+  });
+  document.getElementById('skip').addEventListener('click', function () { app.focus(); app.scrollIntoView(); });
+  if (window.matchMedia && matchMedia('(max-width: 640px)').matches) search.placeholder = '재료·은어·초성 검색';
   route();
   onScroll();
 })();
