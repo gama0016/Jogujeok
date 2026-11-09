@@ -20,8 +20,10 @@
       <span class="brand-mark" aria-hidden="true">조</span>
       <span class="brand-stack"><span class="brand-text">조경재료 백과사전</span><span class="brand-sub">2631063 유인선</span></span>
     </a>
-    <div class="search-wrap">
-      <input id="search" type="search" placeholder="재료명·은어·초성 검색 (예: 공구리, ㄷㄹㄲ)" autocomplete="off" aria-label="재료 검색">
+    <div class="search-wrap" role="search">
+      <input id="search" type="search" placeholder="재료명·은어·초성 검색 (예: 공구리, ㄷㄹㄲ)" autocomplete="off" aria-label="재료 검색"
+        role="combobox" aria-autocomplete="list" aria-controls="search-drop" aria-expanded="false">
+      <div class="search-drop" id="search-drop" role="listbox" aria-label="바로 찾기" hidden></div>
     </div>
     <nav class="topnav" aria-label="주요 메뉴">
       <a href="#/" data-nav="home">재료</a>

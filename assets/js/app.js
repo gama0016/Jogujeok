@@ -1218,14 +1218,111 @@
     else viewHome(null);
   }
 
-  // 검색: 입력 즉시 결과 반영 (지연 없음)
+  // ---------- 바로 찾기 (검색창 아래 목록) ----------
+  // 은어 뜻·치수·참고 단가를 목록에서 바로 보여 준다. 다른 화면에 있어도 그 화면을 바꾸지 않는다.
+  var drop = document.getElementById('search-drop');
+  function rankText(text, n) {
+    var t = isCho(n) ? norm(cho(text)) : norm(text);
+    return t === n ? 0 : t.indexOf(n) === 0 ? 1 : t.indexOf(n) !== -1 ? 2 : -1;
+  }
+  function dropHay(m) {
+    if (!m._dhay) m._dhay = norm([m.name, m.en].concat(m.aka || [], (m.slang || []).map(function (s) { return s.t + ' ' + s.m; }), m.specs || [],
+      (m.props || []).map(function (p) { return p.join(' '); })).join(' '));
+    return m._dhay;
+  }
+  function priceLine(id) { var p = PRICES[id]; return p ? p.price + ' / ' + p.unit : ''; }
+  function dropMatch(m, q) {
+    var n = norm(q);
+    if (!n) return null;
+    var r = rankText(m.name, n);
+    if (r >= 0) return { s: r, why: '' };                     // 이름 (띄어쓴 이름도 여기서 먼저 맞춘다)
+    var words = q.trim().split(/\s+/).filter(Boolean);
+    if (words.length > 1) {                                  // 여러 낱말: 모두 이름·은어·규격 어딘가에 (예: "각재 30")
+      return words.every(function (w) {
+        return isCho(w) ? norm(cho(m.name + (m.slang || []).map(function (s) { return s.t; }).join(''))).indexOf(w) !== -1 : dropHay(m).indexOf(norm(w)) !== -1;
+      }) ? { s: 4, why: '' } : null;
+    }
+    var best = null;
+    (m.slang || []).forEach(function (s) { var k = rankText(s.t, n); if (k >= 0 && (!best || k < best.k)) best = { k: k, s: s }; });
+    if (best) return { s: best.k + 1, why: '은어 ‘' + best.s.t + '’ · ' + (best.s.m || '') };
+    if (isCho(n)) return null;
+    var ak = (m.aka || []).filter(function (a) { return norm(a).indexOf(n) !== -1; })[0];
+    if (ak) return { s: 3, why: '다른 이름 ‘' + ak + '’' };
+    if (norm(m.en).indexOf(n) !== -1) return { s: 3, why: m.en };
+    return null;
+  }
+  function opt(id, href, main, side, why) {
+    return '<a role="option" tabindex="-1" id="' + id + '" href="' + href + '"><b>' + esc(main) + '</b>' + (side ? '<span class="d-side">' + esc(side) + '</span>' : '') +
+      (why ? '<span class="d-why">' + esc(why) + '</span>' : '') + '</a>';
+  }
+  function renderDrop() {
+    var v = search.value.trim();
+    if (!v) { closeDrop(); return; }
+    var n = norm(v);
+    var mats = [];
+    MATS.forEach(function (m) { var r = dropMatch(m, v); if (r) mats.push({ m: m, s: r.s, why: r.why }); });
+    mats.sort(function (a, b) { return a.s - b.s || byKo(a.m.name, b.m.name); });
+    var gl = GLOSSARY.filter(function (g) { return rankText(g.t, n) >= 0 || (!isCho(n) && rankText(g.s || '', n) >= 0); })
+      .sort(function (a, b) { return rankText(a.t, n) - rankText(b.t, n); });
+    var tools = isCho(n) ? [] : TOOLS.filter(function (t) { return norm(t.n + t.d).indexOf(n) !== -1; });
+    var k = 0, html = '';
+    if (tools.length) html += '<div role="group" aria-label="도구"><p class="d-head" aria-hidden="true">도구</p>' +
+      tools.map(function (t) { return opt('d' + k++, t.h, t.n, '', t.d); }).join('') + '</div>';
+    if (mats.length) html += '<div role="group" aria-label="재료 ' + mats.length + '건"><p class="d-head" aria-hidden="true">재료 ' + mats.length + '건</p>' +
+      mats.slice(0, 6).map(function (x) {
+        return opt('d' + k++, '#/m/' + x.m.id, x.m.name, (catById[x.m.cat] || {}).name, [x.why, priceLine(x.m.id) || '단가 자료 없음'].filter(Boolean).join(' · '));
+      }).join('') + '</div>';
+    if (gl.length) html += '<div role="group" aria-label="공정·작업 은어"><p class="d-head" aria-hidden="true">공정·작업 은어</p>' +
+      gl.slice(0, 3).map(function (g) { return opt('d' + k++, '#/slang', g.t, '바른 말 ' + (g.s || ''), g.m); }).join('') + '</div>';
+    html += opt('d' + k++, '#/', mats.length ? '재료 ' + mats.length + '건 모두 보기' : '‘' + v + '’ 검색 결과 화면 열기', '', mats.length ? '' : '초성(예: ㄷㄹㄲ)이나 다른 이름으로도 찾을 수 있습니다');
+    drop.innerHTML = html;
+    drop.hidden = false;
+    search.setAttribute('aria-expanded', 'true');
+    announce('재료 ' + mats.length + '건' + (gl.length ? ', 공정 은어 ' + gl.length + '건' : '') + (tools.length ? ', 도구 ' + tools.length + '개' : '') + '. 아래 화살표로 고르세요');
+  }
+  function closeDrop() { drop.hidden = true; search.setAttribute('aria-expanded', 'false'); search.removeAttribute('aria-activedescendant'); }
+  function opts() { return Array.prototype.slice.call(drop.querySelectorAll('[role="option"]')); }
+  function moveTo(i) {
+    var all = opts();
+    all.forEach(function (a, j) { a.classList.toggle('on', j === i); a.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+    if (all[i]) { search.setAttribute('aria-activedescendant', all[i].id); all[i].scrollIntoView({ block: 'nearest' }); }
+    else search.removeAttribute('aria-activedescendant');
+  }
+  // 초점은 검색창에 둔 채 화살표로 고른다 (aria-activedescendant) → Tab 한 번이면 목록을 벗어난다
+  search.addEventListener('keydown', function (e) {
+    var all = opts(), cur = all.indexOf(drop.querySelector('.on'));
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (drop.hidden) { renderDrop(); return; }
+      e.preventDefault();
+      moveTo(e.key === 'ArrowDown' ? Math.min(cur + 1, all.length - 1) : cur - 1);
+    } else if (e.key === 'Escape' && !drop.hidden) {
+      e.preventDefault(); closeDrop();                       // 검색어는 지우지 않는다
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (drop.hidden) { location.hash === '#/' || location.hash === '' ? route() : (location.hash = '#/'); return; }
+      var pick = all[cur] || all.filter(function (a) { return /#\/m\//.test(a.getAttribute('href')); })[0] || all[all.length - 1];
+      if (pick) pick.click();
+    }
+  });
+  drop.addEventListener('mousedown', function (e) { e.preventDefault(); });   // 누르는 동안 검색창 초점 유지
+  drop.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    closeDrop();
+    var h = a.getAttribute('href');
+    if (h === '#/' && (location.hash === '#/' || location.hash === '')) { e.preventDefault(); route(); app.focus(); }
+  });
+  search.addEventListener('blur', function () { setTimeout(closeDrop, 120); });
+  search.addEventListener('focus', function () { if (search.value.trim()) renderDrop(); });
+
+  // 검색: 입력 즉시 반영. 목록 화면(첫 화면·분류·전체)에서는 아래 결과도 함께 바뀐다.
   var keepFocus = false;
   search.addEventListener('input', function () {
     query = search.value.trim();
+    renderDrop();
     var h = location.hash;
     if (/^#\/slang/.test(h)) { viewSlang(); return; }
-    if (query && !/^#\/(cat\/.*|all)?$/.test(h) && h !== '') { keepFocus = true; location.hash = '#/'; return; }
-    route();
+    if (h === '' || /^#\/(cat\/.*|all)?$/.test(h)) route();
   });
 
   // 화면이 바뀌면 키보드·화면낭독기 초점을 본문으로 옮긴다 (검색 중에는 검색창 유지)

@@ -591,3 +591,24 @@ body:has(.weights) .to-top { bottom: calc(40vh + 16px); }
 /* ---------- 다크 모드: 도면은 종이 그대로, 밝기만 낮춤 ---------- */
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .section-figure .section-svg { filter: brightness(.88); } }
 :root[data-theme="dark"] .section-figure .section-svg { filter: brightness(.88); }
+
+/* ---------- 바로 찾기 (검색창 아래 목록) ---------- */
+.search-wrap { position: relative; }
+.search-drop {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 45; background: var(--surface); color: var(--text);
+  border: 1px solid var(--rule); box-shadow: 0 14px 32px rgba(0, 0, 0, .18); max-height: min(70vh, 540px); overflow-y: auto;
+}
+.search-drop[hidden] { display: none; }
+.d-head { margin: 0; padding: 8px 14px 4px; font-size: 12px; font-weight: 600; color: var(--muted); background: var(--surface-2); border-top: 1px solid var(--line); }
+.search-drop > div:first-child .d-head { border-top: 0; }
+.search-drop a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 10px 14px; color: var(--text); text-decoration: none;
+  border-top: 1px solid var(--line); min-height: 44px;
+}
+.search-drop .d-head + a { border-top: 0; }
+.search-drop a:hover, .search-drop a.on { background: var(--accent-soft); text-decoration: none; }
+.search-drop a.on { box-shadow: inset 3px 0 0 var(--mark); }
+.search-drop b { font-weight: 700; }
+.d-side { font-size: 12.5px; color: var(--muted); text-align: right; }
+.d-why { grid-column: 1 / -1; font-size: 13px; color: var(--text); line-height: 1.5; }
+.search-drop > a:last-child { font-weight: 600; color: var(--accent); background: var(--surface-2); }
