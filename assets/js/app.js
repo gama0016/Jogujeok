@@ -168,10 +168,15 @@
   // ---------- sidebar ----------
   var TOOLS = [
     { h: '#/guide', n: '선정 가이드', d: '상황별 재료 후보와 이유' }, { h: '#/compare', n: '비교표', d: '재료 4종 나란히 비교' },
-    { h: '#/decide', n: '다기준 의사결정', d: '기준별 가중치로 순위 매기기' }, { h: '#/calc', n: '물량·공사비 계산기', d: '단면 층별 수량·자재비' },
+    { h: '#/decide', n: '조건별 재료 순위', d: '중요한 조건에 가중치를 줘 순위 보기 (다기준 의사결정)' }, { h: '#/calc', n: '물량·공사비 계산기', d: '단면 층별 수량·자재비' },
     { h: '#/defects', n: '하자 사례', d: '하자 단면과 정상 단면 비교' }, { h: '#/slang', n: '현장 은어', d: '은어·어원·바른 말' },
     { h: '#/refs', n: '참고문헌', d: 'KCS·KS·법령·국어원' }, { h: '#/book', n: '전체 PDF', d: '표지·목차 포함 인쇄본' }
   ];
+  // 식재(수목·초화류)는 이 사전에서 다루지 않는다 → 리프노트의 정원·조경 품종 목록으로 보낸다
+  var LEAF = 'https://leafnote.kr/plants?cat=%EC%A0%95%EC%9B%90%C2%B7%EC%A1%B0%EA%B2%BD';
+  function leafLink(text) {
+    return '<a href="' + LEAF + '" target="_blank" rel="noopener">' + esc(text) + ' ↗<span class="sr-only"> (새 창, 리프노트)</span></a>';
+  }
   // 화면낭독기에 상태 알리기 (검색 결과 수, 비교표 담기 등)
   var srStatus = document.getElementById('sr-status');
   function announce(msg) { srStatus.textContent = ''; setTimeout(function () { srStatus.textContent = msg; }, 30); }
@@ -181,7 +186,8 @@
     // 학습 도구를 분류보다 위에: 도구는 8개라 짧고, 분류 15개 밑에 두면 화면 밖으로 밀린다
     var html = '<h2 class="side-tools">학습 도구</h2>' + TOOLS.map(function (t) {
       return '<a class="cat-link tool-link' + (activeTool === t.h ? ' active' : '') + '" href="' + t.h + '"' + (activeTool === t.h ? ' aria-current="page"' : '') + '>' + esc(t.n) + '</a>';
-    }).join('') + '<h2 class="side-cats">분류</h2>' +
+    }).join('') + '<a class="cat-link tool-link" href="' + LEAF + '" target="_blank" rel="noopener">식재 목록 (리프노트) ↗<span class="sr-only"> 새 창</span></a>' +
+      '<h2 class="side-cats">분류</h2>' +
       '<a class="cat-link' + (!activeCat && !activeTool ? ' active' : '') + '" href="#/all"><span class="cat-dot" style="background:var(--accent)"></span>전체<span class="cat-count">' + MATS.length + '</span></a>';
     CATS.forEach(function (c) {
       var n = MATS.filter(function (m) { return m.cat === c.id; }).length;
@@ -230,7 +236,7 @@
       var photoCount = Object.keys(PHOTOS).reduce(function (n, k) { return n + PHOTOS[k].length; }, 0);
       var secCount = Object.keys(window.LM_SECTIONS || {}).filter(function (k) { return matById[k]; }).length;
       html += '<section class="hero home-hero"><h1>조경재료 백과사전</h1>' + byline() +
-        '<p>현장에서 쓰는 재료의 특성·규격·시공 단면도와 현장 은어까지. 식재(수목·초화류)는 제외.</p>' +
+        '<p>현장에서 쓰는 재료의 특성·규격·시공 단면도와 현장 은어까지. 식재(수목·초화류)는 제외 · ' + leafLink('식재 목록은 리프노트에서') + '</p>' +
         '<p class="hero-meta">재료 <b>' + MATS.length + '</b> · 현장 은어 <b>' + (slangCount + GLOSSARY.length) + '</b> · 시공 단면도 <b>' + secCount + '</b> · 사진 <b>' + photoCount + '</b></p></section>';
       // 학습 도구: 넓은 화면은 표제란처럼 칸을 나눈 줄, 휴대폰은 가로로 미는 줄
       html += '<nav class="tool-strip" aria-label="학습 도구">' + TOOLS.map(function (t) {
@@ -258,7 +264,8 @@
           (catId && all ? '<li><a href="#/all">전체 분류에서 ' + all + '건 보기</a></li>' : '') +
           '<li><a href="#/slang">현장 은어 사전</a>에서 같은 말 찾기 (공정 은어는 재료가 아님)</li>' +
           '<li>초성만 넣어도 됩니다: <b>ㄷㄹㄲ</b> → 다루끼</li>' +
-          '<li><a href="#/all">재료 전체 목록</a>에서 둘러보기</li></ul>' +
+          '<li><a href="#/all">재료 전체 목록</a>에서 둘러보기</li>' +
+          '<li>나무·꽃 같은 식재라면 ' + leafLink('리프노트 식재 목록') + '</li></ul>' +
           '<button class="btn" type="button" id="clear-q">검색어 지우기</button></div></div>';
     } else if (catId) {
       var c = catById[catId];
@@ -695,7 +702,7 @@
       var picks = o.picks.map(function (p) { return matById[p]; }).filter(Boolean);
       html += '<section class="guide-option"><div class="guide-opt-head"><span class="guide-num">' + (i + 1) + '</span><h2>' + esc(o.label) + '</h2>' +
         (picks.length > 1 ? '<span class="opt-actions"><a class="btn" href="#/compare/' + picks.slice(0, 4).map(function (m) { return m.id; }).join(',') + '">이 후보 비교하기</a>' +
-          '<a class="btn" href="#/decide/g-' + g.id + '-' + i + '">가중치로 순위 보기</a></span>' : '') + '</div>' +
+          '<a class="btn" href="#/decide/g-' + g.id + '-' + i + '">조건별 순위 보기</a></span>' : '') + '</div>' +
         '<p class="guide-why">' + esc(o.why) + '</p><div class="grid">' + picks.map(card).join('') + '</div></section>';
     });
     if (g.related) html += '<p class="note">함께 보면 좋은 재료: ' + g.related.map(function (r) { return matById[r] ? '<a href="#/m/' + r + '">' + esc(matById[r].name) + '</a>' : ''; }).join(', ') + '</p>';
@@ -883,7 +890,7 @@
     app.innerHTML = html;
   }
 
-  // ---------- 다기준 의사결정 ----------
+  // ---------- 조건별 재료 순위 (다기준 의사결정) ----------
   var CRIT = window.LM_CRITERIA || [];
   var SCORES = window.LM_SCORES || {};
   var W_KEY = 'lm-weights';
@@ -908,13 +915,14 @@
   function viewDecide(key) {
     renderSidebar(null, '#/decide');
     setNav('');
-    document.title = '다기준 의사결정 · 조경재료 백과사전';
+    document.title = '조건별 재료 순위 · 조경재료 백과사전';
     var groups = decideGroups();
     var grp = groups.filter(function (x) { return x.key === key; })[0] || groups[0];
     var W = loadWeights();
     var topics = [];
     groups.forEach(function (x) { if (!topics.some(function (t) { return t.id === x.topic; })) topics.push({ id: x.topic, name: x.topicName }); });
-    var html = crumbs('다기준 의사결정') + '<section class="hero"><h1>다기준 의사결정</h1><p>내구성·경제성·시공성·유지관리·친환경성 다섯 기준에 가중치를 주면, 후보 재료의 종합 점수가 다시 계산되어 순위가 바뀝니다. (가중합 방식, 0~5점)</p></section>' +
+    var html = crumbs('조건별 재료 순위') + '<section class="hero"><h1>조건별 재료 순위</h1><p class="hero-alias">다기준 의사결정 · 가중합 방식</p>' +
+      '<p>내구성·경제성·시공성·유지관리·친환경성 가운데 중요한 조건에 가중치를 더 주면, 후보 재료의 종합 점수(0~5점)가 다시 계산되어 순위가 바뀝니다.</p></section>' +
       '<div class="decide-top"><label class="calc-field"><span>1. 주제</span><select id="dc-topic">' + topics.map(function (t) {
         return '<option value="' + t.id + '"' + (t.id === grp.topic ? ' selected' : '') + '>' + esc(t.name) + '</option>';
       }).join('') + '</select></label>' +
@@ -1102,7 +1110,7 @@
       '<div class="author-card"><span class="author-avatar" aria-hidden="true">유</span><div><span class="author-label">제작</span>' +
       '<b class="author-name">유인선</b><span class="author-id">학번 2631063 · 조경구조및적산</span></div>' +
       '</div>' +
-      '<p>이 백과사전은 조경 시공 현장에서 자주 쓰이는 <b>재료와 자재</b>를 정리한 자료입니다. 수목·초화류 같은 <b>식재는 제외</b>. 지주목·인공토양·멀칭재처럼 식재를 돕는 자재는 포함했습니다.</p>' +
+      '<p>이 백과사전은 조경 시공 현장에서 자주 쓰이는 <b>재료와 자재</b>를 정리한 자료입니다. 수목·초화류 같은 <b>식재는 제외</b>. 지주목·인공토양·멀칭재처럼 식재를 돕는 자재는 포함했습니다. 수목·초화류는 ' + leafLink('리프노트의 정원·조경 품종 목록') + '에서 볼 수 있습니다.</p>' +
       '<h2>보는 방법</h2><ul>' +
       '<li>위쪽 검색창에 재료명이나 <b>현장 은어</b>(예: 공구리, 다루끼, 노깡)를 입력하면 해당 재료를 찾습니다.</li>' +
       '<li>왼쪽 분류로 석재·목재·금속 등을 골라 볼 수 있습니다.</li>' +
@@ -1274,6 +1282,8 @@
       }).join('') + '</div>';
     if (gl.length) html += '<div role="group" aria-label="공정·작업 은어"><p class="d-head" aria-hidden="true">공정·작업 은어</p>' +
       gl.slice(0, 3).map(function (g) { return opt('d' + k++, '#/slang', g.t, '바른 말 ' + (g.s || ''), g.m); }).join('') + '</div>';
+    if (!mats.length && !tools.length) html += '<a role="option" tabindex="-1" id="d' + k++ + '" href="' + LEAF + '" target="_blank" rel="noopener"><b>나무·꽃이라면 리프노트에서 찾기 ↗</b>' +
+      '<span class="d-why">식재(수목·초화류)는 이 사전에서 다루지 않습니다. 리프노트 정원·조경 품종 목록이 새 창으로 열립니다.</span></a>';
     html += opt('d' + k++, '#/', mats.length ? '재료 ' + mats.length + '건 모두 보기' : '‘' + v + '’ 검색 결과 화면 열기', '', mats.length ? '' : '초성(예: ㄷㄹㄲ)이나 다른 이름으로도 찾을 수 있습니다');
     drop.innerHTML = html;
     drop.hidden = false;
