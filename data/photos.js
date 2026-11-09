@@ -1764,7 +1764,7 @@ window.LM_PHOTOS = {
   {
    "src": "images/permeable-concrete-1.jpg",
    "type": "material",
-   "caption": "투수콘크리트 시편 — 굵은 골재를 시멘트풀로 엮어 틈새가 뚫린 구조",
+   "caption": "투수콘크리트 원통 시편(시험용) — 굵은 골재를 시멘트풀로 엮어 틈새가 뚫린 구조",
    "artist": "johny",
    "license": "CC0",
    "url": "https://commons.wikimedia.org/wiki/File:Pervious_concrete.JPG"

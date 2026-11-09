@@ -27,6 +27,7 @@
       <a href="#/" data-nav="home">재료</a>
       <a href="#/guide" data-nav="guide">선정 가이드</a>
       <a href="#/compare" data-nav="compare">비교표</a>
+      <a href="#/calc" data-nav="calc">계산기</a>
       <a href="#/slang" data-nav="slang">현장 은어</a>
       <a href="#/about" data-nav="about">안내</a>
     </nav>
@@ -43,11 +44,14 @@
       <div><dt>과목</dt><dd>조경구조및적산</dd></div>
       <div><dt>작성</dt><dd>유인선</dd></div>
       <div><dt>학번</dt><dd class="num">2631063</dd></div>
-      <div><dt>단위</dt><dd class="num">mm</dd></div>
+      <div><dt>수록</dt><dd class="num" id="tb-count">재료</dd></div>
     </dl>
     <p>규격·수치는 대표값이며 제조사·현장 조건에 따라 다를 수 있습니다.</p>
     <p class="copyright">콘텐츠 제작 © 2631063 유인선</p>
   </footer>
+
+  <p id="sr-status" class="sr-only" role="status" aria-live="polite"></p>
+  <button type="button" class="to-top" id="to-top" hidden>↑ 맨 위·검색</button>
 
   <!-- 데이터: 분류별 파일. 재료를 추가할 때는 해당 분류 파일에 항목만 추가하면 됩니다. -->
   <script src="data/categories.js"></script>
