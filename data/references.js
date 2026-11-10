@@ -599,6 +599,18 @@ window.LM_REFS = {
    "type": "법령",
    "url": "https://www.law.go.kr/법령/어린이놀이시설안전관리법"
   },
+  "sps-kssfia1-1944": {
+   "title": "SPS-KSSFIA1-1944 놀이시설용 충격흡수바닥재",
+   "org": "단체표준",
+   "type": "기타",
+   "note": "놀이시설용 충격흡수바닥재 단체표준 (수업자료에서 인용)"
+  },
+  "class-rubber-surface": {
+   "title": "조경구조및적산 수업자료: 고무와 탄성포장재 / 탄성포장의 성능과 시공",
+   "org": "수업자료",
+   "type": "기타",
+   "note": "복층 포설형 단면, 칩·바인더 재료, 제품 방식, KS F 3888-2 종별, 한계하강높이·두께·양생·하자"
+  },
   "notice-playground-tech": {
    "title": "어린이놀이시설의 시설기준 및 기술기준",
    "org": "행정안전부",
@@ -1116,9 +1128,14 @@ window.LM_REFS = {
    "kcs-44-50-10"
   ],
   "rubber-surface": [
-   "ks-f-3888-2",
    "kcs-34-60-20",
-   "notice-playground-tech"
+   "kcs-34-60-05",
+   "ks-f-3888-2",
+   "ks-f-3888-1",
+   "notice-playground-tech",
+   "law-playground",
+   "sps-kssfia1-1944",
+   "class-rubber-surface"
   ],
   "masato-paving": [
    "kcs-34-60-10"
