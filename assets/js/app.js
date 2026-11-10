@@ -172,7 +172,8 @@
   var TOOLS = [
     { h: '#/guide', n: '선정 가이드', d: '상황별 재료 후보와 이유' }, { h: '#/compare', n: '비교표', d: '재료 4종 나란히 비교' },
     { h: '#/decide', n: '조건별 재료 순위', d: '중요한 조건에 가중치를 줘 순위 보기 (다기준 의사결정)' }, { h: '#/calc', n: '물량·공사비 계산기', d: '단면 층별 수량·자재비' },
-    { h: '#/defects', n: '하자 사례', d: '하자 단면과 정상 단면 비교' }, { h: '#/slang', n: '현장 은어', d: '은어·어원·바른 말' },
+    { h: '#/defects', n: '하자 사례', d: '하자 단면과 정상 단면 비교' }, { h: '#/survey', n: '측량 기초', d: '측량 방법·수준측량(레벨)·토공량 계산·측량법' },
+    { h: '#/m/brick-clay', n: '벽돌 쌓기 3D', d: '영국식·네덜란드식·프랑스식·미국식·영롱·엇모 쌓기 입체 모형, 토막·벽 두께' }, { h: '#/slang', n: '현장 은어', d: '은어·어원·바른 말' },
     { h: '#/refs', n: '참고문헌', d: 'KCS·KS·법령·국어원' }, { h: '#/book', n: '전체 PDF', d: '표지·목차 포함 인쇄본' }
   ];
   // 식재(수목·초화류)는 이 사전에서 다루지 않는다 → 리프노트의 정원·조경 품종 목록으로 보낸다
@@ -344,6 +345,9 @@
         (proc ? ' 시공 순서에서 흐리게 보이는 부분은 아직 시공 전입니다.' : '') + '</p></div></section>';
     }
 
+    // 조적(벽돌): 쌓기 방식 3D 모형 + 면·토막·벽 두께
+    if (m.masonry && window.LM_MASONRY) html += window.LM_MASONRY.panel();
+
     html += '<div class="gallery-wrap" id="g-material"><div class="section-title"><h2>재료 사진</h2></div><div class="gallery"></div></div>';
 
     html += '<div class="sections">';
@@ -435,6 +439,7 @@
     document.getElementById('cmp-btn').addEventListener('click', addCmp);
     document.getElementById('cmp-btn2').addEventListener('click', addCmp);
     if (proc && svg) bindStepper(sec, proc);
+    if (m.masonry && window.LM_MASONRY) window.LM_MASONRY.mount(app);
     buildToc();
     fillGallery(document.querySelector('#g-material .gallery'), photoList(m, 'material'), m, 'material');
     fillGallery(document.querySelector('#g-site .gallery'), photoList(m, 'site'), m, 'site');
@@ -717,6 +722,15 @@
   }
 
   // ---------- 참고문헌 ----------
+  function viewSurvey() {
+    renderSidebar(null, '#/survey');
+    setNav(null);
+    document.title = '측량 기초 · 조경재료 백과사전';
+    if (!window.LM_SURVEY_VIEW) { app.innerHTML = '<div class="empty">측량 자료를 불러오지 못했습니다.</div>'; return; }
+    app.innerHTML = '<div class="crumbs"><a href="#/">홈</a> › 측량 기초</div>' + window.LM_SURVEY_VIEW.html();
+    window.LM_SURVEY_VIEW.bind(app);
+    buildToc();
+  }
   function viewRefs() {
     renderSidebar(null, '#/refs');
     setNav('about');
@@ -1227,6 +1241,7 @@
     else if (parts[0] === 'calc') viewCalc(parts[1]);
     else if (parts[0] === 'defects') viewDefects(parts[1]);
     else if (parts[0] === 'decide') viewDecide(parts[1]);
+    else if (parts[0] === 'survey') viewSurvey();
     else if (parts[0] === 'refs') viewRefs();
     else if (parts[0] === 'book') viewBook();
     else if (parts[0] === 'slang') viewSlang();
