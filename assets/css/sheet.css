@@ -642,6 +642,7 @@ body:has(.weights) .to-top { bottom: calc(40vh + 16px); }
 }
 .b3d-stage.dragging { cursor: grabbing; }
 .b3d-stage:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+.b3d-scene, .b3d-b, .b3d-f { touch-action: none; }
 .b3d-scene { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
 .b3d-b { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
 .b3d-f { position: absolute; left: 0; top: 0; box-sizing: border-box; border: 1px solid rgba(60, 25, 15, .35); backface-visibility: hidden; -webkit-backface-visibility: hidden; }

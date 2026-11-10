@@ -265,7 +265,14 @@
     // 끌기·터치: 한 손가락은 회전(위아래·좌우 제한 없음), 두 손가락은 확대
     var pts = {}, last = null, pinch0 = 0, zoom0 = 1;
     function dist() { var p = Object.keys(pts).map(function (k) { return pts[k]; }); return Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); }
+    // 모형 위에서 위아래로 끌 때 화면이 스크롤되지 않게: touch-action만으로는 일부 브라우저(특히 iOS)에서
+    // 3D 변형된 자식 위의 세로 끌기를 스크롤로 넘겨 버리므로 터치 이벤트 기본 동작을 직접 막는다
+    function stop(e) { if (e.cancelable) e.preventDefault(); }
+    stage.addEventListener('touchstart', stop, { passive: false });
+    stage.addEventListener('touchmove', stop, { passive: false });
     stage.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') e.preventDefault();   // 끌 때 글자 선택·페이지 끌림 방지
+      if (document.activeElement !== stage) stage.focus({ preventScroll: true });
       stage.setPointerCapture(e.pointerId);
       pts[e.pointerId] = { x: e.clientX, y: e.clientY };
       var n = Object.keys(pts).length;
