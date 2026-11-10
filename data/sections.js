@@ -230,7 +230,7 @@
       { n: '바크 멀칭 (호스 덮기)', t: '50', h: 50, p: 'mulch' },
       { n: '점적 호스 (U핀 고정)', line: 'mesh' },
       { n: '식재 토양', h: 160, p: 'soil' }]),
-    'irrigation-pipe': { kind: 'pipe', title: '관수 PE관 매설', pipes: [{ r: 12, n: 'PE Φ32 (본관)', fill: '#2b2b2b' }, { r: 9, n: 'PE Φ20', fill: '#2b2b2b' }], cover: '토피 300~600', tapeLabel: '관수관 표시 테이프' },
+    'irrigation-pipe': { kind: 'pipe', title: '관수 PE관 매설', pipes: [{ r: 12, n: 'PE Φ32 (지관)', fill: '#2b2b2b' }, { r: 9, n: 'PE Φ20', fill: '#2b2b2b' }], cover: '토피 간선 600↑ / 지관 300↑', tapeLabel: '관수관 표시 테이프' },
     'irrigation-controller': { kind: 'sprinkler', variant: 'hydrant', title: '밸브박스 안 전자밸브', head: '전자밸브 (솔밸브)' },
     'hydrant': { kind: 'sprinkler', variant: 'hydrant', title: '퀵커플러·살수전 박스' },
     'rain-tank': { kind: 'box', variant: 'tank', title: '지하 빗물저류조 (모듈형)' },

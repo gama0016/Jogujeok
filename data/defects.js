@@ -135,7 +135,7 @@ window.LM_DEFECTS = [
     id: 'inground-flood', title: '바닥 매입등 침수·고장', mats: ['inground-light', 'cable-conduit'],
     symptom: '비가 온 뒤 매입등이 꺼지거나 렌즈 안에 물이 찬다.',
     causes: ['매입 박스 아래 배수층(자갈)을 생략', '등기구 윗면을 포장면보다 낮게 설치해 물이 고임', '결선부 방수 처리 불량'],
-    prevent: ['매입 박스 하부 자갈 배수층', '윗면을 포장면과 같거나 살짝 높게', 'IP67 이상 제품 + 방수 커넥터'],
+    prevent: ['매입 박스 하부 자갈 배수층', '윗면은 포장면과 같은 높이(턱 없이), 하부 자갈 배수층으로 물 빠짐', 'IP67 이상 제품 + 방수 커넥터'],
     repair: ['등기구 분해·건조, 패킹 교체', '박스 높이 재조정·배수층 보완'],
     good: 'inground-light',
     bad: { kind: 'layers', title: '배수층 없이 포장보다 낮게 설치', layers: [
