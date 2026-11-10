@@ -17,6 +17,7 @@
  *   steps:   ['시공 순서 1', ...],
  *   cautions:['시공 시 주의', ...],
  *   care:    ['유지관리', ...],
+ *   lh:      ['LH 조경시설 유지관리 매뉴얼 기준', ...],  // 공공기관 지침: 표준(KCS·KS)과 구분해 작게 따로 표시
  *   related: ['다른 재료 id', ...],
  *   cost:    1 | 2 | 3,               // 상대 가격대 (저가·보통·고가)
  *   photos:  [{ src: 'images/x.jpg', caption: '', credit: '', type: 'material' | 'site' }]

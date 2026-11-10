@@ -92,6 +92,9 @@
   function refItem(k, tag) {
     var r = (REFS.refs || {})[k];
     if (!r) return '';
+    // 공공기관 지침(LH 등)은 표준과 구분해 작게 표시
+    if (r.agency) return '<li class="ref-agency"><span class="lh-tag">' + esc(r.agency) + ' 기준(참고)</span> ' +
+      (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' : esc(r.title)) + '</li>';
     return '<li>' + (tag ? '<span class="chip">' + esc(tag) + '</span> ' : '') +
       (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + '</a>' : esc(r.title)) +
       (r.org ? ' <span class="dash">· ' + esc(r.org) + '</span>' : '') + '</li>';
@@ -356,7 +359,10 @@
     if (m.pros && m.pros.length) html += '<div class="panel"><h2>장점</h2>' + list(m.pros, 'pros') + '</div>';
     if (m.cons && m.cons.length) html += '<div class="panel"><h2>단점</h2>' + list(m.cons, 'cons') + '</div>';
     if (m.cautions && m.cautions.length) html += '<div class="panel"><h2>시공 시 주의</h2>' + list(m.cautions) + '</div>';
-    if (m.care && m.care.length) html += '<div class="panel"><h2>유지관리</h2>' + list(m.care) + '</div>';
+    // 유지관리: 본문은 표준·일반 기준, LH 매뉴얼 기준은 아래에 작게 따로 (표준이 우선)
+    if ((m.care && m.care.length) || (m.lh && m.lh.length)) html += '<div class="panel"><h2>유지관리</h2>' + list(m.care) +
+      (m.lh && m.lh.length ? '<div class="lh-note"><span class="lh-tag">LH 기준(참고)</span>' + list(m.lh) +
+        '<p>한국토지주택공사 조경시설 유지관리 매뉴얼 기준입니다. 표준(KCS·KS)과 다르면 표준이 우선합니다.</p></div>' : '') + '</div>';
     if (m.uses && m.uses.length) html += '<div class="panel wide"><h2>주요 용도</h2><div class="chips">' +
       m.uses.map(function (u) { return '<span class="chip">' + esc(u) + '</span>'; }).join('') + '</div></div>';
     html += '</div>';
@@ -1120,6 +1126,7 @@
       '<p>재료의 영문 id는 주소창의 <code>#/m/</code> 뒤에 있는 이름입니다. 직접 찍은 사진이 아니면 출처를 꼭 남기세요(데이터 파일의 <code>photos</code> 항목에 <code>credit</code>).</p>' +
       '<h2>시공 단면도</h2><p>재료 페이지의 단면도는 재료가 실제로 어떤 층·부재와 함께 시공되는지 보여주는 <b>개념도</b>입니다. 축척이 없고 치수는 대표 예시입니다.</p>' +
       '<h2>표준을 원칙으로</h2><p>조경공사는 국가건설기준 <b>KCS 34 조경공사 표준시방서</b>와 <b>한국산업표준(KS)</b>을 원칙으로 시공합니다. 이 사전의 규격·시공 방법도 이를 따르며, 내용이 표준과 다르면 <b>표준이 우선</b>합니다. 예를 들어 보행 포장면은 언제나 미끄럼 저항을 갖추도록 마감합니다(물갈기 석재는 바닥에 쓰지 않음).</p>' +
+      '<p class="note">LH(한국토지주택공사) 조경시설 유지관리 매뉴얼 같은 공공기관 지침도 기준이 될 수 있습니다. 이런 내용은 표준과 섞지 않고 <span class="lh-tag">LH 기준(참고)</span> 표시를 달아 작게 따로 적습니다.</p>' +
       '<h2>수치에 대하여</h2><p>규격·강도 등은 대표적인 값입니다. 제조사, 산지, KS 개정, 현장 조건에 따라 달라지므로 실제 설계·발주에는 제품 자료와 표준시방서를 확인하세요.</p>' +
       '<h2>참고문헌</h2><p>재료 설명의 근거 자료는 <a href="#/refs">참고문헌</a> 페이지에 모아 두었습니다.</p>' +
       creditsSection() + '</div>';
