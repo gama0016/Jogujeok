@@ -24,7 +24,7 @@
       CONC_BASE, MESH, SUB]),
     'basalt': L('현무암 판석 포장 (습식)', [
       { n: '현무암 판석', t: '30', h: 30, p: 'stone', joints: 60, jp: 'mortar' },
-      { n: '붙임 모르타르', t: '30', h: 30, p: 'mortar' }, CONC_BASE, SUB]),
+      { n: '바탕 모르타르 1:3 (위에 붙임 모르타르)', t: '30', h: 30, p: 'mortar' }, CONC_BASE, SUB]),
     'stone-landscape': { kind: 'boulder', title: '조경석 앉히기' },
     'boulder': { kind: 'wall', face: 'boulder', title: '호박돌 찰쌓기 (높이 1m 내외)', faceLabel: '호박돌 + 모르타르 줄눈' },
     'kenchi': { kind: 'wall', face: 'kenchi', title: '견치석 찰쌓기 옹벽' },
@@ -218,7 +218,7 @@
     'pole-light': { kind: 'pole', type: 'pole', title: '보안등·공원등 기초' },
     'inground-light': L('바닥 매입등', [
       { n: '화강석 판석', t: '30', h: 30, p: 'stone', joints: 70, jp: 'mortar' },
-      { n: '붙임 모르타르', t: '30', h: 30, p: 'mortar' },
+      { n: '바탕 모르타르 1:3', t: '30', h: 30, p: 'mortar' },
       { n: '기층 콘크리트', t: '120', h: 120, p: 'conc' },
       { n: '배수 자갈 (매입 박스 하부)', t: '100', h: 100, p: 'gravel' }], { insert: { n: '매입 박스 + 등기구 (윗면 = 포장면)', w: 56, through: 3, glow: true } }),
     'linear-led': { kind: 'linearled', title: '벤치 하부 LED 라인조명' },

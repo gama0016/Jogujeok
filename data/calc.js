@@ -65,17 +65,20 @@
     },
     {
       id: 'granite-paving', name: '화강석 판석 포장 (습식)', unit: '㎡', mat: 'granite',
-      desc: '판석 30T + 붙임 모르타르 + 기층 콘크리트·와이어메시 + 보조기층',
+      desc: '판석 30T + 바탕 모르타르 1:3(현장 배합)·붙임 모르타르 + 기층 콘크리트·와이어메시 + 보조기층',
       params: [
-        { key: 'tMortar', label: '붙임 모르타르', unit: 'mm', value: 30 },
+        { key: 'tMortar', label: '바탕 모르타르 (1:3)', unit: 'mm', value: 30 },
         { key: 'tConc', label: '기층 콘크리트', unit: 'mm', value: 120 },
         { key: 'tSub', label: '보조기층', unit: 'mm', value: 150 }
       ],
       items: [
         { name: '화강석 판석 30T 버너', mat: 'granite', unit: '㎡', loss: 0.05, price: 36000,
           q: function (A) { return A; }, how: function () { return '면적 × (1 + 할증 5%)'; } },
-        { name: '건조 모르타르 25kg', mat: 'mortar', unit: '포', loss: 0.10, price: 15000,
-          q: function (A, p) { return A * p.tMortar / 1000 / 0.0125; }, how: function (p) { return '면적 × ' + p.tMortar + 'mm ÷ 포당 약 0.0125㎥ + 할증 10%'; } },
+        // 표준시방서는 판석 바탕에 건조모르타르를 쓰지 않고 1:3 현장 배합 (KCS 34 60 20 3.1.2(3)(4), 배합량 KCS 34 50 05 표 2.1-2)
+        { name: '시멘트 (바탕 모르타르 1:3)', mat: 'cement', unit: '톤', loss: 0.10, price: 105400,
+          q: function (A, p) { return A * p.tMortar / 1000 * 0.51; }, how: function (p) { return '면적 × ' + p.tMortar + 'mm × 시멘트 510kg/㎥ + 할증 10%'; } },
+        { name: '모래 (바탕 모르타르 1:3)', mat: 'sand', unit: '톤', loss: 0.10, price: 90000,
+          q: function (A, p) { return A * p.tMortar / 1000 * 1.1 * SAND; }, how: function (p) { return '면적 × ' + p.tMortar + 'mm × 모래 1.1㎥/㎥ × 1.6t/㎥ + 할증 10%'; } },
         { name: '레미콘 25-21-120', mat: 'remicon', unit: '㎥', loss: 0.03, price: 97000,
           q: function (A, p) { return A * p.tConc / 1000; }, how: function (p) { return '면적 × ' + p.tConc + 'mm + 할증 3%'; } },
         { name: '와이어메시 1.8×1.8m', mat: 'wire-mesh', unit: '장', loss: 0.15, price: 5200,

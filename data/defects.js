@@ -8,7 +8,7 @@ window.LM_DEFECTS = [
     id: 'paver-settlement', title: '보도블록 침하·요철', mats: ['concrete-block-paver', 'subbase', 'sand'],
     symptom: '블록 포장 일부가 움푹 꺼지거나 울퉁불퉁해지고, 비 온 뒤 물웅덩이가 생긴다.',
     causes: ['보조기층 두께 부족·다짐 불량', '모래 안정층을 너무 두껍게 깔아 하중에 밀림', '가장자리 경계석이 없어 블록이 옆으로 벌어짐', '지하 매설관 되메우기 다짐 불량'],
-    prevent: ['보조기층을 층당 200mm 이하로 나눠 다지고 평판재하시험으로 확인', '모래층은 30~40mm로 일정하게', '가장자리는 경계석으로 구속'],
+    prevent: ['보조기층은 다짐 후 층당 150mm 이하(포설 200mm 이하)로 나눠 다지고 최대건조밀도 90% 이상 확인 (KCS 34 60 05)', '모래층은 30~40mm로 일정하게', '가장자리는 경계석으로 구속'],
     repair: ['침하 부위 블록을 들어내고 보조기층부터 다시 다짐', '모래 고른 뒤 블록 재시공·줄눈 모래 보충'],
     good: 'concrete-block-paver',
     bad: { kind: 'layers', title: '보조기층 부족 + 모래층 과다', layers: [
@@ -46,7 +46,7 @@ window.LM_DEFECTS = [
     good: 'granite',
     bad: { kind: 'layers', title: '빗물이 줄눈으로 스며들어 백화 발생', layers: [
       { n: '화강석 판석', t: '30', h: 40, p: 'stone', joints: 70, jp: 'mortar' },
-      { n: '붙임 모르타르', t: '30', h: 30, p: 'mortar' },
+      { n: '바탕 모르타르 1:3', t: '30', h: 30, p: 'mortar' },
       { n: '기층 콘크리트', t: '120', h: 120, p: 'conc' }],
       marks: [
         { type: 'arrow', x1: 100, y1: 14, x2: 100, y2: 66, color: '#2b7bd0', t: '빗물이 줄눈으로 스며듦', lx: 100, ly: 30 },
@@ -140,7 +140,7 @@ window.LM_DEFECTS = [
     good: 'inground-light',
     bad: { kind: 'layers', title: '배수층 없이 포장보다 낮게 설치', layers: [
       { n: '화강석 판석', t: '30', h: 30, p: 'stone', joints: 70, jp: 'mortar' },
-      { n: '붙임 모르타르', t: '30', h: 30, p: 'mortar' },
+      { n: '바탕 모르타르 1:3', t: '30', h: 30, p: 'mortar' },
       { n: '기층 콘크리트 (배수층 없음)', t: '120', h: 120, p: 'conc' }],
       insert: { n: '매입등', w: 56, through: 3, lift: -8 },
       marks: [
