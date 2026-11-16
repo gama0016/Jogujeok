@@ -1035,6 +1035,19 @@ window.LM_REFS = {
    "kcs-34-60-25",
    "ks-f-2530"
   ],
+  "metal-edge": [
+   "kcs-34-60-25",
+   "kcs-34-60-05",
+   "kcs-34-50-15"
+  ],
+  "plastic-edge": [
+   "kcs-34-60-25",
+   "kcs-34-50-15"
+  ],
+  "timber-edge": [
+   "kcs-34-60-25",
+   "kcs-34-50-15"
+  ],
   "stepping-stone": [
    "kcs-34-50-45"
   ],

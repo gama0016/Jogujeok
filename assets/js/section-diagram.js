@@ -247,6 +247,49 @@
     return c.svg();
   }
 
+  // ---------- 2-1. 경계분리재(엣지): 동선 포장과 식재지 사이에 세워 묻는 얇은 경계재 ----------
+  function edge(s) {
+    var c = new Canvas(300);
+    var G = 262, X = 30, W = 400, cx = 228, surf = 118;
+    c.ground(X, G, W, 34);
+    // 왼쪽: 동선(포장) 층 — 층 두께 합이 지표~원지반을 채우도록 축척을 정하고, 경계재도 같은 축척으로
+    var left = s.left || [{ n: '마사토 포장', h: 60, p: 'sand' }, { n: '보조기층', h: 100, p: 'crushed' }];
+    var tot = 0, yy = surf;
+    left.forEach(function (l) { tot += l.h; });
+    var k = (G - surf) / tot;
+    var e = s.edge || {}, ew = Math.max(4, (e.w || 4) * k), eh = (e.h || 150) * k;
+    var rev = s.reveal == null ? 10 : s.reveal, top = surf - rev * k;
+    // 경계재 밑(묻힌 깊이 아래)은 맨 아래 층으로 채움
+    if (top + eh < G) c.rect(cx, top + eh, ew, G - top - eh, left[left.length - 1].p);
+    left.forEach(function (l) {
+      var h = l.h * k;
+      c.rect(X, yy, cx - X, h, l.p);
+      c.label(X + 50, yy + h / 2, l.n + (l.t ? ' ' + l.t : ''));
+      yy += h;
+    });
+    // 오른쪽: 식재지
+    var rx = cx + ew, soilTop = surf + (s.soilDrop || 0) * k;
+    c.rect(rx, soilTop, X + W - rx, G - soilTop, s.rightP || 'soil');
+    if (s.turf) c.turfTop(rx + 2, soilTop, X + W - rx - 4);
+    c.label(X + W - 40, soilTop + 40, s.rightLabel || '식재지 토양');
+    // 고정 핀(말뚝)
+    if (e.stake) {
+      var sx = e.stakeSide === 'left' ? cx - 5 : rx + 1, sl = e.stake * k;
+      c.rect(sx, top + 6, 4, eh - 6 + sl, e.stakeP || 'metal');
+      c.label(sx + 2, top + eh + sl * 0.6, e.stakeLabel || '고정 핀');
+    }
+    // 경계재
+    c.rect(cx, top, ew, eh, e.p || 'metal');
+    c.label(cx + ew / 2, top + eh * 0.45, (e.label || '경계재') + (e.t ? ' ' + e.t : ''));
+    // 머리 높이 표시
+    c.line(cx - 40, surf, cx - 4, surf, 'stroke="#b3322a" stroke-dasharray="4 3"');
+    c.line(cx - 16, top, cx - 4, top, 'stroke="#b3322a"');
+    c.text(cx - 46, top + 2, '+' + rev, 'fill="#b3322a"');
+    c.text(X + 4, 20, s.headNote || '머리는 지표면에서 10mm 정도 위 (KCS 34 60 25)', 'fill="#b3322a"');
+    c.label(X + W - 30, G + 18, '원지반 다짐');
+    return c.svg();
+  }
+
   // ---------- 3. 옹벽·쌓기 ----------
   function wall(s) {
     var c = new Canvas(340);
@@ -743,7 +786,7 @@
     return c.svg();
   }
 
-  var builders = { layers: layers, curb: curb, wall: wall, deck: deck, trench: trench, pipe: pipe, pole: pole, boulder: boulder,
+  var builders = { layers: layers, curb: curb, edge: edge, wall: wall, deck: deck, trench: trench, pipe: pipe, pole: pole, boulder: boulder,
     pond: pond, channel: channel, box: box, stake: stake, sprinkler: sprinkler, formwork: formwork, footing: footing, linearled: linearled, bench: bench, pergola: pergola };
 
   window.LM_SECTION = {

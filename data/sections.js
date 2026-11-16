@@ -36,6 +36,14 @@
       { n: '모래·마사토 고르기', t: '30~50', h: 40, p: 'sand' },
       { n: '쇄석 기층', t: '100', h: 100, p: 'crushed' }], { slope: '줄눈: 마사토·잔디·모르타르 중 선택' }),
     'curbstone': { kind: 'curb', title: '화강석 경계석 (보도-식재지)', curbLabel: '화강석 경계석 150×300', reveal: 120, turf: true },
+    // 경계분리재(엣지): 동선과 식재지 사이에 세워 묻음, 머리 지표면 +10mm 정도 (KCS 34 60 25 3.1.3)
+    'metal-edge': { kind: 'edge', title: '금속 경계재 (자갈길-잔디)', edge: { label: '금속 경계재', t: 'T2~4.5 H150', w: 4, h: 150, p: 'metal', stake: 150, stakeLabel: '고정 핀 (다진 층에)' },
+      left: [{ n: '자갈 포설', t: '50', h: 50, p: 'gravel' }, { n: '부직포', h: 4, p: 'plastic' }, { n: '보조기층 다짐', h: 100, p: 'crushed' }], turf: true, rightLabel: '잔디 식재지' },
+    'plastic-edge': { kind: 'edge', title: '합성수지 경계재 (흙길-화단)', edge: { label: '합성수지 경계재', t: 'H150', w: 5, h: 150, p: 'plastic', stake: 120, stakeLabel: '고정 핀' },
+      left: [{ n: '마사토 포장', t: '60', h: 60, p: 'sand' }, { n: '보조기층', h: 100, p: 'crushed' }], rightLabel: '화단 토양' },
+    'timber-edge': { kind: 'edge', title: '방부목 경계목 (흙길-화단)', reveal: 30, headNote: '높이는 설계도서에 따름 (KCS 34 60 25 2.1.1)',
+      edge: { label: '방부목 H4', t: '90×90', w: 90, h: 90, p: 'wood', stake: 200, stakeLabel: '말뚝·철근 핀', stakeSide: 'left' },
+      left: [{ n: '마사토 포장', t: '60', h: 60, p: 'sand' }, { n: '보조기층', h: 100, p: 'crushed' }], rightP: 'mulch', rightLabel: '화단 (멀칭)' },
     'stepping-stone': L('디딤돌 놓기', [
       { n: '디딤돌 (지면보다 50 내외 높게)', t: '60~150', h: 90, p: 'stone' },
       { n: '모래·마사토', t: '50', h: 50, p: 'sand' },

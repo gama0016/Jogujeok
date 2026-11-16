@@ -63,6 +63,15 @@ window.LM_PRICES = {
   "source": "https://ktomok.com/shop/list.php?ca_id=4240",
   "confidence": "medium"
  },
+ "metal-edge": {
+  "price": "약 1.4~2.8만 원",
+  "unit": "m",
+  "spec": "코르텐 엣지 H70 13,500원 / H120 20,000원 / H220 28,000원 (m당, 판매가). 윗면 접힘형 H220은 m당 약 4.2만 원",
+  "basis": "자재비",
+  "year": 2026,
+  "source": "https://garden24.co.kr/category/%EC%97%A3%EC%A7%80%EA%B2%BD%EA%B3%84%EC%9E%AC%EB%8F%84%EB%A3%8C/116/",
+  "confidence": "medium"
+ },
  "curbstone": {
   "price": "약 1~1.5만 원",
   "unit": "개(길이 약 1m)",
