@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/sheet.css">
+  <link rel="stylesheet" href="assets/css/report.css">
   <meta name="theme-color" content="#f3f1ea" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141614" media="(prefers-color-scheme: dark)">
 </head>
@@ -49,6 +50,13 @@
       <div><dt>수록</dt><dd class="num" id="tb-count">재료</dd></div>
     </dl>
     <p>규격·수치는 대표값이며 제조사·현장 조건에 따라 다를 수 있습니다.</p>
+    <!-- 로그인 없이 보내는 제보·건의 창구 — assets/js/report.js (받는 곳: 리프노트 접수 API) -->
+    <p class="report-row">
+      <button type="button" class="btn report-open" id="report-open">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        사진·정보가 잘못됐나요? · 건의·제안 보내기
+      </button>
+    </p>
     <p class="copyright">콘텐츠 제작 © 2631063 유인선</p>
   </footer>
 
@@ -91,5 +99,6 @@
   <script src="assets/js/masonry.js"></script>
   <script src="assets/js/survey.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/report.js"></script>
 </body>
 </html>
